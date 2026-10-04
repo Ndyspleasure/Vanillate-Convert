@@ -12,6 +12,7 @@ export { compileRegistry, CatalogCompileError, CATALOG_DEFAULTS } from './regist
 export { deriveLimitations, deriveQuality, DERIVED_LIMITATION_IDS } from './registry/quality.ts';
 export { catalog, getRegistry } from './registry/default.ts';
 export * from './detection/detect.ts';
+export * from './detection/dimensions.ts';
 export {
   decodeText,
   looksLikeText,

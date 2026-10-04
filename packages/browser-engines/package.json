@@ -1,0 +1,20 @@
+{
+  "name": "@vanillate/browser-engines",
+  "version": "0.1.0",
+  "private": true,
+  "description": "In-browser conversion engines (data, subtitles, archives, text tools, images). Pure TypeScript plus Web APIs; runs inside a Web Worker.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@vanillate/core": "workspace:*",
+    "fast-xml-parser": "^5.11.2",
+    "fflate": "^0.8.3",
+    "smol-toml": "^1.9.0",
+    "yaml": "^2.9.1"
+  }
+}

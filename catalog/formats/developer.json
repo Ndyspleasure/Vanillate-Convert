@@ -4,7 +4,10 @@
     {
       "id": "sql",
       "label": "SQL",
-      "name": { "en": "SQL script", "id": "Skrip SQL" },
+      "name": {
+        "en": "SQL script",
+        "id": "Skrip SQL"
+      },
       "description": {
         "en": "Database statements such as CREATE TABLE and INSERT.",
         "id": "Perintah database seperti CREATE TABLE dan INSERT."
@@ -24,7 +27,10 @@
     {
       "id": "base64",
       "label": "Base64",
-      "name": { "en": "Base64 text", "id": "Teks Base64" },
+      "name": {
+        "en": "Base64 text",
+        "id": "Teks Base64"
+      },
       "description": {
         "en": "Binary data encoded as plain ASCII text, used in emails, data URIs and APIs.",
         "id": "Data biner yang di-encode menjadi teks ASCII, dipakai di email, data URI, dan API."
@@ -35,6 +41,23 @@
       "aliases": ["b64"],
       "traits": ["text"],
       "popularity": 25
+    },
+    {
+      "id": "bin",
+      "label": "BIN",
+      "name": {
+        "en": "Binary file",
+        "id": "File biner"
+      },
+      "description": {
+        "en": "Unrecognized binary data. Used when the contents of a file cannot be identified.",
+        "id": "Data biner yang tidak dikenali. Dipakai jika isi file tidak bisa diidentifikasi."
+      },
+      "category": "developer",
+      "extensions": ["bin"],
+      "mimeTypes": ["application/octet-stream"],
+      "traits": ["binary"],
+      "popularity": 1
     }
   ]
 }

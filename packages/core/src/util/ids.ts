@@ -41,8 +41,15 @@ export function newToken(): string {
   return toBase64Url(randomBytes(32));
 }
 
+/** Web Crypto requires views over a plain ArrayBuffer (not a SharedArrayBuffer). */
+function plainBytes(bytes: Uint8Array): Uint8Array<ArrayBuffer> {
+  return bytes.buffer instanceof ArrayBuffer
+    ? (bytes as Uint8Array<ArrayBuffer>)
+    : new Uint8Array(bytes);
+}
+
 export async function sha256Hex(input: string | Uint8Array): Promise<string> {
-  const data = typeof input === 'string' ? new TextEncoder().encode(input) : input;
+  const data = typeof input === 'string' ? new TextEncoder().encode(input) : plainBytes(input);
   const digest = await globalThis.crypto.subtle.digest('SHA-256', data);
   let out = '';
   for (const byte of new Uint8Array(digest)) out += byte.toString(16).padStart(2, '0');
