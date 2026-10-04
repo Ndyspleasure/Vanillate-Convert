@@ -56,6 +56,21 @@ export default defineConfig(
     extends: [tseslint.configs.disableTypeChecked],
   },
   {
+    // Isomorphic packages must run in browsers and workers alike: no Node built-ins.
+    files: ['packages/core/src/**/*.ts', 'packages/browser-engines/src/**/*.ts', 'catalog/**/*.ts'],
+    ignores: ['**/*.test.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            { group: ['node:*'], message: 'Isomorphic packages cannot import Node built-ins.' },
+          ],
+        },
+      ],
+    },
+  },
+  {
     files: ['packages/browser-engines/**/*.ts', 'apps/web/src/**/*.{ts,tsx}'],
     languageOptions: {
       globals: { ...globals.browser },
