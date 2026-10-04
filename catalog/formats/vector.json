@@ -1,0 +1,120 @@
+{
+  "$schema": "../schema/formats.schema.json",
+  "formats": [
+    {
+      "id": "svg",
+      "label": "SVG",
+      "name": { "en": "SVG vector image", "id": "Gambar vektor SVG" },
+      "description": {
+        "en": "Scalable Vector Graphics: sharp at any size, ideal for logos, icons and illustrations.",
+        "id": "Scalable Vector Graphics: tetap tajam di ukuran berapa pun, cocok untuk logo, ikon, dan ilustrasi."
+      },
+      "category": "vector",
+      "alsoIn": ["image", "web"],
+      "extensions": ["svg"],
+      "mimeTypes": ["image/svg+xml"],
+      "sniff": { "type": "xml", "root": "svg" },
+      "traits": ["vector", "alpha", "text", "markup"],
+      "popularity": 78
+    },
+    {
+      "id": "eps",
+      "label": "EPS",
+      "name": { "en": "Encapsulated PostScript", "id": "Encapsulated PostScript" },
+      "description": {
+        "en": "Vector graphics format used in printing and older design workflows.",
+        "id": "Format grafis vektor yang dipakai di percetakan dan alur desain lama."
+      },
+      "category": "vector",
+      "extensions": ["eps", "epsf", "epsi"],
+      "mimeTypes": ["application/postscript", "image/x-eps"],
+      "signatures": [
+        [{ "ascii": "%!PS-Adobe-" }, { "offset": 11, "ascii": "EPSF", "within": 16 }],
+        [{ "hex": "C5D0D3C6" }]
+      ],
+      "traits": ["vector", "layout", "binary"],
+      "popularity": 30
+    },
+    {
+      "id": "ps",
+      "label": "PS",
+      "name": { "en": "PostScript document", "id": "Dokumen PostScript" },
+      "description": {
+        "en": "Page description language for printers.",
+        "id": "Bahasa deskripsi halaman untuk printer."
+      },
+      "category": "vector",
+      "alsoIn": ["pdf"],
+      "extensions": ["ps"],
+      "mimeTypes": ["application/postscript"],
+      "aliases": ["postscript"],
+      "signatures": [[{ "ascii": "%!PS" }]],
+      "traits": ["vector", "layout", "multipage", "text"],
+      "popularity": 15
+    },
+    {
+      "id": "ai",
+      "label": "AI",
+      "name": { "en": "Adobe Illustrator file", "id": "File Adobe Illustrator" },
+      "description": {
+        "en": "Adobe Illustrator artwork. Files saved with PDF compatibility can be converted.",
+        "id": "Karya Adobe Illustrator. File yang disimpan dengan kompatibilitas PDF bisa dikonversi."
+      },
+      "category": "vector",
+      "extensions": ["ai"],
+      "mimeTypes": ["application/vnd.adobe.illustrator", "application/illustrator"],
+      "aliases": ["illustrator"],
+      "signatures": [[{ "ascii": "%PDF-", "within": 1024 }]],
+      "traits": ["vector", "layout", "binary", "proprietary"],
+      "status": "limited",
+      "popularity": 28
+    },
+    {
+      "id": "emf",
+      "label": "EMF",
+      "name": { "en": "Enhanced Metafile", "id": "Enhanced Metafile" },
+      "description": {
+        "en": "Windows vector graphics format used by Office clip art and charts.",
+        "id": "Format grafis vektor Windows yang dipakai clip art dan grafik Office."
+      },
+      "category": "vector",
+      "extensions": ["emf"],
+      "mimeTypes": ["image/emf", "image/x-emf"],
+      "signatures": [[{ "hex": "01000000" }, { "offset": 40, "ascii": " EMF" }]],
+      "traits": ["vector", "binary", "proprietary"],
+      "popularity": 10
+    },
+    {
+      "id": "wmf",
+      "label": "WMF",
+      "name": { "en": "Windows Metafile", "id": "Windows Metafile" },
+      "description": {
+        "en": "Legacy Windows vector graphics format.",
+        "id": "Format grafis vektor Windows lama."
+      },
+      "category": "vector",
+      "extensions": ["wmf"],
+      "mimeTypes": ["image/wmf", "image/x-wmf"],
+      "signatures": [[{ "hex": "D7CDC69A" }], [{ "hex": "01000900" }], [{ "hex": "02000900" }]],
+      "traits": ["vector", "binary", "legacy", "proprietary"],
+      "popularity": 8
+    },
+    {
+      "id": "cdr",
+      "label": "CDR",
+      "name": { "en": "CorelDRAW drawing", "id": "Gambar CorelDRAW" },
+      "description": {
+        "en": "CorelDRAW vector artwork.",
+        "id": "Karya vektor CorelDRAW."
+      },
+      "category": "vector",
+      "extensions": ["cdr"],
+      "mimeTypes": ["application/vnd.corel-draw", "application/cdr"],
+      "aliases": ["coreldraw"],
+      "signatures": [[{ "ascii": "RIFF" }, { "offset": 8, "ascii": "CDR" }]],
+      "traits": ["vector", "binary", "proprietary"],
+      "status": "experimental",
+      "popularity": 18
+    }
+  ]
+}

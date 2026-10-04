@@ -1,0 +1,84 @@
+{
+  "$schema": "../schema/formats.schema.json",
+  "formats": [
+    {
+      "id": "pptx",
+      "label": "PPTX",
+      "name": { "en": "PowerPoint presentation", "id": "Presentasi PowerPoint" },
+      "description": {
+        "en": "Microsoft PowerPoint's standard presentation format (Office Open XML).",
+        "id": "Format presentasi standar Microsoft PowerPoint (Office Open XML)."
+      },
+      "category": "presentation",
+      "extensions": ["pptx"],
+      "mimeTypes": ["application/vnd.openxmlformats-officedocument.presentationml.presentation"],
+      "aliases": ["powerpoint"],
+      "sniff": { "type": "zip", "entries": ["[Content_Types].xml"], "entryPrefixes": ["ppt/"] },
+      "traits": ["multipage", "binary"],
+      "popularity": 88
+    },
+    {
+      "id": "ppsx",
+      "label": "PPSX",
+      "name": { "en": "PowerPoint show", "id": "Tayangan PowerPoint" },
+      "description": {
+        "en": "PowerPoint presentation that opens directly as a slide show.",
+        "id": "Presentasi PowerPoint yang langsung terbuka sebagai tayangan slide."
+      },
+      "category": "presentation",
+      "extensions": ["ppsx"],
+      "mimeTypes": ["application/vnd.openxmlformats-officedocument.presentationml.slideshow"],
+      "sniff": { "type": "zip", "entries": ["[Content_Types].xml"], "entryPrefixes": ["ppt/"] },
+      "traits": ["multipage", "binary"],
+      "popularity": 12
+    },
+    {
+      "id": "ppt",
+      "label": "PPT",
+      "name": { "en": "PowerPoint 97–2003 presentation", "id": "Presentasi PowerPoint 97–2003" },
+      "description": {
+        "en": "Legacy binary Microsoft PowerPoint format.",
+        "id": "Format biner lama Microsoft PowerPoint."
+      },
+      "category": "presentation",
+      "extensions": ["ppt", "pps"],
+      "mimeTypes": ["application/vnd.ms-powerpoint"],
+      "signatures": [[{ "hex": "D0CF11E0A1B11AE1" }]],
+      "sniff": { "type": "ole", "streams": ["PowerPoint Document"] },
+      "traits": ["multipage", "binary", "legacy", "proprietary"],
+      "popularity": 50
+    },
+    {
+      "id": "odp",
+      "label": "ODP",
+      "name": { "en": "OpenDocument presentation", "id": "Presentasi OpenDocument" },
+      "description": {
+        "en": "Open standard presentation format used by LibreOffice Impress.",
+        "id": "Format presentasi standar terbuka yang dipakai LibreOffice Impress."
+      },
+      "category": "presentation",
+      "extensions": ["odp"],
+      "mimeTypes": ["application/vnd.oasis.opendocument.presentation"],
+      "sniff": { "type": "zip", "mimetype": "application/vnd.oasis.opendocument.presentation" },
+      "traits": ["multipage", "binary"],
+      "popularity": 20
+    },
+    {
+      "id": "key",
+      "label": "KEY",
+      "name": { "en": "Apple Keynote presentation", "id": "Presentasi Apple Keynote" },
+      "description": {
+        "en": "Presentation format of Apple Keynote.",
+        "id": "Format presentasi Apple Keynote."
+      },
+      "category": "presentation",
+      "extensions": ["key"],
+      "mimeTypes": ["application/vnd.apple.keynote", "application/x-iwork-keynote-sffkey"],
+      "aliases": ["keynote"],
+      "sniff": { "type": "zip", "entries": ["Index/Document.iwa"] },
+      "traits": ["multipage", "binary", "proprietary"],
+      "status": "experimental",
+      "popularity": 12
+    }
+  ]
+}

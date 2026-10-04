@@ -1,0 +1,130 @@
+{
+  "$schema": "../schema/rules.schema.json",
+  "rules": [
+    {
+      "id": "document.libreoffice.writer",
+      "description": "Word-processing documents with LibreOffice Writer.",
+      "mode": "server",
+      "steps": ["libreoffice"],
+      "from": { "formats": ["doc", "docx", "odt", "rtf", "txt", "html", "wpd", "pages"] },
+      "to": { "formats": ["docx", "doc", "odt", "rtf", "txt", "html", "epub", "pdf"] },
+      "status": "stable",
+      "priority": 50,
+      "metadata": "preserve",
+      "overrides": [
+        {
+          "from": ["doc", "docx", "odt", "rtf", "wpd", "pages", "html"],
+          "to": ["docx", "doc", "odt", "rtf", "html", "epub", "pdf"],
+          "limitations": ["layout-may-change"]
+        },
+        { "to": "pdf", "limitations": ["fonts-substituted"] },
+        { "from": "html", "limitations": ["external-resources-ignored"] },
+        { "to": "epub", "status": "supported" },
+        { "from": "wpd", "status": "supported" },
+        { "from": "pages", "status": "experimental" }
+      ]
+    },
+    {
+      "id": "document.pandoc.from-markup",
+      "description": "Lightweight markup (Markdown, reStructuredText, LaTeX, Org, FictionBook) with Pandoc.",
+      "mode": "server",
+      "steps": ["pandoc"],
+      "from": { "formats": ["md", "rst", "tex", "org", "fb2"] },
+      "to": {
+        "formats": ["md", "html", "docx", "odt", "epub", "rst", "tex", "org", "txt", "rtf", "fb2"]
+      },
+      "status": "stable",
+      "priority": 40,
+      "metadata": "preserve",
+      "overrides": [
+        { "from": "tex", "status": "supported", "limitations": ["layout-may-change"] },
+        { "from": "fb2", "status": "supported" },
+        { "to": "fb2", "status": "supported" },
+        { "to": "rtf", "status": "supported" }
+      ]
+    },
+    {
+      "id": "document.pandoc.to-markup",
+      "description": "Rich documents to lightweight markup with Pandoc.",
+      "mode": "server",
+      "steps": ["pandoc"],
+      "from": { "formats": ["html", "docx", "odt", "epub"] },
+      "to": { "formats": ["md", "rst", "tex", "org", "fb2"] },
+      "status": "stable",
+      "priority": 40,
+      "metadata": "preserve",
+      "limitations": ["layout-may-change"],
+      "overrides": [
+        { "from": "html", "limitations": ["external-resources-ignored"] },
+        { "to": ["tex", "org", "fb2"], "status": "supported" }
+      ]
+    },
+    {
+      "id": "document.pandoc.ebook",
+      "description": "EPUB to documents, and documents to EPUB, with Pandoc.",
+      "mode": "server",
+      "steps": ["pandoc"],
+      "from": { "formats": ["epub", "html", "docx", "odt"] },
+      "to": { "formats": ["epub", "html", "docx", "odt", "txt"] },
+      "status": "stable",
+      "priority": 40,
+      "metadata": "preserve",
+      "limitations": ["layout-may-change"],
+      "exclude": [{ "from": ["html", "docx", "odt"], "to": ["html", "docx", "odt", "txt"] }],
+      "overrides": [{ "from": "html", "limitations": ["external-resources-ignored"] }]
+    },
+    {
+      "id": "document.pipeline.markup-pdf",
+      "description": "Markup and EPUB to PDF: Pandoc renders DOCX, LibreOffice prints it to PDF.",
+      "mode": "server",
+      "steps": ["pandoc", "libreoffice"],
+      "via": ["docx"],
+      "from": { "formats": ["md", "rst", "tex", "org", "fb2", "epub"] },
+      "to": { "formats": ["pdf"] },
+      "status": "supported",
+      "priority": 50,
+      "metadata": "preserve",
+      "limitations": ["layout-may-change", "fonts-substituted"]
+    },
+    {
+      "id": "document.pipeline.office-images",
+      "description": "Office documents to page images: LibreOffice prints PDF, Poppler renders each page.",
+      "mode": "server",
+      "steps": ["libreoffice", "poppler"],
+      "via": ["pdf"],
+      "from": {
+        "formats": [
+          "doc",
+          "docx",
+          "odt",
+          "rtf",
+          "wpd",
+          "pages",
+          "xls",
+          "xlsx",
+          "xlsm",
+          "xlsb",
+          "ods",
+          "numbers",
+          "ppt",
+          "pptx",
+          "ppsx",
+          "odp",
+          "key"
+        ]
+      },
+      "to": { "formats": ["png", "jpg"] },
+      "status": "stable",
+      "priority": 50,
+      "cardinality": "1:n",
+      "metadata": "unsupported",
+      "options": ["dpi", "pageRange"],
+      "limitations": ["fonts-substituted"],
+      "overrides": [
+        { "to": "jpg", "addOptions": ["quality"] },
+        { "from": ["pages", "numbers", "key"], "status": "experimental" },
+        { "from": ["wpd", "xlsb"], "status": "supported" }
+      ]
+    }
+  ]
+}

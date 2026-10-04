@@ -1,0 +1,311 @@
+{
+  "$schema": "../schema/formats.schema.json",
+  "formats": [
+    {
+      "id": "mp4",
+      "label": "MP4",
+      "name": { "en": "MP4 video", "id": "Video MP4" },
+      "description": {
+        "en": "The most widely supported video format for phones, browsers and social media.",
+        "id": "Format video paling luas didukung untuk ponsel, browser, dan media sosial."
+      },
+      "category": "video",
+      "extensions": ["mp4"],
+      "mimeTypes": ["video/mp4"],
+      "aliases": ["mpeg4"],
+      "signatures": [
+        [{ "offset": 4, "ascii": "ftypisom" }],
+        [{ "offset": 4, "ascii": "ftypiso2" }],
+        [{ "offset": 4, "ascii": "ftypiso4" }],
+        [{ "offset": 4, "ascii": "ftypiso5" }],
+        [{ "offset": 4, "ascii": "ftypiso6" }],
+        [{ "offset": 4, "ascii": "ftypmp41" }],
+        [{ "offset": 4, "ascii": "ftypmp42" }],
+        [{ "offset": 4, "ascii": "ftypavc1" }],
+        [{ "offset": 4, "ascii": "ftypdash" }],
+        [{ "offset": 4, "ascii": "ftypmmp4" }],
+        [{ "offset": 4, "ascii": "ftypMSNV" }]
+      ],
+      "traits": ["video", "audio", "container", "lossy", "binary"],
+      "popularity": 100
+    },
+    {
+      "id": "m4v",
+      "label": "M4V",
+      "name": { "en": "M4V video", "id": "Video M4V" },
+      "description": {
+        "en": "Apple's MPEG-4 video variant used by iTunes and iOS.",
+        "id": "Varian video MPEG-4 milik Apple yang dipakai iTunes dan iOS."
+      },
+      "category": "video",
+      "extensions": ["m4v"],
+      "mimeTypes": ["video/x-m4v"],
+      "signatures": [
+        [{ "offset": 4, "ascii": "ftypM4V " }],
+        [{ "offset": 4, "ascii": "ftypM4VH" }],
+        [{ "offset": 4, "ascii": "ftypM4VP" }]
+      ],
+      "traits": ["video", "audio", "container", "lossy", "binary"],
+      "popularity": 20
+    },
+    {
+      "id": "mov",
+      "label": "MOV",
+      "name": { "en": "QuickTime video", "id": "Video QuickTime" },
+      "description": {
+        "en": "Apple QuickTime video, the default for iPhone and Mac recordings.",
+        "id": "Video Apple QuickTime, bawaan untuk rekaman iPhone dan Mac."
+      },
+      "category": "video",
+      "extensions": ["mov", "qt"],
+      "mimeTypes": ["video/quicktime"],
+      "aliases": ["quicktime"],
+      "signatures": [
+        [{ "offset": 4, "ascii": "ftypqt  " }],
+        [{ "offset": 4, "ascii": "moov" }],
+        [{ "offset": 4, "ascii": "mdat" }],
+        [{ "offset": 4, "ascii": "wide" }],
+        [{ "offset": 4, "ascii": "free" }],
+        [{ "offset": 4, "ascii": "pnot" }]
+      ],
+      "traits": ["video", "audio", "container", "lossy", "binary"],
+      "popularity": 80
+    },
+    {
+      "id": "mkv",
+      "label": "MKV",
+      "name": { "en": "Matroska video", "id": "Video Matroska" },
+      "description": {
+        "en": "Flexible open container that can hold many video, audio and subtitle tracks.",
+        "id": "Kontainer terbuka yang fleksibel, bisa memuat banyak trek video, audio, dan subtitle."
+      },
+      "category": "video",
+      "extensions": ["mkv", "mk3d"],
+      "mimeTypes": ["video/x-matroska", "video/matroska"],
+      "aliases": ["matroska"],
+      "signatures": [[{ "hex": "1A45DFA3" }, { "offset": 4, "ascii": "matroska", "within": 60 }]],
+      "traits": ["video", "audio", "container", "lossy", "binary"],
+      "popularity": 75
+    },
+    {
+      "id": "webm",
+      "label": "WEBM",
+      "name": { "en": "WebM video", "id": "Video WebM" },
+      "description": {
+        "en": "Open web video format (VP8, VP9 or AV1) supported by all modern browsers.",
+        "id": "Format video web terbuka (VP8, VP9, atau AV1) yang didukung semua browser modern."
+      },
+      "category": "video",
+      "extensions": ["webm"],
+      "mimeTypes": ["video/webm", "audio/webm"],
+      "signatures": [[{ "hex": "1A45DFA3" }, { "offset": 4, "ascii": "webm", "within": 60 }]],
+      "traits": ["video", "audio", "container", "lossy", "binary"],
+      "popularity": 70
+    },
+    {
+      "id": "avi",
+      "label": "AVI",
+      "name": { "en": "AVI video", "id": "Video AVI" },
+      "description": {
+        "en": "Legacy Windows video container from 1992.",
+        "id": "Kontainer video Windows lama dari tahun 1992."
+      },
+      "category": "video",
+      "extensions": ["avi"],
+      "mimeTypes": ["video/x-msvideo", "video/avi", "video/msvideo"],
+      "signatures": [[{ "ascii": "RIFF" }, { "offset": 8, "ascii": "AVI " }]],
+      "traits": ["video", "audio", "container", "lossy", "binary", "legacy"],
+      "popularity": 60
+    },
+    {
+      "id": "wmv",
+      "label": "WMV",
+      "name": { "en": "Windows Media Video", "id": "Windows Media Video" },
+      "description": {
+        "en": "Microsoft's legacy video format.",
+        "id": "Format video lama milik Microsoft."
+      },
+      "category": "video",
+      "extensions": ["wmv"],
+      "mimeTypes": ["video/x-ms-wmv"],
+      "signatures": [[{ "hex": "3026B2758E66CF11A6D900AA0062CE6C" }]],
+      "traits": ["video", "audio", "container", "lossy", "binary", "legacy", "proprietary"],
+      "popularity": 35
+    },
+    {
+      "id": "asf",
+      "label": "ASF",
+      "name": { "en": "Advanced Systems Format", "id": "Advanced Systems Format" },
+      "description": {
+        "en": "Microsoft's container behind WMV and WMA files.",
+        "id": "Kontainer Microsoft di balik file WMV dan WMA."
+      },
+      "category": "video",
+      "extensions": ["asf"],
+      "mimeTypes": ["video/x-ms-asf"],
+      "signatures": [[{ "hex": "3026B2758E66CF11A6D900AA0062CE6C" }]],
+      "traits": ["video", "audio", "container", "lossy", "binary", "legacy", "proprietary"],
+      "popularity": 4
+    },
+    {
+      "id": "flv",
+      "label": "FLV",
+      "name": { "en": "Flash video", "id": "Video Flash" },
+      "description": {
+        "en": "Legacy Adobe Flash video container.",
+        "id": "Kontainer video Adobe Flash lama."
+      },
+      "category": "video",
+      "extensions": ["flv"],
+      "mimeTypes": ["video/x-flv"],
+      "signatures": [[{ "ascii": "FLV" }, { "offset": 3, "hex": "01" }]],
+      "traits": ["video", "audio", "container", "lossy", "binary", "legacy"],
+      "popularity": 25
+    },
+    {
+      "id": "mpg",
+      "label": "MPEG",
+      "name": { "en": "MPEG video", "id": "Video MPEG" },
+      "description": {
+        "en": "MPEG-1/MPEG-2 program stream used by VCDs, DVDs and older cameras.",
+        "id": "Program stream MPEG-1/MPEG-2 yang dipakai VCD, DVD, dan kamera lama."
+      },
+      "category": "video",
+      "extensions": ["mpg", "mpeg", "mpe", "m1v", "m2v", "m2p"],
+      "mimeTypes": ["video/mpeg"],
+      "aliases": ["mpeg"],
+      "signatures": [[{ "hex": "000001BA" }], [{ "hex": "000001B3" }]],
+      "traits": ["video", "audio", "container", "lossy", "binary", "legacy"],
+      "popularity": 35
+    },
+    {
+      "id": "vob",
+      "label": "VOB",
+      "name": { "en": "DVD video object", "id": "Objek video DVD" },
+      "description": {
+        "en": "MPEG-2 video files from the VIDEO_TS folder of a DVD.",
+        "id": "File video MPEG-2 dari folder VIDEO_TS sebuah DVD."
+      },
+      "category": "video",
+      "extensions": ["vob"],
+      "mimeTypes": ["video/dvd", "video/x-ms-vob"],
+      "signatures": [[{ "hex": "000001BA" }]],
+      "traits": ["video", "audio", "container", "lossy", "binary", "legacy"],
+      "popularity": 15
+    },
+    {
+      "id": "ts",
+      "label": "TS",
+      "name": { "en": "MPEG transport stream", "id": "MPEG transport stream" },
+      "description": {
+        "en": "Broadcast and streaming container used by TV recordings and HLS.",
+        "id": "Kontainer siaran dan streaming yang dipakai rekaman TV dan HLS."
+      },
+      "category": "video",
+      "extensions": ["ts", "m2t"],
+      "mimeTypes": ["video/mp2t"],
+      "signatures": [
+        [{ "hex": "47" }, { "offset": 188, "hex": "47" }, { "offset": 376, "hex": "47" }]
+      ],
+      "traits": ["video", "audio", "container", "lossy", "binary"],
+      "popularity": 25
+    },
+    {
+      "id": "m2ts",
+      "label": "M2TS",
+      "name": { "en": "Blu-ray / AVCHD video", "id": "Video Blu-ray / AVCHD" },
+      "description": {
+        "en": "Transport stream with timestamps used by Blu-ray discs and AVCHD camcorders.",
+        "id": "Transport stream dengan timestamp yang dipakai disk Blu-ray dan camcorder AVCHD."
+      },
+      "category": "video",
+      "extensions": ["m2ts", "mts"],
+      "mimeTypes": ["video/mp2t"],
+      "aliases": ["mts", "avchd"],
+      "signatures": [
+        [
+          { "offset": 4, "hex": "47" },
+          { "offset": 196, "hex": "47" },
+          { "offset": 388, "hex": "47" }
+        ]
+      ],
+      "traits": ["video", "audio", "container", "lossy", "binary"],
+      "popularity": 20
+    },
+    {
+      "id": "3gp",
+      "label": "3GP",
+      "name": { "en": "3GPP video", "id": "Video 3GPP" },
+      "description": {
+        "en": "Mobile video format used by older phones.",
+        "id": "Format video seluler yang dipakai ponsel lama."
+      },
+      "category": "video",
+      "extensions": ["3gp", "3gpp"],
+      "mimeTypes": ["video/3gpp", "audio/3gpp"],
+      "signatures": [
+        [{ "offset": 4, "ascii": "ftyp3gp4" }],
+        [{ "offset": 4, "ascii": "ftyp3gp5" }],
+        [{ "offset": 4, "ascii": "ftyp3gp6" }],
+        [{ "offset": 4, "ascii": "ftyp3gp7" }],
+        [{ "offset": 4, "ascii": "ftyp3gs7" }],
+        [{ "offset": 4, "ascii": "ftyp3ge6" }],
+        [{ "offset": 4, "ascii": "ftyp3ge7" }],
+        [{ "offset": 4, "ascii": "ftyp3gg6" }]
+      ],
+      "traits": ["video", "audio", "container", "lossy", "binary", "legacy"],
+      "popularity": 22
+    },
+    {
+      "id": "3g2",
+      "label": "3G2",
+      "name": { "en": "3GPP2 video", "id": "Video 3GPP2" },
+      "description": {
+        "en": "Mobile video format for CDMA phones.",
+        "id": "Format video seluler untuk ponsel CDMA."
+      },
+      "category": "video",
+      "extensions": ["3g2", "3gpp2"],
+      "mimeTypes": ["video/3gpp2", "audio/3gpp2"],
+      "signatures": [
+        [{ "offset": 4, "ascii": "ftyp3g2a" }],
+        [{ "offset": 4, "ascii": "ftyp3g2b" }],
+        [{ "offset": 4, "ascii": "ftyp3g2c" }]
+      ],
+      "traits": ["video", "audio", "container", "lossy", "binary", "legacy"],
+      "popularity": 4
+    },
+    {
+      "id": "ogv",
+      "label": "OGV",
+      "name": { "en": "Ogg video", "id": "Video Ogg" },
+      "description": {
+        "en": "Open Theora video in an Ogg container.",
+        "id": "Video Theora terbuka dalam kontainer Ogg."
+      },
+      "category": "video",
+      "extensions": ["ogv"],
+      "mimeTypes": ["video/ogg"],
+      "aliases": ["theora"],
+      "signatures": [[{ "ascii": "OggS" }, { "offset": 28, "hex": "807468656F7261" }]],
+      "traits": ["video", "audio", "container", "lossy", "binary", "legacy"],
+      "popularity": 10
+    },
+    {
+      "id": "rm",
+      "label": "RM",
+      "name": { "en": "RealMedia video", "id": "Video RealMedia" },
+      "description": {
+        "en": "Legacy RealNetworks streaming format (RM and RMVB).",
+        "id": "Format streaming lama RealNetworks (RM dan RMVB)."
+      },
+      "category": "video",
+      "extensions": ["rm", "rmvb", "rv"],
+      "mimeTypes": ["application/vnd.rn-realmedia", "application/vnd.rn-realmedia-vbr"],
+      "aliases": ["rmvb", "realmedia"],
+      "signatures": [[{ "ascii": ".RMF" }]],
+      "traits": ["video", "audio", "container", "lossy", "binary", "legacy", "proprietary"],
+      "popularity": 12
+    }
+  ]
+}

@@ -1,0 +1,1118 @@
+{
+  "$schema": "./schema/options.schema.json",
+  "options": [
+    {
+      "id": "quality",
+      "type": "integer",
+      "label": {
+        "en": "Quality",
+        "id": "Kualitas"
+      },
+      "help": {
+        "en": "Higher quality means a larger file.",
+        "id": "Kualitas lebih tinggi berarti ukuran file lebih besar."
+      },
+      "min": 1,
+      "max": 100,
+      "step": 1,
+      "default": 85,
+      "unit": "%"
+    },
+    {
+      "id": "lossless",
+      "type": "boolean",
+      "label": {
+        "en": "Lossless compression",
+        "id": "Kompresi lossless"
+      },
+      "help": {
+        "en": "Keeps every pixel exactly. Files are larger.",
+        "id": "Menjaga setiap piksel tetap sama persis. Ukuran file lebih besar."
+      },
+      "advanced": true,
+      "default": false
+    },
+    {
+      "id": "background",
+      "type": "color",
+      "label": {
+        "en": "Background color",
+        "id": "Warna latar"
+      },
+      "help": {
+        "en": "Used to fill transparent areas when the output has no transparency.",
+        "id": "Dipakai untuk mengisi area transparan jika format hasil tidak mendukung transparansi."
+      },
+      "advanced": true,
+      "default": "#ffffff"
+    },
+    {
+      "id": "width",
+      "type": "integer",
+      "label": {
+        "en": "Width",
+        "id": "Lebar"
+      },
+      "help": {
+        "en": "Leave empty to keep the original size. The aspect ratio is kept.",
+        "id": "Kosongkan untuk mempertahankan ukuran asli. Rasio aspek tetap dijaga."
+      },
+      "advanced": true,
+      "min": 1,
+      "max": 16384,
+      "unit": "px"
+    },
+    {
+      "id": "height",
+      "type": "integer",
+      "label": {
+        "en": "Height",
+        "id": "Tinggi"
+      },
+      "help": {
+        "en": "Leave empty to keep the original size. The aspect ratio is kept.",
+        "id": "Kosongkan untuk mempertahankan ukuran asli. Rasio aspek tetap dijaga."
+      },
+      "advanced": true,
+      "min": 1,
+      "max": 16384,
+      "unit": "px"
+    },
+    {
+      "id": "dpi",
+      "type": "integer",
+      "label": {
+        "en": "Resolution",
+        "id": "Resolusi"
+      },
+      "help": {
+        "en": "Dots per inch used when rendering pages. 150 is good for screens, 300 for printing.",
+        "id": "Titik per inci saat merender halaman. 150 cocok untuk layar, 300 untuk cetak."
+      },
+      "min": 36,
+      "max": 600,
+      "step": 1,
+      "default": 150,
+      "unit": "dpi"
+    },
+    {
+      "id": "pageRange",
+      "type": "text",
+      "label": {
+        "en": "Pages",
+        "id": "Halaman"
+      },
+      "help": {
+        "en": "For example 1-3,5. Leave empty for all pages.",
+        "id": "Contoh: 1-3,5. Kosongkan untuk semua halaman."
+      },
+      "advanced": true,
+      "pattern": "^\\s*\\d{1,5}(\\s*-\\s*\\d{1,5})?(\\s*,\\s*\\d{1,5}(\\s*-\\s*\\d{1,5})?){0,49}\\s*$",
+      "maxLength": 100
+    },
+    {
+      "id": "audioBitrate",
+      "type": "enum",
+      "label": {
+        "en": "Audio bitrate",
+        "id": "Bitrate audio"
+      },
+      "help": {
+        "en": "Higher bitrate means better sound and a larger file.",
+        "id": "Bitrate lebih tinggi berarti suara lebih bagus dan file lebih besar."
+      },
+      "default": 192,
+      "unit": "kbps",
+      "choices": [
+        {
+          "value": 64,
+          "label": {
+            "en": "64 kbps",
+            "id": "64 kbps"
+          }
+        },
+        {
+          "value": 96,
+          "label": {
+            "en": "96 kbps",
+            "id": "96 kbps"
+          }
+        },
+        {
+          "value": 128,
+          "label": {
+            "en": "128 kbps",
+            "id": "128 kbps"
+          }
+        },
+        {
+          "value": 160,
+          "label": {
+            "en": "160 kbps",
+            "id": "160 kbps"
+          }
+        },
+        {
+          "value": 192,
+          "label": {
+            "en": "192 kbps",
+            "id": "192 kbps"
+          }
+        },
+        {
+          "value": 256,
+          "label": {
+            "en": "256 kbps",
+            "id": "256 kbps"
+          }
+        },
+        {
+          "value": 320,
+          "label": {
+            "en": "320 kbps",
+            "id": "320 kbps"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sampleRate",
+      "type": "enum",
+      "label": {
+        "en": "Sample rate",
+        "id": "Sample rate"
+      },
+      "advanced": true,
+      "default": 0,
+      "unit": "Hz",
+      "choices": [
+        {
+          "value": 0,
+          "label": {
+            "en": "Same as original",
+            "id": "Sama seperti asli"
+          }
+        },
+        {
+          "value": 8000,
+          "label": {
+            "en": "8,000 Hz",
+            "id": "8.000 Hz"
+          }
+        },
+        {
+          "value": 16000,
+          "label": {
+            "en": "16,000 Hz",
+            "id": "16.000 Hz"
+          }
+        },
+        {
+          "value": 22050,
+          "label": {
+            "en": "22,050 Hz",
+            "id": "22.050 Hz"
+          }
+        },
+        {
+          "value": 32000,
+          "label": {
+            "en": "32,000 Hz",
+            "id": "32.000 Hz"
+          }
+        },
+        {
+          "value": 44100,
+          "label": {
+            "en": "44,100 Hz",
+            "id": "44.100 Hz"
+          }
+        },
+        {
+          "value": 48000,
+          "label": {
+            "en": "48,000 Hz",
+            "id": "48.000 Hz"
+          }
+        },
+        {
+          "value": 96000,
+          "label": {
+            "en": "96,000 Hz",
+            "id": "96.000 Hz"
+          }
+        }
+      ]
+    },
+    {
+      "id": "channels",
+      "type": "enum",
+      "label": {
+        "en": "Channels",
+        "id": "Kanal"
+      },
+      "advanced": true,
+      "default": "source",
+      "choices": [
+        {
+          "value": "source",
+          "label": {
+            "en": "Same as original",
+            "id": "Sama seperti asli"
+          }
+        },
+        {
+          "value": "mono",
+          "label": {
+            "en": "Mono",
+            "id": "Mono"
+          }
+        },
+        {
+          "value": "stereo",
+          "label": {
+            "en": "Stereo",
+            "id": "Stereo"
+          }
+        }
+      ]
+    },
+    {
+      "id": "videoQuality",
+      "type": "enum",
+      "label": {
+        "en": "Video quality",
+        "id": "Kualitas video"
+      },
+      "default": "balanced",
+      "choices": [
+        {
+          "value": "high",
+          "label": {
+            "en": "High quality",
+            "id": "Kualitas tinggi"
+          }
+        },
+        {
+          "value": "balanced",
+          "label": {
+            "en": "Balanced",
+            "id": "Seimbang"
+          }
+        },
+        {
+          "value": "small",
+          "label": {
+            "en": "Smaller file",
+            "id": "File lebih kecil"
+          }
+        }
+      ]
+    },
+    {
+      "id": "videoCodec",
+      "type": "enum",
+      "label": {
+        "en": "Video codec",
+        "id": "Codec video"
+      },
+      "help": {
+        "en": "H.264 plays almost everywhere. Newer codecs make smaller files but take longer to encode.",
+        "id": "H.264 bisa diputar hampir di mana saja. Codec yang lebih baru menghasilkan file lebih kecil tetapi proses lebih lama."
+      },
+      "advanced": true,
+      "default": "h264",
+      "choices": [
+        {
+          "value": "h264",
+          "label": {
+            "en": "H.264 (most compatible)",
+            "id": "H.264 (paling kompatibel)"
+          }
+        },
+        {
+          "value": "h265",
+          "label": {
+            "en": "H.265 / HEVC",
+            "id": "H.265 / HEVC"
+          }
+        },
+        {
+          "value": "vp9",
+          "label": {
+            "en": "VP9",
+            "id": "VP9"
+          }
+        },
+        {
+          "value": "av1",
+          "label": {
+            "en": "AV1",
+            "id": "AV1"
+          }
+        },
+        {
+          "value": "mpeg4",
+          "label": {
+            "en": "MPEG-4 Part 2",
+            "id": "MPEG-4 Part 2"
+          }
+        },
+        {
+          "value": "mpeg2",
+          "label": {
+            "en": "MPEG-2",
+            "id": "MPEG-2"
+          }
+        },
+        {
+          "value": "theora",
+          "label": {
+            "en": "Theora",
+            "id": "Theora"
+          }
+        },
+        {
+          "value": "wmv2",
+          "label": {
+            "en": "Windows Media Video 8",
+            "id": "Windows Media Video 8"
+          }
+        }
+      ]
+    },
+    {
+      "id": "resolution",
+      "type": "enum",
+      "label": {
+        "en": "Resolution",
+        "id": "Resolusi"
+      },
+      "advanced": true,
+      "default": 0,
+      "choices": [
+        {
+          "value": 0,
+          "label": {
+            "en": "Same as original",
+            "id": "Sama seperti asli"
+          }
+        },
+        {
+          "value": 2160,
+          "label": {
+            "en": "4K (2160p)",
+            "id": "4K (2160p)"
+          }
+        },
+        {
+          "value": 1440,
+          "label": {
+            "en": "1440p",
+            "id": "1440p"
+          }
+        },
+        {
+          "value": 1080,
+          "label": {
+            "en": "Full HD (1080p)",
+            "id": "Full HD (1080p)"
+          }
+        },
+        {
+          "value": 720,
+          "label": {
+            "en": "HD (720p)",
+            "id": "HD (720p)"
+          }
+        },
+        {
+          "value": 480,
+          "label": {
+            "en": "480p",
+            "id": "480p"
+          }
+        },
+        {
+          "value": 360,
+          "label": {
+            "en": "360p",
+            "id": "360p"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fps",
+      "type": "enum",
+      "label": {
+        "en": "Frame rate",
+        "id": "Frame rate"
+      },
+      "advanced": true,
+      "default": 0,
+      "unit": "fps",
+      "choices": [
+        {
+          "value": 0,
+          "label": {
+            "en": "Same as original",
+            "id": "Sama seperti asli"
+          }
+        },
+        {
+          "value": 60,
+          "label": {
+            "en": "60 fps",
+            "id": "60 fps"
+          }
+        },
+        {
+          "value": 50,
+          "label": {
+            "en": "50 fps",
+            "id": "50 fps"
+          }
+        },
+        {
+          "value": 30,
+          "label": {
+            "en": "30 fps",
+            "id": "30 fps"
+          }
+        },
+        {
+          "value": 25,
+          "label": {
+            "en": "25 fps",
+            "id": "25 fps"
+          }
+        },
+        {
+          "value": 24,
+          "label": {
+            "en": "24 fps",
+            "id": "24 fps"
+          }
+        },
+        {
+          "value": 15,
+          "label": {
+            "en": "15 fps",
+            "id": "15 fps"
+          }
+        },
+        {
+          "value": 12,
+          "label": {
+            "en": "12 fps",
+            "id": "12 fps"
+          }
+        },
+        {
+          "value": 10,
+          "label": {
+            "en": "10 fps",
+            "id": "10 fps"
+          }
+        },
+        {
+          "value": 8,
+          "label": {
+            "en": "8 fps",
+            "id": "8 fps"
+          }
+        },
+        {
+          "value": 5,
+          "label": {
+            "en": "5 fps",
+            "id": "5 fps"
+          }
+        }
+      ]
+    },
+    {
+      "id": "removeAudio",
+      "type": "boolean",
+      "label": {
+        "en": "Remove audio",
+        "id": "Hapus audio"
+      },
+      "advanced": true,
+      "default": false
+    },
+    {
+      "id": "loop",
+      "type": "boolean",
+      "label": {
+        "en": "Loop forever",
+        "id": "Ulang terus"
+      },
+      "advanced": true,
+      "default": true
+    },
+    {
+      "id": "jsonIndent",
+      "type": "enum",
+      "label": {
+        "en": "Indentation",
+        "id": "Indentasi"
+      },
+      "default": "2",
+      "choices": [
+        {
+          "value": "2",
+          "label": {
+            "en": "2 spaces",
+            "id": "2 spasi"
+          }
+        },
+        {
+          "value": "4",
+          "label": {
+            "en": "4 spaces",
+            "id": "4 spasi"
+          }
+        },
+        {
+          "value": "tab",
+          "label": {
+            "en": "Tab",
+            "id": "Tab"
+          }
+        },
+        {
+          "value": "minify",
+          "label": {
+            "en": "Minified",
+            "id": "Diperkecil (minify)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "csvInputDelimiter",
+      "type": "enum",
+      "label": {
+        "en": "Input delimiter",
+        "id": "Pemisah input"
+      },
+      "help": {
+        "en": "Usually detected automatically.",
+        "id": "Biasanya terdeteksi otomatis."
+      },
+      "advanced": true,
+      "default": "auto",
+      "choices": [
+        {
+          "value": "auto",
+          "label": {
+            "en": "Detect automatically",
+            "id": "Deteksi otomatis"
+          }
+        },
+        {
+          "value": ",",
+          "label": {
+            "en": "Comma (,)",
+            "id": "Koma (,)"
+          }
+        },
+        {
+          "value": ";",
+          "label": {
+            "en": "Semicolon (;)",
+            "id": "Titik koma (;)"
+          }
+        },
+        {
+          "value": "tab",
+          "label": {
+            "en": "Tab",
+            "id": "Tab"
+          }
+        },
+        {
+          "value": "|",
+          "label": {
+            "en": "Pipe (|)",
+            "id": "Garis tegak (|)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "csvDelimiter",
+      "type": "enum",
+      "label": {
+        "en": "Output delimiter",
+        "id": "Pemisah output"
+      },
+      "help": {
+        "en": "Many Indonesian and European Excel setups use a semicolon.",
+        "id": "Banyak pengaturan Excel di Indonesia dan Eropa memakai titik koma."
+      },
+      "default": ",",
+      "choices": [
+        {
+          "value": ",",
+          "label": {
+            "en": "Comma (,)",
+            "id": "Koma (,)"
+          }
+        },
+        {
+          "value": ";",
+          "label": {
+            "en": "Semicolon (;)",
+            "id": "Titik koma (;)"
+          }
+        },
+        {
+          "value": "tab",
+          "label": {
+            "en": "Tab",
+            "id": "Tab"
+          }
+        },
+        {
+          "value": "|",
+          "label": {
+            "en": "Pipe (|)",
+            "id": "Garis tegak (|)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "csvHeader",
+      "type": "boolean",
+      "label": {
+        "en": "First row has column names",
+        "id": "Baris pertama berisi nama kolom"
+      },
+      "default": true
+    },
+    {
+      "id": "xmlRootName",
+      "type": "text",
+      "label": {
+        "en": "Root element name",
+        "id": "Nama elemen root"
+      },
+      "advanced": true,
+      "default": "root",
+      "pattern": "^[A-Za-z_][A-Za-z0-9_.-]{0,63}$",
+      "maxLength": 64
+    },
+    {
+      "id": "sqlTable",
+      "type": "text",
+      "label": {
+        "en": "Table name",
+        "id": "Nama tabel"
+      },
+      "default": "data",
+      "pattern": "^[A-Za-z_][A-Za-z0-9_]{0,63}$",
+      "maxLength": 64
+    },
+    {
+      "id": "sqlDialect",
+      "type": "enum",
+      "label": {
+        "en": "SQL dialect",
+        "id": "Dialek SQL"
+      },
+      "advanced": true,
+      "default": "standard",
+      "choices": [
+        {
+          "value": "standard",
+          "label": {
+            "en": "Standard SQL",
+            "id": "SQL standar"
+          }
+        },
+        {
+          "value": "postgresql",
+          "label": {
+            "en": "PostgreSQL",
+            "id": "PostgreSQL"
+          }
+        },
+        {
+          "value": "mysql",
+          "label": {
+            "en": "MySQL / MariaDB",
+            "id": "MySQL / MariaDB"
+          }
+        },
+        {
+          "value": "sqlite",
+          "label": {
+            "en": "SQLite",
+            "id": "SQLite"
+          }
+        }
+      ]
+    },
+    {
+      "id": "subtitleFps",
+      "type": "enum",
+      "label": {
+        "en": "Video frame rate",
+        "id": "Frame rate video"
+      },
+      "help": {
+        "en": "Needed for frame-based subtitle formats such as MicroDVD.",
+        "id": "Diperlukan untuk format subtitle berbasis frame seperti MicroDVD."
+      },
+      "default": 23.976,
+      "unit": "fps",
+      "choices": [
+        {
+          "value": 23.976,
+          "label": {
+            "en": "23.976 fps",
+            "id": "23,976 fps"
+          }
+        },
+        {
+          "value": 24,
+          "label": {
+            "en": "24 fps",
+            "id": "24 fps"
+          }
+        },
+        {
+          "value": 25,
+          "label": {
+            "en": "25 fps",
+            "id": "25 fps"
+          }
+        },
+        {
+          "value": 29.97,
+          "label": {
+            "en": "29.97 fps",
+            "id": "29,97 fps"
+          }
+        },
+        {
+          "value": 30,
+          "label": {
+            "en": "30 fps",
+            "id": "30 fps"
+          }
+        },
+        {
+          "value": 50,
+          "label": {
+            "en": "50 fps",
+            "id": "50 fps"
+          }
+        },
+        {
+          "value": 59.94,
+          "label": {
+            "en": "59.94 fps",
+            "id": "59,94 fps"
+          }
+        },
+        {
+          "value": 60,
+          "label": {
+            "en": "60 fps",
+            "id": "60 fps"
+          }
+        }
+      ]
+    },
+    {
+      "id": "offsetMs",
+      "type": "integer",
+      "label": {
+        "en": "Shift by",
+        "id": "Geser sebesar"
+      },
+      "help": {
+        "en": "Positive values delay the subtitles, negative values show them earlier.",
+        "id": "Nilai positif menunda subtitle, nilai negatif menampilkannya lebih awal."
+      },
+      "min": -36000000,
+      "max": 36000000,
+      "step": 1,
+      "default": 0,
+      "unit": "ms"
+    },
+    {
+      "id": "pageSize",
+      "type": "enum",
+      "label": {
+        "en": "Page size",
+        "id": "Ukuran halaman"
+      },
+      "default": "fit",
+      "choices": [
+        {
+          "value": "fit",
+          "label": {
+            "en": "Same as image",
+            "id": "Sama seperti gambar"
+          }
+        },
+        {
+          "value": "a4",
+          "label": {
+            "en": "A4",
+            "id": "A4"
+          }
+        },
+        {
+          "value": "letter",
+          "label": {
+            "en": "US Letter",
+            "id": "US Letter"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pageOrientation",
+      "type": "enum",
+      "label": {
+        "en": "Orientation",
+        "id": "Orientasi"
+      },
+      "advanced": true,
+      "default": "auto",
+      "choices": [
+        {
+          "value": "auto",
+          "label": {
+            "en": "Automatic",
+            "id": "Otomatis"
+          }
+        },
+        {
+          "value": "portrait",
+          "label": {
+            "en": "Portrait",
+            "id": "Potret"
+          }
+        },
+        {
+          "value": "landscape",
+          "label": {
+            "en": "Landscape",
+            "id": "Lanskap"
+          }
+        }
+      ]
+    },
+    {
+      "id": "margin",
+      "type": "enum",
+      "label": {
+        "en": "Margin",
+        "id": "Margin"
+      },
+      "advanced": true,
+      "default": "none",
+      "choices": [
+        {
+          "value": "none",
+          "label": {
+            "en": "None",
+            "id": "Tanpa margin"
+          }
+        },
+        {
+          "value": "small",
+          "label": {
+            "en": "Small",
+            "id": "Kecil"
+          }
+        },
+        {
+          "value": "large",
+          "label": {
+            "en": "Large",
+            "id": "Besar"
+          }
+        }
+      ]
+    },
+    {
+      "id": "compressionLevel",
+      "type": "enum",
+      "label": {
+        "en": "Compression",
+        "id": "Kompresi"
+      },
+      "default": "balanced",
+      "choices": [
+        {
+          "value": "low",
+          "label": {
+            "en": "Light (best quality)",
+            "id": "Ringan (kualitas terbaik)"
+          }
+        },
+        {
+          "value": "balanced",
+          "label": {
+            "en": "Balanced",
+            "id": "Seimbang"
+          }
+        },
+        {
+          "value": "high",
+          "label": {
+            "en": "Strong (smallest file)",
+            "id": "Kuat (file terkecil)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "zipLevel",
+      "type": "enum",
+      "label": {
+        "en": "Compression level",
+        "id": "Tingkat kompresi"
+      },
+      "advanced": true,
+      "default": "balanced",
+      "choices": [
+        {
+          "value": "store",
+          "label": {
+            "en": "No compression",
+            "id": "Tanpa kompresi"
+          }
+        },
+        {
+          "value": "fast",
+          "label": {
+            "en": "Fast",
+            "id": "Cepat"
+          }
+        },
+        {
+          "value": "balanced",
+          "label": {
+            "en": "Balanced",
+            "id": "Seimbang"
+          }
+        },
+        {
+          "value": "max",
+          "label": {
+            "en": "Maximum",
+            "id": "Maksimal"
+          }
+        }
+      ]
+    },
+    {
+      "id": "urlMode",
+      "type": "enum",
+      "label": {
+        "en": "Encode as",
+        "id": "Encode sebagai"
+      },
+      "default": "component",
+      "choices": [
+        {
+          "value": "component",
+          "label": {
+            "en": "URL component (query values)",
+            "id": "Komponen URL (nilai query)"
+          }
+        },
+        {
+          "value": "uri",
+          "label": {
+            "en": "Full URL",
+            "id": "URL lengkap"
+          }
+        }
+      ]
+    },
+    {
+      "id": "base64Variant",
+      "type": "enum",
+      "label": {
+        "en": "Alphabet",
+        "id": "Alfabet"
+      },
+      "advanced": true,
+      "default": "standard",
+      "choices": [
+        {
+          "value": "standard",
+          "label": {
+            "en": "Standard (+ /)",
+            "id": "Standar (+ /)"
+          }
+        },
+        {
+          "value": "url",
+          "label": {
+            "en": "URL-safe (- _)",
+            "id": "Aman untuk URL (- _)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "base64DataUri",
+      "type": "boolean",
+      "label": {
+        "en": "Output as data URI",
+        "id": "Hasil sebagai data URI"
+      },
+      "help": {
+        "en": "Adds the data:<type>;base64, prefix so it can be pasted into HTML or CSS.",
+        "id": "Menambahkan awalan data:<type>;base64, agar bisa ditempel di HTML atau CSS."
+      },
+      "advanced": true,
+      "default": false
+    },
+    {
+      "id": "rotate",
+      "type": "enum",
+      "label": {
+        "en": "Rotate",
+        "id": "Putar"
+      },
+      "default": 90,
+      "unit": "°",
+      "choices": [
+        {
+          "value": 90,
+          "label": {
+            "en": "90° clockwise",
+            "id": "90° searah jarum jam"
+          }
+        },
+        {
+          "value": 180,
+          "label": {
+            "en": "180°",
+            "id": "180°"
+          }
+        },
+        {
+          "value": 270,
+          "label": {
+            "en": "90° counter-clockwise",
+            "id": "90° berlawanan arah jarum jam"
+          }
+        }
+      ]
+    }
+  ]
+}

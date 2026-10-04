@@ -1,0 +1,333 @@
+{
+  "$schema": "./schema/limitations.schema.json",
+  "limitations": [
+    {
+      "id": "lossy-output",
+      "severity": "info",
+      "text": {
+        "en": "The output format uses lossy compression, so some detail may be lost. Use the quality setting to balance size and quality.",
+        "id": "Format hasil memakai kompresi lossy, jadi sebagian detail bisa berkurang. Atur kualitas untuk menyeimbangkan ukuran dan mutu."
+      }
+    },
+    {
+      "id": "no-quality-restore",
+      "severity": "info",
+      "text": {
+        "en": "Converting to a lossless format keeps the current quality but cannot restore detail lost in the original file.",
+        "id": "Mengubah ke format lossless menjaga kualitas saat ini, tetapi tidak bisa mengembalikan detail yang sudah hilang di file asli."
+      }
+    },
+    {
+      "id": "transparency-lost",
+      "severity": "warning",
+      "text": {
+        "en": "The output format has no transparency. If the image has transparent areas, they are filled with the background color.",
+        "id": "Format hasil tidak mendukung transparansi. Jika gambar punya area transparan, area itu diisi warna latar."
+      }
+    },
+    {
+      "id": "animation-lost",
+      "severity": "warning",
+      "text": {
+        "en": "The output format does not support animation. If the file is animated, only the first frame is converted.",
+        "id": "Format hasil tidak mendukung animasi. Jika file beranimasi, hanya frame pertama yang dikonversi."
+      }
+    },
+    {
+      "id": "first-page-only",
+      "severity": "warning",
+      "text": {
+        "en": "The output format holds a single page. If the file has several pages, only the first page is converted.",
+        "id": "Format hasil hanya memuat satu halaman. Jika file punya beberapa halaman, hanya halaman pertama yang dikonversi."
+      }
+    },
+    {
+      "id": "one-file-per-page",
+      "severity": "info",
+      "text": {
+        "en": "Each page becomes a separate file. Multiple pages are delivered together.",
+        "id": "Setiap halaman menjadi file terpisah. Beberapa halaman akan dikirim sekaligus."
+      }
+    },
+    {
+      "id": "rasterized",
+      "severity": "info",
+      "text": {
+        "en": "Vector graphics are rendered to pixels at the chosen size, so they no longer scale without quality loss.",
+        "id": "Grafis vektor diubah menjadi piksel pada ukuran yang dipilih, sehingga tidak bisa diperbesar tanpa penurunan kualitas."
+      }
+    },
+    {
+      "id": "text-only",
+      "severity": "warning",
+      "text": {
+        "en": "Only the text is kept. Formatting, images and layout are removed.",
+        "id": "Hanya teks yang dipertahankan. Format, gambar, dan tata letak dihapus."
+      }
+    },
+    {
+      "id": "audio-only",
+      "severity": "info",
+      "text": {
+        "en": "Only the audio track is kept; the video is removed.",
+        "id": "Hanya trek audio yang disimpan; videonya dihapus."
+      }
+    },
+    {
+      "id": "audio-removed",
+      "severity": "info",
+      "text": {
+        "en": "The output format has no sound, so the audio track is removed.",
+        "id": "Format hasil tidak memiliki suara, jadi trek audio dihapus."
+      }
+    },
+    {
+      "id": "structure-flattened",
+      "severity": "warning",
+      "text": {
+        "en": "Nested data is flattened into columns. Deeply nested values are written as text.",
+        "id": "Data bertingkat diratakan menjadi kolom. Nilai yang terlalu dalam ditulis sebagai teks."
+      }
+    },
+    {
+      "id": "colors-reduced",
+      "severity": "warning",
+      "text": {
+        "en": "The output format supports at most 256 colors. Gradients and photos may show banding.",
+        "id": "Format hasil maksimal 256 warna. Gradasi dan foto bisa terlihat bergaris."
+      }
+    },
+    {
+      "id": "hdr-tone-mapped",
+      "severity": "warning",
+      "text": {
+        "en": "High dynamic range data is mapped to standard range.",
+        "id": "Data high dynamic range dipetakan ke rentang standar."
+      }
+    },
+    {
+      "id": "styling-lost",
+      "severity": "warning",
+      "text": {
+        "en": "Subtitle styling (fonts, colors, positions) is not carried over to the output format.",
+        "id": "Gaya subtitle (font, warna, posisi) tidak ikut terbawa ke format hasil."
+      }
+    },
+    {
+      "id": "metadata-removed",
+      "severity": "info",
+      "text": {
+        "en": "Private metadata such as camera details and GPS location is removed.",
+        "id": "Metadata pribadi seperti detail kamera dan lokasi GPS dihapus."
+      }
+    },
+    {
+      "id": "layout-may-change",
+      "severity": "warning",
+      "text": {
+        "en": "Layout can differ from the original, especially for complex documents with unusual fonts, tables or embedded objects.",
+        "id": "Tata letak bisa berbeda dari aslinya, terutama untuk dokumen kompleks dengan font khusus, tabel, atau objek tersemat."
+      }
+    },
+    {
+      "id": "macros-removed",
+      "severity": "info",
+      "text": {
+        "en": "Macros are not carried over to the output.",
+        "id": "Makro tidak ikut disalin ke file hasil."
+      }
+    },
+    {
+      "id": "first-sheet-only",
+      "severity": "warning",
+      "text": {
+        "en": "Only the first sheet is converted. Other sheets are ignored.",
+        "id": "Hanya sheet pertama yang dikonversi. Sheet lainnya diabaikan."
+      }
+    },
+    {
+      "id": "raw-processed",
+      "severity": "info",
+      "text": {
+        "en": "Camera RAW data is developed with default settings; manual adjustments made in other apps are not applied.",
+        "id": "Data RAW kamera diproses dengan pengaturan bawaan; penyesuaian manual dari aplikasi lain tidak diterapkan."
+      }
+    },
+    {
+      "id": "fonts-substituted",
+      "severity": "warning",
+      "text": {
+        "en": "Fonts that are not available on the conversion server are replaced with similar fonts.",
+        "id": "Font yang tidak tersedia di server konversi diganti dengan font yang mirip."
+      }
+    },
+    {
+      "id": "comments-removed",
+      "severity": "info",
+      "text": {
+        "en": "Comments are not preserved in the output format.",
+        "id": "Komentar tidak dipertahankan di format hasil."
+      }
+    },
+    {
+      "id": "types-as-text",
+      "severity": "info",
+      "text": {
+        "en": "The output format stores values as text; numbers and booleans may need to be re-typed by the program that reads it.",
+        "id": "Format hasil menyimpan nilai sebagai teks; angka dan boolean mungkin perlu dibaca ulang oleh program yang membukanya."
+      }
+    },
+    {
+      "id": "single-record-wrapped",
+      "severity": "info",
+      "text": {
+        "en": "Records are wrapped in a list so that the output is a single valid document.",
+        "id": "Data dibungkus dalam sebuah daftar agar hasilnya menjadi satu dokumen yang valid."
+      }
+    },
+    {
+      "id": "timing-frame-based",
+      "severity": "info",
+      "text": {
+        "en": "This subtitle format stores timing as video frames. The frame rate setting must match your video.",
+        "id": "Format subtitle ini menyimpan waktu dalam satuan frame video. Pengaturan frame rate harus sesuai dengan videonya."
+      }
+    },
+    {
+      "id": "page-size-from-image",
+      "severity": "info",
+      "text": {
+        "en": "Each image becomes one PDF page.",
+        "id": "Setiap gambar menjadi satu halaman PDF."
+      }
+    },
+    {
+      "id": "experimental-quality",
+      "severity": "warning",
+      "text": {
+        "en": "This conversion is experimental. Check the result carefully before relying on it.",
+        "id": "Konversi ini masih eksperimental. Periksa hasilnya dengan teliti sebelum digunakan."
+      }
+    },
+    {
+      "id": "pdf-reflow",
+      "severity": "warning",
+      "text": {
+        "en": "PDF pages have a fixed layout. Converting to an editable document reconstructs text and layout and may not be exact.",
+        "id": "Halaman PDF punya tata letak tetap. Mengubahnya ke dokumen yang bisa diedit akan menyusun ulang teks dan tata letak, jadi hasilnya mungkin tidak persis sama."
+      }
+    },
+    {
+      "id": "gif-size",
+      "severity": "info",
+      "text": {
+        "en": "GIF files grow quickly with length and resolution. Short clips at a small width work best.",
+        "id": "Ukuran GIF cepat membesar sesuai durasi dan resolusi. Klip pendek dengan lebar kecil paling cocok."
+      }
+    },
+    {
+      "id": "archive-flattened-metadata",
+      "severity": "info",
+      "text": {
+        "en": "File permissions, owners and special files (links, devices) are not carried over.",
+        "id": "Izin file, pemilik, dan file khusus (link, device) tidak ikut disalin."
+      }
+    },
+    {
+      "id": "icon-size",
+      "severity": "info",
+      "text": {
+        "en": "Icons are limited to 256×256 pixels; larger images are scaled down.",
+        "id": "Ikon dibatasi 256×256 piksel; gambar yang lebih besar akan diperkecil."
+      }
+    },
+    {
+      "id": "layers-flattened",
+      "severity": "info",
+      "text": {
+        "en": "Layers are merged into a single image.",
+        "id": "Semua layer digabung menjadi satu gambar."
+      }
+    },
+    {
+      "id": "color-srgb",
+      "severity": "info",
+      "text": {
+        "en": "Colors are converted to the standard sRGB color space; very saturated wide-gamut colors may look slightly duller.",
+        "id": "Warna dikonversi ke ruang warna standar sRGB; warna wide-gamut yang sangat pekat bisa terlihat sedikit lebih pudar."
+      }
+    },
+    {
+      "id": "external-resources-ignored",
+      "severity": "info",
+      "text": {
+        "en": "For your safety, external images, fonts and links referenced by the file are not loaded.",
+        "id": "Demi keamanan, gambar, font, dan tautan eksternal yang dirujuk file tidak dimuat."
+      }
+    },
+    {
+      "id": "text-outlined",
+      "severity": "info",
+      "text": {
+        "en": "Text is converted to shapes and is no longer editable as text.",
+        "id": "Teks diubah menjadi bentuk (shape) dan tidak bisa diedit lagi sebagai teks."
+      }
+    },
+    {
+      "id": "ringtone-length",
+      "severity": "info",
+      "text": {
+        "en": "iPhone ringtones can be at most 40 seconds long; longer audio is not accepted as a ringtone by iOS.",
+        "id": "Nada dering iPhone maksimal 40 detik; audio yang lebih panjang tidak diterima iOS sebagai nada dering."
+      }
+    },
+    {
+      "id": "first-subtitle-track",
+      "severity": "warning",
+      "text": {
+        "en": "Only the first text subtitle track is extracted. Videos without text subtitles cannot be converted.",
+        "id": "Hanya trek subtitle teks pertama yang diekstrak. Video tanpa subtitle teks tidak bisa dikonversi."
+      }
+    },
+    {
+      "id": "timing-removed",
+      "severity": "info",
+      "text": {
+        "en": "Timings and numbering are removed; only the spoken text is kept.",
+        "id": "Waktu dan penomoran dihapus; hanya teks ucapan yang disimpan."
+      }
+    },
+    {
+      "id": "toml-root-table",
+      "severity": "info",
+      "text": {
+        "en": "TOML documents must start with a table. If the data is a list, it is stored under the key \"items\".",
+        "id": "Dokumen TOML harus diawali tabel. Jika datanya berupa daftar, data disimpan di bawah key \"items\"."
+      }
+    },
+    {
+      "id": "xml-mapping",
+      "severity": "info",
+      "text": {
+        "en": "XML elements become fields; attributes are stored with an @ prefix and text content as #text.",
+        "id": "Elemen XML menjadi field; atribut disimpan dengan awalan @ dan isi teks sebagai #text."
+      }
+    },
+    {
+      "id": "mesh-only",
+      "severity": "warning",
+      "text": {
+        "en": "Geometry and basic materials are converted; animation, rigging and some textures may be lost.",
+        "id": "Geometri dan material dasar dikonversi; animasi, rigging, dan sebagian tekstur bisa hilang."
+      }
+    },
+    {
+      "id": "font-flavor",
+      "severity": "info",
+      "text": {
+        "en": "The font keeps its original outline type. If it does not match the chosen format, you will be told which format to choose instead.",
+        "id": "Font mempertahankan jenis outline aslinya. Jika tidak sesuai dengan format yang dipilih, kamu akan diberi tahu format yang tepat."
+      }
+    }
+  ]
+}

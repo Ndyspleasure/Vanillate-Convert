@@ -1,0 +1,205 @@
+{
+  "$schema": "./schema/categories.schema.json",
+  "categories": [
+    {
+      "id": "image",
+      "name": { "en": "Image", "id": "Gambar" },
+      "description": {
+        "en": "Photos, graphics and icons: JPG, PNG, WebP, AVIF, HEIC, GIF, TIFF and more.",
+        "id": "Foto, grafis, dan ikon: JPG, PNG, WebP, AVIF, HEIC, GIF, TIFF, dan lainnya."
+      },
+      "order": 10,
+      "icon": "image"
+    },
+    {
+      "id": "pdf",
+      "name": { "en": "PDF", "id": "PDF" },
+      "description": {
+        "en": "Convert PDF files to images, text and other formats, or create PDFs from your files.",
+        "id": "Ubah PDF menjadi gambar, teks, dan format lain, atau buat PDF dari file kamu."
+      },
+      "order": 20,
+      "icon": "pdf"
+    },
+    {
+      "id": "document",
+      "name": { "en": "Document", "id": "Dokumen" },
+      "description": {
+        "en": "Word processing and text documents: DOCX, DOC, ODT, RTF, Markdown, HTML and TXT.",
+        "id": "Dokumen pengolah kata dan teks: DOCX, DOC, ODT, RTF, Markdown, HTML, dan TXT."
+      },
+      "order": 30,
+      "icon": "document"
+    },
+    {
+      "id": "spreadsheet",
+      "name": { "en": "Spreadsheet", "id": "Spreadsheet" },
+      "description": {
+        "en": "Spreadsheets and tables: XLSX, XLS, ODS, CSV and TSV.",
+        "id": "Spreadsheet dan tabel: XLSX, XLS, ODS, CSV, dan TSV."
+      },
+      "order": 40,
+      "icon": "table"
+    },
+    {
+      "id": "presentation",
+      "name": { "en": "Presentation", "id": "Presentasi" },
+      "description": {
+        "en": "Slide decks: PPTX, PPT and ODP.",
+        "id": "File presentasi: PPTX, PPT, dan ODP."
+      },
+      "order": 50,
+      "icon": "slides"
+    },
+    {
+      "id": "audio",
+      "name": { "en": "Audio", "id": "Audio" },
+      "description": {
+        "en": "Music and recordings: MP3, WAV, FLAC, AAC, M4A, OGG, Opus and more.",
+        "id": "Musik dan rekaman: MP3, WAV, FLAC, AAC, M4A, OGG, Opus, dan lainnya."
+      },
+      "order": 60,
+      "icon": "audio"
+    },
+    {
+      "id": "video",
+      "name": { "en": "Video", "id": "Video" },
+      "description": {
+        "en": "Video files: MP4, MKV, MOV, WebM, AVI and more.",
+        "id": "File video: MP4, MKV, MOV, WebM, AVI, dan lainnya."
+      },
+      "order": 70,
+      "icon": "video"
+    },
+    {
+      "id": "archive",
+      "name": { "en": "Archive", "id": "Arsip" },
+      "description": {
+        "en": "Compressed archives and disk images: ZIP, 7Z, RAR, TAR, GZ and more.",
+        "id": "Arsip terkompresi dan disk image: ZIP, 7Z, RAR, TAR, GZ, dan lainnya."
+      },
+      "order": 80,
+      "icon": "archive"
+    },
+    {
+      "id": "data",
+      "name": { "en": "Data", "id": "Data" },
+      "description": {
+        "en": "Structured data: JSON, XML, YAML, TOML, NDJSON and INI.",
+        "id": "Data terstruktur: JSON, XML, YAML, TOML, NDJSON, dan INI."
+      },
+      "order": 90,
+      "icon": "data"
+    },
+    {
+      "id": "developer",
+      "name": { "en": "Developer", "id": "Developer" },
+      "description": {
+        "en": "Developer formats and utilities: SQL, Base64 and encoders.",
+        "id": "Format dan utilitas developer: SQL, Base64, dan encoder."
+      },
+      "order": 100,
+      "icon": "code"
+    },
+    {
+      "id": "ebook",
+      "name": { "en": "Ebook", "id": "Ebook" },
+      "description": {
+        "en": "Electronic books and comics: EPUB, MOBI, AZW3, CBZ and more.",
+        "id": "Buku elektronik dan komik: EPUB, MOBI, AZW3, CBZ, dan lainnya."
+      },
+      "order": 110,
+      "icon": "book"
+    },
+    {
+      "id": "subtitle",
+      "name": { "en": "Subtitle", "id": "Subtitle" },
+      "description": {
+        "en": "Subtitles and captions: SRT, VTT, ASS, SSA, SBV and TTML.",
+        "id": "Subtitle dan teks film: SRT, VTT, ASS, SSA, SBV, dan TTML."
+      },
+      "order": 120,
+      "icon": "subtitle"
+    },
+    {
+      "id": "font",
+      "name": { "en": "Font", "id": "Font" },
+      "description": {
+        "en": "Font files: TTF, OTF, WOFF and WOFF2.",
+        "id": "File font: TTF, OTF, WOFF, dan WOFF2."
+      },
+      "order": 130,
+      "icon": "font"
+    },
+    {
+      "id": "vector",
+      "name": { "en": "Vector", "id": "Vektor" },
+      "description": {
+        "en": "Vector graphics: SVG, EPS, AI, EMF and WMF.",
+        "id": "Grafis vektor: SVG, EPS, AI, EMF, dan WMF."
+      },
+      "order": 140,
+      "icon": "vector"
+    },
+    {
+      "id": "3d",
+      "name": { "en": "3D", "id": "3D" },
+      "description": {
+        "en": "3D models: OBJ, STL, FBX, glTF, GLB, PLY and more.",
+        "id": "Model 3D: OBJ, STL, FBX, glTF, GLB, PLY, dan lainnya."
+      },
+      "order": 150,
+      "icon": "cube"
+    },
+    {
+      "id": "cad",
+      "name": { "en": "CAD", "id": "CAD" },
+      "description": {
+        "en": "Engineering drawings and models: DXF, DWG, STEP and IGES.",
+        "id": "Gambar teknik dan model: DXF, DWG, STEP, dan IGES."
+      },
+      "order": 160,
+      "icon": "cad"
+    },
+    {
+      "id": "scientific",
+      "name": { "en": "Scientific", "id": "Ilmiah" },
+      "description": {
+        "en": "Scientific and medical data: FITS, HDF5, NetCDF, DICOM, NIfTI and more.",
+        "id": "Data ilmiah dan medis: FITS, HDF5, NetCDF, DICOM, NIfTI, dan lainnya."
+      },
+      "order": 170,
+      "icon": "science"
+    },
+    {
+      "id": "web",
+      "name": { "en": "Web", "id": "Web" },
+      "description": {
+        "en": "Web page and web asset formats.",
+        "id": "Format halaman web dan aset web."
+      },
+      "order": 180,
+      "icon": "web"
+    },
+    {
+      "id": "metadata",
+      "name": { "en": "Metadata", "id": "Metadata" },
+      "description": {
+        "en": "Standalone metadata files such as XMP sidecars.",
+        "id": "File metadata terpisah seperti sidecar XMP."
+      },
+      "order": 190,
+      "icon": "info"
+    },
+    {
+      "id": "specialized",
+      "name": { "en": "Specialized", "id": "Khusus" },
+      "description": {
+        "en": "Other specialized formats.",
+        "id": "Format khusus lainnya."
+      },
+      "order": 200,
+      "icon": "spark"
+    }
+  ]
+}

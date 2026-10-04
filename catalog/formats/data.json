@@ -1,0 +1,116 @@
+{
+  "$schema": "../schema/formats.schema.json",
+  "formats": [
+    {
+      "id": "json",
+      "label": "JSON",
+      "name": { "en": "JSON data", "id": "Data JSON" },
+      "description": {
+        "en": "JavaScript Object Notation, the standard data format for web APIs and configuration.",
+        "id": "JavaScript Object Notation, format data standar untuk API web dan konfigurasi."
+      },
+      "category": "data",
+      "alsoIn": ["developer"],
+      "extensions": ["json"],
+      "mimeTypes": ["application/json"],
+      "sniff": { "type": "json" },
+      "traits": ["text", "structured"],
+      "popularity": 92
+    },
+    {
+      "id": "xml",
+      "label": "XML",
+      "name": { "en": "XML data", "id": "Data XML" },
+      "description": {
+        "en": "Extensible Markup Language for structured documents and data exchange.",
+        "id": "Extensible Markup Language untuk dokumen terstruktur dan pertukaran data."
+      },
+      "category": "data",
+      "alsoIn": ["developer"],
+      "extensions": ["xml"],
+      "mimeTypes": ["application/xml", "text/xml"],
+      "sniff": { "type": "xml" },
+      "traits": ["text", "structured", "markup"],
+      "popularity": 65
+    },
+    {
+      "id": "yaml",
+      "label": "YAML",
+      "name": { "en": "YAML data", "id": "Data YAML" },
+      "description": {
+        "en": "Human-friendly data format used for configuration files such as Docker Compose and CI.",
+        "id": "Format data yang mudah dibaca manusia untuk file konfigurasi seperti Docker Compose dan CI."
+      },
+      "category": "data",
+      "alsoIn": ["developer"],
+      "extensions": ["yaml", "yml"],
+      "mimeTypes": ["application/yaml", "text/yaml", "application/x-yaml"],
+      "aliases": ["yml"],
+      "traits": ["text", "structured"],
+      "popularity": 55
+    },
+    {
+      "id": "toml",
+      "label": "TOML",
+      "name": { "en": "TOML data", "id": "Data TOML" },
+      "description": {
+        "en": "Minimal configuration format used by Rust, Python and many tools.",
+        "id": "Format konfigurasi minimalis yang dipakai Rust, Python, dan banyak tool."
+      },
+      "category": "data",
+      "alsoIn": ["developer"],
+      "extensions": ["toml"],
+      "mimeTypes": ["application/toml"],
+      "traits": ["text", "structured"],
+      "popularity": 20
+    },
+    {
+      "id": "ini",
+      "label": "INI",
+      "name": { "en": "INI configuration", "id": "Konfigurasi INI" },
+      "description": {
+        "en": "Simple key-value configuration file with optional sections.",
+        "id": "File konfigurasi key-value sederhana dengan bagian (section) opsional."
+      },
+      "category": "data",
+      "alsoIn": ["developer"],
+      "extensions": ["ini"],
+      "mimeTypes": ["text/plain"],
+      "traits": ["text", "structured"],
+      "popularity": 12
+    },
+    {
+      "id": "jsonl",
+      "label": "JSONL",
+      "name": { "en": "JSON Lines", "id": "JSON Lines" },
+      "description": {
+        "en": "One JSON value per line, common for logs and machine learning datasets.",
+        "id": "Satu nilai JSON per baris, umum untuk log dan dataset machine learning."
+      },
+      "category": "data",
+      "alsoIn": ["developer"],
+      "extensions": ["jsonl"],
+      "mimeTypes": ["application/jsonl"],
+      "aliases": ["jsonlines"],
+      "sniff": { "type": "ndjson" },
+      "traits": ["text", "structured"],
+      "popularity": 22
+    },
+    {
+      "id": "ndjson",
+      "label": "NDJSON",
+      "name": { "en": "Newline-delimited JSON", "id": "JSON dipisah baris baru" },
+      "description": {
+        "en": "Streaming-friendly JSON with one record per line.",
+        "id": "JSON ramah streaming dengan satu record per baris."
+      },
+      "category": "data",
+      "alsoIn": ["developer"],
+      "extensions": ["ndjson"],
+      "mimeTypes": ["application/x-ndjson"],
+      "sniff": { "type": "ndjson" },
+      "traits": ["text", "structured"],
+      "popularity": 15
+    }
+  ]
+}

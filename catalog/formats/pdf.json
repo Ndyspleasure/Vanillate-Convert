@@ -1,0 +1,20 @@
+{
+  "$schema": "../schema/formats.schema.json",
+  "formats": [
+    {
+      "id": "pdf",
+      "label": "PDF",
+      "name": { "en": "PDF document", "id": "Dokumen PDF" },
+      "description": {
+        "en": "Portable Document Format: fixed-layout documents that look the same on every device.",
+        "id": "Portable Document Format: dokumen dengan tata letak tetap yang tampil sama di semua perangkat."
+      },
+      "category": "pdf",
+      "extensions": ["pdf"],
+      "mimeTypes": ["application/pdf"],
+      "signatures": [[{ "ascii": "%PDF-", "within": 1024 }]],
+      "traits": ["layout", "multipage", "binary"],
+      "popularity": 100
+    }
+  ]
+}

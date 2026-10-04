@@ -1,0 +1,274 @@
+{
+  "$schema": "../schema/formats.schema.json",
+  "formats": [
+    {
+      "id": "mp3",
+      "label": "MP3",
+      "name": { "en": "MP3 audio", "id": "Audio MP3" },
+      "description": {
+        "en": "The most compatible audio format, playable on virtually every device.",
+        "id": "Format audio paling kompatibel, bisa diputar di hampir semua perangkat."
+      },
+      "category": "audio",
+      "extensions": ["mp3"],
+      "mimeTypes": ["audio/mpeg", "audio/mp3"],
+      "signatures": [[{ "ascii": "ID3" }], [{ "hex": "FFE2", "mask": "FFE6" }]],
+      "traits": ["audio", "lossy", "binary"],
+      "popularity": 100
+    },
+    {
+      "id": "wav",
+      "label": "WAV",
+      "name": { "en": "WAV audio", "id": "Audio WAV" },
+      "description": {
+        "en": "Uncompressed audio used for editing and production. Large files, no quality loss.",
+        "id": "Audio tanpa kompresi untuk editing dan produksi. File besar, tanpa penurunan kualitas."
+      },
+      "category": "audio",
+      "extensions": ["wav", "wave"],
+      "mimeTypes": ["audio/wav", "audio/x-wav", "audio/vnd.wave"],
+      "aliases": ["wave"],
+      "signatures": [[{ "ascii": "RIFF" }, { "offset": 8, "ascii": "WAVE" }]],
+      "traits": ["audio", "lossless", "binary"],
+      "popularity": 85
+    },
+    {
+      "id": "flac",
+      "label": "FLAC",
+      "name": { "en": "FLAC audio", "id": "Audio FLAC" },
+      "description": {
+        "en": "Free Lossless Audio Codec: CD-quality sound at about half the size of WAV.",
+        "id": "Free Lossless Audio Codec: suara kualitas CD dengan ukuran sekitar separuh WAV."
+      },
+      "category": "audio",
+      "extensions": ["flac"],
+      "mimeTypes": ["audio/flac", "audio/x-flac"],
+      "signatures": [[{ "ascii": "fLaC" }]],
+      "traits": ["audio", "lossless", "binary"],
+      "popularity": 65
+    },
+    {
+      "id": "aac",
+      "label": "AAC",
+      "name": { "en": "AAC audio", "id": "Audio AAC" },
+      "description": {
+        "en": "Advanced Audio Coding stream, the successor of MP3 used by YouTube and Apple.",
+        "id": "Stream Advanced Audio Coding, penerus MP3 yang dipakai YouTube dan Apple."
+      },
+      "category": "audio",
+      "extensions": ["aac", "adts"],
+      "mimeTypes": ["audio/aac", "audio/x-aac"],
+      "signatures": [[{ "hex": "FFF0", "mask": "FFF6" }]],
+      "traits": ["audio", "lossy", "binary"],
+      "popularity": 50
+    },
+    {
+      "id": "m4a",
+      "label": "M4A",
+      "name": { "en": "M4A audio", "id": "Audio M4A" },
+      "description": {
+        "en": "MPEG-4 audio file, usually AAC. Common on Apple devices and podcasts.",
+        "id": "File audio MPEG-4, biasanya AAC. Umum di perangkat Apple dan podcast."
+      },
+      "category": "audio",
+      "extensions": ["m4a", "m4b"],
+      "mimeTypes": ["audio/mp4", "audio/x-m4a"],
+      "aliases": ["m4b"],
+      "signatures": [
+        [{ "offset": 4, "ascii": "ftypM4A " }],
+        [{ "offset": 4, "ascii": "ftypM4B " }]
+      ],
+      "traits": ["audio", "lossy", "container", "binary"],
+      "popularity": 70
+    },
+    {
+      "id": "m4r",
+      "label": "M4R",
+      "name": { "en": "iPhone ringtone", "id": "Nada dering iPhone" },
+      "description": {
+        "en": "AAC audio in an MPEG-4 container used for iPhone ringtones (up to 40 seconds).",
+        "id": "Audio AAC dalam kontainer MPEG-4 untuk nada dering iPhone (maksimal 40 detik)."
+      },
+      "category": "audio",
+      "extensions": ["m4r"],
+      "mimeTypes": ["audio/x-m4r", "audio/mp4"],
+      "aliases": ["ringtone"],
+      "traits": ["audio", "lossy", "container", "binary"],
+      "popularity": 30
+    },
+    {
+      "id": "alac",
+      "label": "ALAC",
+      "name": { "en": "Apple Lossless audio", "id": "Audio Apple Lossless" },
+      "description": {
+        "en": "Apple's lossless codec stored in an .m4a file, supported natively by Apple Music.",
+        "id": "Codec lossless Apple yang disimpan dalam file .m4a, didukung langsung oleh Apple Music."
+      },
+      "category": "audio",
+      "extensions": ["m4a"],
+      "mimeTypes": ["audio/mp4"],
+      "traits": ["audio", "lossless", "container", "binary"],
+      "popularity": 15
+    },
+    {
+      "id": "ogg",
+      "label": "OGG",
+      "name": { "en": "Ogg Vorbis audio", "id": "Audio Ogg Vorbis" },
+      "description": {
+        "en": "Open, royalty-free audio format common in games and Linux software.",
+        "id": "Format audio terbuka dan bebas royalti, umum di game dan perangkat lunak Linux."
+      },
+      "category": "audio",
+      "extensions": ["ogg", "oga"],
+      "mimeTypes": ["audio/ogg", "audio/vorbis"],
+      "aliases": ["vorbis"],
+      "signatures": [
+        [{ "ascii": "OggS" }, { "offset": 28, "hex": "01766F72626973" }],
+        [{ "ascii": "OggS" }]
+      ],
+      "traits": ["audio", "lossy", "container", "binary"],
+      "popularity": 45
+    },
+    {
+      "id": "opus",
+      "label": "OPUS",
+      "name": { "en": "Opus audio", "id": "Audio Opus" },
+      "description": {
+        "en": "Modern open codec with excellent quality at low bitrates, used by WhatsApp voice notes.",
+        "id": "Codec terbuka modern dengan kualitas sangat baik di bitrate rendah, dipakai pesan suara WhatsApp."
+      },
+      "category": "audio",
+      "extensions": ["opus"],
+      "mimeTypes": ["audio/opus", "audio/ogg"],
+      "signatures": [[{ "ascii": "OggS" }, { "offset": 28, "ascii": "OpusHead" }]],
+      "traits": ["audio", "lossy", "binary"],
+      "popularity": 45
+    },
+    {
+      "id": "aiff",
+      "label": "AIFF",
+      "name": { "en": "AIFF audio", "id": "Audio AIFF" },
+      "description": {
+        "en": "Apple's uncompressed audio format, the Mac counterpart of WAV.",
+        "id": "Format audio tanpa kompresi milik Apple, padanan WAV di Mac."
+      },
+      "category": "audio",
+      "extensions": ["aiff", "aif", "aifc"],
+      "mimeTypes": ["audio/aiff", "audio/x-aiff"],
+      "aliases": ["aif"],
+      "signatures": [
+        [{ "ascii": "FORM" }, { "offset": 8, "ascii": "AIFF" }],
+        [{ "ascii": "FORM" }, { "offset": 8, "ascii": "AIFC" }]
+      ],
+      "traits": ["audio", "lossless", "binary"],
+      "popularity": 25
+    },
+    {
+      "id": "wma",
+      "label": "WMA",
+      "name": { "en": "Windows Media Audio", "id": "Windows Media Audio" },
+      "description": {
+        "en": "Microsoft's legacy audio format.",
+        "id": "Format audio lama milik Microsoft."
+      },
+      "category": "audio",
+      "extensions": ["wma"],
+      "mimeTypes": ["audio/x-ms-wma"],
+      "signatures": [[{ "hex": "3026B2758E66CF11A6D900AA0062CE6C" }]],
+      "traits": ["audio", "lossy", "container", "binary", "legacy", "proprietary"],
+      "popularity": 30
+    },
+    {
+      "id": "amr",
+      "label": "AMR",
+      "name": { "en": "AMR voice recording", "id": "Rekaman suara AMR" },
+      "description": {
+        "en": "Adaptive Multi-Rate speech codec used by older phones for voice recordings.",
+        "id": "Codec suara Adaptive Multi-Rate yang dipakai ponsel lama untuk rekaman suara."
+      },
+      "category": "audio",
+      "extensions": ["amr", "awb"],
+      "mimeTypes": ["audio/amr", "audio/amr-wb"],
+      "signatures": [[{ "ascii": "#!AMR\n" }], [{ "ascii": "#!AMR-WB\n" }]],
+      "traits": ["audio", "lossy", "binary", "legacy"],
+      "popularity": 20
+    },
+    {
+      "id": "ac3",
+      "label": "AC3",
+      "name": { "en": "Dolby Digital audio", "id": "Audio Dolby Digital" },
+      "description": {
+        "en": "Dolby Digital (AC-3) surround sound used on DVDs and broadcast.",
+        "id": "Suara surround Dolby Digital (AC-3) yang dipakai pada DVD dan siaran."
+      },
+      "category": "audio",
+      "extensions": ["ac3"],
+      "mimeTypes": ["audio/ac3"],
+      "aliases": ["dolby"],
+      "signatures": [[{ "hex": "0B77" }]],
+      "traits": ["audio", "lossy", "binary"],
+      "popularity": 12
+    },
+    {
+      "id": "dts",
+      "label": "DTS",
+      "name": { "en": "DTS audio", "id": "Audio DTS" },
+      "description": {
+        "en": "DTS surround sound used on DVDs and Blu-ray discs.",
+        "id": "Suara surround DTS yang dipakai pada DVD dan Blu-ray."
+      },
+      "category": "audio",
+      "extensions": ["dts"],
+      "mimeTypes": ["audio/vnd.dts"],
+      "signatures": [[{ "hex": "7FFE8001" }]],
+      "traits": ["audio", "lossy", "binary", "proprietary"],
+      "popularity": 5
+    },
+    {
+      "id": "ape",
+      "label": "APE",
+      "name": { "en": "Monkey's Audio", "id": "Monkey's Audio" },
+      "description": {
+        "en": "Lossless audio format with high compression.",
+        "id": "Format audio lossless dengan kompresi tinggi."
+      },
+      "category": "audio",
+      "extensions": ["ape"],
+      "mimeTypes": ["audio/ape", "audio/x-ape"],
+      "signatures": [[{ "ascii": "MAC " }]],
+      "traits": ["audio", "lossless", "binary"],
+      "popularity": 6
+    },
+    {
+      "id": "mka",
+      "label": "MKA",
+      "name": { "en": "Matroska audio", "id": "Audio Matroska" },
+      "description": {
+        "en": "Audio-only Matroska container that can hold almost any codec.",
+        "id": "Kontainer Matroska khusus audio yang bisa memuat hampir semua codec."
+      },
+      "category": "audio",
+      "extensions": ["mka"],
+      "mimeTypes": ["audio/x-matroska", "audio/matroska"],
+      "signatures": [[{ "hex": "1A45DFA3" }, { "offset": 4, "ascii": "matroska", "within": 60 }]],
+      "traits": ["audio", "container", "binary"],
+      "popularity": 8
+    },
+    {
+      "id": "mid",
+      "label": "MIDI",
+      "name": { "en": "MIDI sequence", "id": "Sekuens MIDI" },
+      "description": {
+        "en": "Musical instrument note data rather than recorded sound.",
+        "id": "Data not instrumen musik, bukan rekaman suara."
+      },
+      "category": "audio",
+      "extensions": ["mid", "midi"],
+      "mimeTypes": ["audio/midi", "audio/x-midi"],
+      "aliases": ["midi"],
+      "signatures": [[{ "ascii": "MThd" }]],
+      "traits": ["binary"],
+      "popularity": 20
+    }
+  ]
+}

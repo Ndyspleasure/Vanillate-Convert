@@ -1,0 +1,26 @@
+{
+  "$schema": "../schema/formats.schema.json",
+  "formats": [
+    {
+      "id": "html",
+      "label": "HTML",
+      "name": { "en": "HTML web page", "id": "Halaman web HTML" },
+      "description": {
+        "en": "HyperText Markup Language, the language of web pages.",
+        "id": "HyperText Markup Language, bahasa halaman web."
+      },
+      "category": "web",
+      "alsoIn": ["document"],
+      "extensions": ["html", "htm", "xhtml"],
+      "mimeTypes": ["text/html", "application/xhtml+xml"],
+      "aliases": ["htm", "xhtml"],
+      "sniff": {
+        "type": "text",
+        "pattern": "^\\uFEFF?\\s*(?:<!--[\\s\\S]*?-->\\s*)*<(?:!doctype\\s+html|html|head|body)\\b",
+        "flags": "i"
+      },
+      "traits": ["text", "markup", "richtext"],
+      "popularity": 72
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "./schema/popular.schema.json",
+  "conversions": [
+    ["jpg", "png"],
+    ["png", "jpg"],
+    ["heic", "jpg"],
+    ["pdf", "jpg"],
+    ["docx", "pdf"],
+    ["mp4", "mp3"],
+    ["png", "webp"],
+    ["webp", "jpg"],
+    ["jpg", "pdf"],
+    ["mov", "mp4"],
+    ["mkv", "mp4"],
+    ["csv", "json"],
+    ["json", "csv"],
+    ["srt", "vtt"],
+    ["xlsx", "pdf"],
+    ["pptx", "pdf"],
+    ["svg", "png"],
+    ["wav", "mp3"],
+    ["mp4", "gif"],
+    ["avif", "jpg"]
+  ],
+  "tools": [
+    "pdf-compressor",
+    "pdf-merger",
+    "images-to-pdf",
+    "image-compressor",
+    "video-compressor",
+    "json-formatter"
+  ]
+}

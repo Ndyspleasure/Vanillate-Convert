@@ -1,0 +1,78 @@
+{
+  "$schema": "../schema/rules.schema.json",
+  "rules": [
+    {
+      "id": "vector.rsvg.svg",
+      "description": "Render SVG with librsvg on the server.",
+      "mode": "server",
+      "steps": ["rsvg"],
+      "from": { "formats": ["svg"] },
+      "to": { "formats": ["png", "pdf", "eps", "ps"] },
+      "status": "stable",
+      "priority": 50,
+      "metadata": "unsupported",
+      "options": ["width", "height"],
+      "limitations": ["external-resources-ignored"],
+      "overrides": [{ "to": ["eps", "ps"], "status": "supported" }]
+    },
+    {
+      "id": "vector.ghostscript.postscript",
+      "description": "PostScript, EPS and Illustrator files with Ghostscript.",
+      "mode": "server",
+      "steps": ["ghostscript"],
+      "from": { "formats": ["ps", "eps", "ai"] },
+      "to": { "formats": ["pdf", "png", "jpg", "tiff"] },
+      "status": "stable",
+      "priority": 50,
+      "metadata": "unsupported",
+      "overrides": [
+        { "to": ["png", "jpg", "tiff"], "options": ["dpi"], "cardinality": "1:n" },
+        { "to": "jpg", "addOptions": ["quality"] },
+        { "from": "ai", "status": "limited" }
+      ]
+    },
+    {
+      "id": "vector.libreoffice.draw",
+      "description": "Windows metafiles, CorelDRAW and DXF drawings with LibreOffice Draw.",
+      "mode": "server",
+      "steps": ["libreoffice"],
+      "from": { "formats": ["emf", "wmf", "cdr", "dxf"] },
+      "to": { "formats": ["pdf", "svg", "png"] },
+      "status": "supported",
+      "priority": 50,
+      "metadata": "unsupported",
+      "overrides": [{ "from": ["cdr", "dxf"], "status": "experimental" }]
+    },
+    {
+      "id": "font.fonttools.wrap",
+      "description": "Re-wrap fonts between TrueType/OpenType and WOFF/WOFF2 with fontTools (outlines unchanged).",
+      "mode": "server",
+      "steps": ["fonttools"],
+      "from": { "formats": ["ttf", "otf", "woff", "woff2"] },
+      "to": { "formats": ["ttf", "otf", "woff", "woff2"] },
+      "status": "stable",
+      "priority": 50,
+      "metadata": "preserve",
+      "exclude": [
+        { "from": "ttf", "to": "otf" },
+        { "from": "otf", "to": "ttf" }
+      ],
+      "overrides": [
+        { "from": ["woff", "woff2"], "to": ["ttf", "otf"], "limitations": ["font-flavor"] }
+      ]
+    },
+    {
+      "id": "3d.assimp.mesh",
+      "description": "3D model conversion with the Open Asset Import Library.",
+      "mode": "server",
+      "steps": ["assimp"],
+      "from": { "categories": ["3d"] },
+      "to": { "formats": ["obj", "stl", "glb", "dae", "ply", "3ds", "fbx"] },
+      "status": "experimental",
+      "priority": 50,
+      "metadata": "unsupported",
+      "limitations": ["mesh-only"],
+      "overrides": [{ "to": "obj", "cardinality": "1:n" }]
+    }
+  ]
+}

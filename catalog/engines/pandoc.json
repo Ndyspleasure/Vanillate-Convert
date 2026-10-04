@@ -1,0 +1,19 @@
+{
+  "$schema": "../schema/engine.schema.json",
+  "engine": {
+    "id": "pandoc",
+    "name": "Pandoc",
+    "mode": "server",
+    "status": "available",
+    "description": "Universal markup converter for Markdown, HTML, DOCX, ODT, EPUB, LaTeX, reStructuredText and more. Always run with --sandbox.",
+    "homepage": "https://pandoc.org",
+    "license": "GPL-2.0-or-later",
+    "licenseNotes": "Used as a separate executable; distributing container images requires GPL source availability.",
+    "binaries": ["pandoc"],
+    "pool": "document",
+    "capabilities": {
+      "read": ["md", "html", "docx", "odt", "epub", "rst", "tex", "org", "fb2"],
+      "write": ["md", "html", "docx", "odt", "epub", "rst", "tex", "org", "txt", "fb2", "rtf"]
+    }
+  }
+}

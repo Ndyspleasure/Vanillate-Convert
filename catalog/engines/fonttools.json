@@ -1,0 +1,19 @@
+{
+  "$schema": "../schema/engine.schema.json",
+  "engine": {
+    "id": "fonttools",
+    "name": "fontTools",
+    "mode": "server",
+    "status": "available",
+    "description": "Python font library used to re-wrap fonts between TrueType/OpenType and WOFF/WOFF2 without changing outlines.",
+    "homepage": "https://github.com/fonttools/fonttools",
+    "license": "MIT",
+    "licenseNotes": "Requires Python 3 with fontTools and brotli. Converting a font does not change its license; users are responsible for font licensing.",
+    "binaries": ["python3"],
+    "pool": "specialized",
+    "capabilities": {
+      "read": ["ttf", "otf", "woff", "woff2"],
+      "write": ["ttf", "otf", "woff", "woff2"]
+    }
+  }
+}

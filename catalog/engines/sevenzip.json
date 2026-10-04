@@ -1,0 +1,46 @@
+{
+  "$schema": "../schema/engine.schema.json",
+  "engine": {
+    "id": "sevenzip",
+    "name": "7-Zip",
+    "mode": "server",
+    "status": "available",
+    "description": "Archive listing, extraction and creation. Entries are inspected before extraction (count, size, ratio, paths, links).",
+    "homepage": "https://www.7-zip.org",
+    "license": "LGPL-2.1 with unRAR restriction",
+    "licenseNotes": "The unRAR code may be used to extract RAR archives but not to create a RAR-compatible compressor.",
+    "binaries": ["7zz", "7z"],
+    "pool": "archive",
+    "capabilities": {
+      "read": [
+        "zip",
+        "7z",
+        "rar",
+        "tar",
+        "tgz",
+        "tbz2",
+        "txz",
+        "iso",
+        "wim",
+        "cab",
+        "arj",
+        "lzh",
+        "cpio",
+        "rpm",
+        "deb",
+        "dmg",
+        "vhd",
+        "vhdx",
+        "vmdk",
+        "qcow2",
+        "cbz",
+        "cbr",
+        "gz",
+        "bz2",
+        "xz",
+        "lzma"
+      ],
+      "write": ["zip", "7z", "tar", "tgz", "tbz2", "txz", "cbz"]
+    }
+  }
+}

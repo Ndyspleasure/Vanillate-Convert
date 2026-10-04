@@ -1,0 +1,111 @@
+{
+  "$schema": "../schema/formats.schema.json",
+  "formats": [
+    {
+      "id": "ttf",
+      "label": "TTF",
+      "name": { "en": "TrueType font", "id": "Font TrueType" },
+      "description": {
+        "en": "Classic outline font format supported by every operating system.",
+        "id": "Format font outline klasik yang didukung semua sistem operasi."
+      },
+      "category": "font",
+      "extensions": ["ttf"],
+      "mimeTypes": ["font/ttf", "application/x-font-ttf"],
+      "aliases": ["truetype"],
+      "signatures": [[{ "hex": "00010000" }], [{ "ascii": "true" }]],
+      "traits": ["font", "binary"],
+      "popularity": 50
+    },
+    {
+      "id": "otf",
+      "label": "OTF",
+      "name": { "en": "OpenType font", "id": "Font OpenType" },
+      "description": {
+        "en": "OpenType font with PostScript (CFF) outlines.",
+        "id": "Font OpenType dengan outline PostScript (CFF)."
+      },
+      "category": "font",
+      "extensions": ["otf"],
+      "mimeTypes": ["font/otf", "application/x-font-opentype"],
+      "aliases": ["opentype"],
+      "signatures": [[{ "ascii": "OTTO" }]],
+      "traits": ["font", "binary"],
+      "popularity": 40
+    },
+    {
+      "id": "woff",
+      "label": "WOFF",
+      "name": { "en": "Web Open Font Format", "id": "Web Open Font Format" },
+      "description": {
+        "en": "Compressed font format for websites.",
+        "id": "Format font terkompresi untuk situs web."
+      },
+      "category": "font",
+      "extensions": ["woff"],
+      "mimeTypes": ["font/woff"],
+      "signatures": [[{ "ascii": "wOFF" }]],
+      "traits": ["font", "compressed", "binary"],
+      "popularity": 35
+    },
+    {
+      "id": "woff2",
+      "label": "WOFF2",
+      "name": { "en": "Web Open Font Format 2", "id": "Web Open Font Format 2" },
+      "description": {
+        "en": "Brotli-compressed web font, about 30% smaller than WOFF.",
+        "id": "Font web terkompresi Brotli, sekitar 30% lebih kecil dari WOFF."
+      },
+      "category": "font",
+      "extensions": ["woff2"],
+      "mimeTypes": ["font/woff2"],
+      "signatures": [[{ "ascii": "wOF2" }]],
+      "traits": ["font", "compressed", "binary"],
+      "popularity": 38
+    },
+    {
+      "id": "eot",
+      "label": "EOT",
+      "name": { "en": "Embedded OpenType", "id": "Embedded OpenType" },
+      "description": {
+        "en": "Legacy web font format for old Internet Explorer versions.",
+        "id": "Format font web lama untuk Internet Explorer versi lama."
+      },
+      "category": "font",
+      "extensions": ["eot"],
+      "mimeTypes": ["application/vnd.ms-fontobject"],
+      "signatures": [[{ "offset": 34, "hex": "504C" }]],
+      "traits": ["font", "binary", "legacy", "proprietary"],
+      "popularity": 8
+    },
+    {
+      "id": "ttc",
+      "label": "TTC",
+      "name": { "en": "TrueType collection", "id": "Koleksi TrueType" },
+      "description": {
+        "en": "Several fonts bundled in one file.",
+        "id": "Beberapa font yang digabung dalam satu file."
+      },
+      "category": "font",
+      "extensions": ["ttc", "otc"],
+      "mimeTypes": ["font/collection"],
+      "signatures": [[{ "ascii": "ttcf" }]],
+      "traits": ["font", "binary"],
+      "popularity": 5
+    },
+    {
+      "id": "dfont",
+      "label": "DFONT",
+      "name": { "en": "Mac data-fork font", "id": "Font data-fork Mac" },
+      "description": {
+        "en": "Legacy macOS font suitcase stored in the data fork.",
+        "id": "Koper font macOS lama yang disimpan di data fork."
+      },
+      "category": "font",
+      "extensions": ["dfont"],
+      "mimeTypes": ["application/x-dfont"],
+      "traits": ["font", "binary", "legacy", "proprietary"],
+      "popularity": 2
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "../schema/formats.schema.json",
+  "formats": [
+    {
+      "id": "sql",
+      "label": "SQL",
+      "name": { "en": "SQL script", "id": "Skrip SQL" },
+      "description": {
+        "en": "Database statements such as CREATE TABLE and INSERT.",
+        "id": "Perintah database seperti CREATE TABLE dan INSERT."
+      },
+      "category": "developer",
+      "alsoIn": ["data"],
+      "extensions": ["sql"],
+      "mimeTypes": ["application/sql"],
+      "sniff": {
+        "type": "text",
+        "pattern": "^\\s*(?:--[^\\n]*\\n\\s*)*(?:CREATE|INSERT|SELECT|DROP|ALTER|BEGIN|SET|USE|WITH)\\b",
+        "flags": "i"
+      },
+      "traits": ["text"],
+      "popularity": 30
+    },
+    {
+      "id": "base64",
+      "label": "Base64",
+      "name": { "en": "Base64 text", "id": "Teks Base64" },
+      "description": {
+        "en": "Binary data encoded as plain ASCII text, used in emails, data URIs and APIs.",
+        "id": "Data biner yang di-encode menjadi teks ASCII, dipakai di email, data URI, dan API."
+      },
+      "category": "developer",
+      "extensions": ["b64", "base64"],
+      "mimeTypes": ["text/plain"],
+      "aliases": ["b64"],
+      "traits": ["text"],
+      "popularity": 25
+    }
+  ]
+}

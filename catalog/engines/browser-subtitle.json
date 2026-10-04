@@ -1,0 +1,16 @@
+{
+  "$schema": "../schema/engine.schema.json",
+  "engine": {
+    "id": "browser-subtitle",
+    "name": "Browser subtitle engine",
+    "mode": "browser",
+    "status": "available",
+    "description": "Parses subtitle files into a cue list (start, end, text) and writes the target subtitle format.",
+    "homepage": "https://github.com/Ndyspleasure/Vanillate-Convert",
+    "license": "Project code",
+    "capabilities": {
+      "read": ["srt", "vtt", "sbv", "ass", "ssa", "sub", "ttml", "dfxp"],
+      "write": ["srt", "vtt", "sbv", "ass", "sub", "ttml", "dfxp", "txt"]
+    }
+  }
+}

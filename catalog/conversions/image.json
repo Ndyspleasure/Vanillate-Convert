@@ -1,0 +1,108 @@
+{
+  "$schema": "../schema/rules.schema.json",
+  "rules": [
+    {
+      "id": "image.browser.raster",
+      "description": "Raster image conversion in the browser: native decoders, canvas and TypeScript encoders.",
+      "mode": "browser",
+      "steps": ["browser-image"],
+      "from": { "formats": ["jpg", "png", "webp", "gif", "bmp", "ico", "avif"] },
+      "to": { "formats": ["jpg", "png", "webp", "bmp", "ico", "tiff"] },
+      "status": "stable",
+      "priority": 10,
+      "metadata": "strip",
+      "options": ["width", "height"],
+      "limitations": ["color-srgb"],
+      "overrides": [
+        { "to": "jpg", "addOptions": ["quality", "background"] },
+        { "to": "webp", "addOptions": ["quality", "lossless"] },
+        { "to": "ico", "limitations": ["icon-size"] },
+        { "to": "tiff", "status": "supported" },
+        { "from": "avif", "status": "supported" }
+      ]
+    },
+    {
+      "id": "image.browser.svg",
+      "description": "SVG rasterization in the browser (main thread, no external resources).",
+      "mode": "browser",
+      "steps": ["browser-image"],
+      "from": { "formats": ["svg"] },
+      "to": { "formats": ["png", "jpg", "webp"] },
+      "status": "stable",
+      "priority": 10,
+      "metadata": "unsupported",
+      "options": ["width", "height"],
+      "limitations": ["external-resources-ignored"],
+      "overrides": [
+        { "to": "jpg", "addOptions": ["quality", "background"] },
+        { "to": "webp", "addOptions": ["quality"] }
+      ]
+    },
+    {
+      "id": "image.browser.pdf",
+      "description": "Images to a single PDF in the browser; each image becomes a page.",
+      "mode": "browser",
+      "steps": ["browser-image"],
+      "from": { "formats": ["jpg", "png", "webp", "gif", "bmp", "avif"] },
+      "to": { "formats": ["pdf"] },
+      "status": "stable",
+      "priority": 10,
+      "cardinality": "n:1",
+      "batch": "order-sensitive",
+      "metadata": "strip",
+      "options": ["pageSize", "pageOrientation", "margin"],
+      "limitations": ["page-size-from-image"],
+      "overrides": [{ "from": "avif", "status": "supported" }]
+    },
+    {
+      "id": "image.imagemagick.raster",
+      "description": "Server-side raster conversion with ImageMagick. Orientation is applied, EXIF/GPS removed, ICC profile kept.",
+      "mode": "server",
+      "steps": ["imagemagick"],
+      "from": { "categories": ["image", "scientific"] },
+      "to": { "formats": ["jpg", "png", "webp", "gif", "bmp", "tiff", "ico", "jp2", "tga", "dds"] },
+      "status": "stable",
+      "priority": 50,
+      "metadata": "strip",
+      "options": ["width", "height"],
+      "overrides": [
+        { "to": "jpg", "addOptions": ["quality", "background"] },
+        { "to": "webp", "addOptions": ["quality", "lossless"] },
+        { "to": "jp2", "addOptions": ["quality"] },
+        { "to": "ico", "limitations": ["icon-size"] },
+        { "to": ["dds", "tga", "jp2"], "status": "supported" },
+        { "from": ["psd", "psb", "xcf"], "limitations": ["layers-flattened"] },
+        {
+          "from": ["dng", "cr2", "cr3", "nef", "arw", "orf", "rw2", "raf", "pef", "srw"],
+          "status": "experimental",
+          "limitations": ["raw-processed"]
+        },
+        { "from": ["dicom", "fits"], "status": "experimental" },
+        { "from": ["dds", "tga", "jp2", "hdr", "psb"], "status": "supported" }
+      ]
+    },
+    {
+      "id": "image.imagemagick.pdf",
+      "description": "Images to a single PDF on the server; each image becomes a page.",
+      "mode": "server",
+      "steps": ["imagemagick"],
+      "from": { "categories": ["image"] },
+      "to": { "formats": ["pdf"] },
+      "status": "stable",
+      "priority": 50,
+      "cardinality": "n:1",
+      "batch": "order-sensitive",
+      "metadata": "strip",
+      "limitations": ["page-size-from-image"],
+      "overrides": [
+        { "from": ["psd", "psb", "xcf"], "limitations": ["layers-flattened"] },
+        {
+          "from": ["dng", "cr2", "cr3", "nef", "arw", "orf", "rw2", "raf", "pef", "srw"],
+          "status": "experimental",
+          "limitations": ["raw-processed"]
+        },
+        { "from": ["dds", "tga", "jp2", "hdr", "psb"], "status": "supported" }
+      ]
+    }
+  ]
+}

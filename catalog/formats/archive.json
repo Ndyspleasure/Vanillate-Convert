@@ -1,0 +1,686 @@
+{
+  "$schema": "../schema/formats.schema.json",
+  "formats": [
+    {
+      "id": "zip",
+      "label": "ZIP",
+      "name": {
+        "en": "ZIP archive",
+        "id": "Arsip ZIP"
+      },
+      "description": {
+        "en": "The most common archive format, built into Windows, macOS and Android.",
+        "id": "Format arsip paling umum, didukung langsung oleh Windows, macOS, dan Android."
+      },
+      "category": "archive",
+      "extensions": ["zip"],
+      "mimeTypes": ["application/zip", "application/x-zip-compressed"],
+      "signatures": [
+        [
+          {
+            "hex": "504B0304"
+          }
+        ],
+        [
+          {
+            "hex": "504B0506"
+          }
+        ],
+        [
+          {
+            "hex": "504B0708"
+          }
+        ]
+      ],
+      "traits": ["archive", "compressed", "binary"],
+      "popularity": 95
+    },
+    {
+      "id": "7z",
+      "label": "7Z",
+      "name": {
+        "en": "7-Zip archive",
+        "id": "Arsip 7-Zip"
+      },
+      "description": {
+        "en": "High-compression open archive format from 7-Zip.",
+        "id": "Format arsip terbuka dengan kompresi tinggi dari 7-Zip."
+      },
+      "category": "archive",
+      "extensions": ["7z"],
+      "mimeTypes": ["application/x-7z-compressed"],
+      "aliases": ["7zip", "sevenzip"],
+      "signatures": [
+        [
+          {
+            "hex": "377ABCAF271C"
+          }
+        ]
+      ],
+      "traits": ["archive", "compressed", "binary"],
+      "popularity": 65
+    },
+    {
+      "id": "rar",
+      "label": "RAR",
+      "name": {
+        "en": "RAR archive",
+        "id": "Arsip RAR"
+      },
+      "description": {
+        "en": "Proprietary archive format from WinRAR. Can be extracted, not created.",
+        "id": "Format arsip proprietary dari WinRAR. Bisa diekstrak, tetapi tidak bisa dibuat."
+      },
+      "category": "archive",
+      "extensions": ["rar"],
+      "mimeTypes": ["application/vnd.rar", "application/x-rar-compressed"],
+      "aliases": ["winrar"],
+      "signatures": [
+        [
+          {
+            "hex": "526172211A0700"
+          }
+        ],
+        [
+          {
+            "hex": "526172211A070100"
+          }
+        ]
+      ],
+      "traits": ["archive", "compressed", "binary", "proprietary"],
+      "popularity": 75
+    },
+    {
+      "id": "tar",
+      "label": "TAR",
+      "name": {
+        "en": "Tape archive",
+        "id": "Arsip tape (TAR)"
+      },
+      "description": {
+        "en": "Unix archive that bundles files without compression.",
+        "id": "Arsip Unix yang menggabungkan file tanpa kompresi."
+      },
+      "category": "archive",
+      "extensions": ["tar"],
+      "mimeTypes": ["application/x-tar"],
+      "signatures": [
+        [
+          {
+            "offset": 257,
+            "ascii": "ustar"
+          }
+        ]
+      ],
+      "traits": ["archive", "binary"],
+      "popularity": 40
+    },
+    {
+      "id": "tgz",
+      "label": "TAR.GZ",
+      "name": {
+        "en": "Gzipped tarball",
+        "id": "Tarball gzip"
+      },
+      "description": {
+        "en": "TAR archive compressed with gzip, standard for Linux software and backups.",
+        "id": "Arsip TAR yang dikompres gzip, standar untuk perangkat lunak dan backup Linux."
+      },
+      "category": "archive",
+      "extensions": ["tar.gz", "tgz"],
+      "mimeTypes": ["application/gzip", "application/x-gtar"],
+      "aliases": ["targz"],
+      "signatures": [
+        [
+          {
+            "hex": "1F8B08"
+          }
+        ]
+      ],
+      "traits": ["archive", "compressed", "binary"],
+      "popularity": 40,
+      "sniff": {
+        "type": "tar-in",
+        "compression": "gzip"
+      }
+    },
+    {
+      "id": "gz",
+      "label": "GZ",
+      "name": {
+        "en": "Gzip file",
+        "id": "File gzip"
+      },
+      "description": {
+        "en": "Single file compressed with gzip.",
+        "id": "Satu file yang dikompres dengan gzip."
+      },
+      "category": "archive",
+      "extensions": ["gz", "gzip"],
+      "mimeTypes": ["application/gzip", "application/x-gzip"],
+      "aliases": ["gzip"],
+      "signatures": [
+        [
+          {
+            "hex": "1F8B08"
+          }
+        ]
+      ],
+      "traits": ["compressed", "binary"],
+      "popularity": 42
+    },
+    {
+      "id": "tbz2",
+      "label": "TAR.BZ2",
+      "name": {
+        "en": "Bzip2 tarball",
+        "id": "Tarball bzip2"
+      },
+      "description": {
+        "en": "TAR archive compressed with bzip2.",
+        "id": "Arsip TAR yang dikompres bzip2."
+      },
+      "category": "archive",
+      "extensions": ["tar.bz2", "tbz2", "tbz"],
+      "mimeTypes": ["application/x-bzip2", "application/x-gtar"],
+      "signatures": [
+        [
+          {
+            "ascii": "BZh"
+          }
+        ]
+      ],
+      "traits": ["archive", "compressed", "binary"],
+      "popularity": 10
+    },
+    {
+      "id": "bz2",
+      "label": "BZ2",
+      "name": {
+        "en": "Bzip2 file",
+        "id": "File bzip2"
+      },
+      "description": {
+        "en": "Single file compressed with bzip2.",
+        "id": "Satu file yang dikompres dengan bzip2."
+      },
+      "category": "archive",
+      "extensions": ["bz2", "bzip2"],
+      "mimeTypes": ["application/x-bzip2"],
+      "aliases": ["bzip2"],
+      "signatures": [
+        [
+          {
+            "ascii": "BZh"
+          }
+        ]
+      ],
+      "traits": ["compressed", "binary"],
+      "popularity": 12
+    },
+    {
+      "id": "txz",
+      "label": "TAR.XZ",
+      "name": {
+        "en": "XZ tarball",
+        "id": "Tarball XZ"
+      },
+      "description": {
+        "en": "TAR archive compressed with XZ (LZMA2).",
+        "id": "Arsip TAR yang dikompres XZ (LZMA2)."
+      },
+      "category": "archive",
+      "extensions": ["tar.xz", "txz"],
+      "mimeTypes": ["application/x-xz", "application/x-gtar"],
+      "signatures": [
+        [
+          {
+            "hex": "FD377A585A00"
+          }
+        ]
+      ],
+      "traits": ["archive", "compressed", "binary"],
+      "popularity": 10
+    },
+    {
+      "id": "xz",
+      "label": "XZ",
+      "name": {
+        "en": "XZ file",
+        "id": "File XZ"
+      },
+      "description": {
+        "en": "Single file compressed with XZ (LZMA2).",
+        "id": "Satu file yang dikompres dengan XZ (LZMA2)."
+      },
+      "category": "archive",
+      "extensions": ["xz"],
+      "mimeTypes": ["application/x-xz"],
+      "signatures": [
+        [
+          {
+            "hex": "FD377A585A00"
+          }
+        ]
+      ],
+      "traits": ["compressed", "binary"],
+      "popularity": 12
+    },
+    {
+      "id": "zst",
+      "label": "ZST",
+      "name": {
+        "en": "Zstandard file",
+        "id": "File Zstandard"
+      },
+      "description": {
+        "en": "Single file compressed with Zstandard, a fast modern compressor.",
+        "id": "Satu file yang dikompres dengan Zstandard, kompresor modern yang cepat."
+      },
+      "category": "archive",
+      "extensions": ["zst", "zstd"],
+      "mimeTypes": ["application/zstd"],
+      "aliases": ["zstd", "zstandard"],
+      "signatures": [
+        [
+          {
+            "hex": "28B52FFD"
+          }
+        ]
+      ],
+      "traits": ["compressed", "binary"],
+      "popularity": 12
+    },
+    {
+      "id": "lz",
+      "label": "LZ",
+      "name": {
+        "en": "Lzip file",
+        "id": "File Lzip"
+      },
+      "description": {
+        "en": "Single file compressed with lzip.",
+        "id": "Satu file yang dikompres dengan lzip."
+      },
+      "category": "archive",
+      "extensions": ["lz"],
+      "mimeTypes": ["application/x-lzip"],
+      "aliases": ["lzip"],
+      "signatures": [
+        [
+          {
+            "ascii": "LZIP"
+          }
+        ]
+      ],
+      "traits": ["compressed", "binary"],
+      "popularity": 2
+    },
+    {
+      "id": "lzma",
+      "label": "LZMA",
+      "name": {
+        "en": "LZMA file",
+        "id": "File LZMA"
+      },
+      "description": {
+        "en": "Single file compressed with the legacy LZMA format.",
+        "id": "Satu file yang dikompres dengan format LZMA lama."
+      },
+      "category": "archive",
+      "extensions": ["lzma"],
+      "mimeTypes": ["application/x-lzma"],
+      "traits": ["compressed", "binary", "legacy"],
+      "popularity": 2
+    },
+    {
+      "id": "iso",
+      "label": "ISO",
+      "name": {
+        "en": "ISO disc image",
+        "id": "Image disk ISO"
+      },
+      "description": {
+        "en": "Image of a CD, DVD or Blu-ray file system.",
+        "id": "Image dari sistem file CD, DVD, atau Blu-ray."
+      },
+      "category": "archive",
+      "extensions": ["iso"],
+      "mimeTypes": ["application/x-iso9660-image", "application/vnd.efi.iso"],
+      "signatures": [
+        [
+          {
+            "offset": 32769,
+            "ascii": "CD001"
+          }
+        ],
+        [
+          {
+            "offset": 34817,
+            "ascii": "CD001"
+          }
+        ],
+        [
+          {
+            "offset": 36865,
+            "ascii": "CD001"
+          }
+        ]
+      ],
+      "traits": ["archive", "diskimage", "binary"],
+      "popularity": 30
+    },
+    {
+      "id": "wim",
+      "label": "WIM",
+      "name": {
+        "en": "Windows Imaging file",
+        "id": "File Windows Imaging"
+      },
+      "description": {
+        "en": "Microsoft's file-based disk image used by Windows installers.",
+        "id": "Image disk berbasis file milik Microsoft yang dipakai installer Windows."
+      },
+      "category": "archive",
+      "extensions": ["wim", "swm", "esd"],
+      "mimeTypes": ["application/x-ms-wim"],
+      "signatures": [
+        [
+          {
+            "hex": "4D5357494D000000"
+          }
+        ]
+      ],
+      "traits": ["archive", "diskimage", "compressed", "binary", "proprietary"],
+      "popularity": 3
+    },
+    {
+      "id": "cab",
+      "label": "CAB",
+      "name": {
+        "en": "Windows cabinet",
+        "id": "Cabinet Windows"
+      },
+      "description": {
+        "en": "Microsoft cabinet archive used by Windows installers and updates.",
+        "id": "Arsip cabinet Microsoft yang dipakai installer dan pembaruan Windows."
+      },
+      "category": "archive",
+      "extensions": ["cab"],
+      "mimeTypes": ["application/vnd.ms-cab-compressed"],
+      "signatures": [
+        [
+          {
+            "ascii": "MSCF"
+          }
+        ]
+      ],
+      "traits": ["archive", "compressed", "binary", "proprietary"],
+      "popularity": 5
+    },
+    {
+      "id": "arj",
+      "label": "ARJ",
+      "name": {
+        "en": "ARJ archive",
+        "id": "Arsip ARJ"
+      },
+      "description": {
+        "en": "Legacy DOS-era archive format.",
+        "id": "Format arsip lama dari era DOS."
+      },
+      "category": "archive",
+      "extensions": ["arj"],
+      "mimeTypes": ["application/x-arj"],
+      "signatures": [
+        [
+          {
+            "hex": "60EA"
+          }
+        ]
+      ],
+      "traits": ["archive", "compressed", "binary", "legacy"],
+      "popularity": 2
+    },
+    {
+      "id": "lzh",
+      "label": "LZH",
+      "name": {
+        "en": "LHA archive",
+        "id": "Arsip LHA"
+      },
+      "description": {
+        "en": "Legacy LHA/LZH archive, once common in Japan.",
+        "id": "Arsip LHA/LZH lama yang dulu umum di Jepang."
+      },
+      "category": "archive",
+      "extensions": ["lzh", "lha"],
+      "mimeTypes": ["application/x-lzh-compressed"],
+      "aliases": ["lha"],
+      "signatures": [
+        [
+          {
+            "offset": 2,
+            "ascii": "-lh"
+          }
+        ]
+      ],
+      "traits": ["archive", "compressed", "binary", "legacy"],
+      "popularity": 2
+    },
+    {
+      "id": "cpio",
+      "label": "CPIO",
+      "name": {
+        "en": "CPIO archive",
+        "id": "Arsip CPIO"
+      },
+      "description": {
+        "en": "Unix archive format used inside RPM packages and initramfs images.",
+        "id": "Format arsip Unix yang dipakai di dalam paket RPM dan image initramfs."
+      },
+      "category": "archive",
+      "extensions": ["cpio"],
+      "mimeTypes": ["application/x-cpio"],
+      "signatures": [
+        [
+          {
+            "ascii": "070701"
+          }
+        ],
+        [
+          {
+            "ascii": "070702"
+          }
+        ],
+        [
+          {
+            "ascii": "070707"
+          }
+        ]
+      ],
+      "traits": ["archive", "binary"],
+      "popularity": 2
+    },
+    {
+      "id": "rpm",
+      "label": "RPM",
+      "name": {
+        "en": "RPM package",
+        "id": "Paket RPM"
+      },
+      "description": {
+        "en": "Software package for Red Hat, Fedora and SUSE Linux.",
+        "id": "Paket perangkat lunak untuk Red Hat, Fedora, dan SUSE Linux."
+      },
+      "category": "archive",
+      "extensions": ["rpm"],
+      "mimeTypes": ["application/x-rpm"],
+      "signatures": [
+        [
+          {
+            "hex": "EDABEEDB"
+          }
+        ]
+      ],
+      "traits": ["archive", "compressed", "binary"],
+      "popularity": 4
+    },
+    {
+      "id": "deb",
+      "label": "DEB",
+      "name": {
+        "en": "Debian package",
+        "id": "Paket Debian"
+      },
+      "description": {
+        "en": "Software package for Debian and Ubuntu Linux.",
+        "id": "Paket perangkat lunak untuk Debian dan Ubuntu Linux."
+      },
+      "category": "archive",
+      "extensions": ["deb", "udeb"],
+      "mimeTypes": ["application/vnd.debian.binary-package"],
+      "signatures": [
+        [
+          {
+            "ascii": "!<arch>\ndebian"
+          }
+        ]
+      ],
+      "traits": ["archive", "compressed", "binary"],
+      "popularity": 4
+    },
+    {
+      "id": "dmg",
+      "label": "DMG",
+      "name": {
+        "en": "Apple disk image",
+        "id": "Image disk Apple"
+      },
+      "description": {
+        "en": "macOS disk image used to distribute Mac applications.",
+        "id": "Image disk macOS untuk mendistribusikan aplikasi Mac."
+      },
+      "category": "archive",
+      "extensions": ["dmg"],
+      "mimeTypes": ["application/x-apple-diskimage"],
+      "signatures": [
+        [
+          {
+            "offset": -512,
+            "ascii": "koly"
+          }
+        ]
+      ],
+      "traits": ["archive", "diskimage", "binary", "proprietary"],
+      "popularity": 10
+    },
+    {
+      "id": "vhd",
+      "label": "VHD",
+      "name": {
+        "en": "Virtual hard disk",
+        "id": "Virtual hard disk"
+      },
+      "description": {
+        "en": "Virtual PC / Hyper-V disk image.",
+        "id": "Image disk Virtual PC / Hyper-V."
+      },
+      "category": "archive",
+      "extensions": ["vhd"],
+      "mimeTypes": ["application/x-vhd"],
+      "signatures": [
+        [
+          {
+            "ascii": "conectix"
+          }
+        ],
+        [
+          {
+            "offset": -512,
+            "ascii": "conectix"
+          }
+        ]
+      ],
+      "traits": ["archive", "diskimage", "binary"],
+      "popularity": 2
+    },
+    {
+      "id": "vhdx",
+      "label": "VHDX",
+      "name": {
+        "en": "Hyper-V virtual disk",
+        "id": "Virtual disk Hyper-V"
+      },
+      "description": {
+        "en": "Hyper-V's newer virtual disk format.",
+        "id": "Format virtual disk Hyper-V yang lebih baru."
+      },
+      "category": "archive",
+      "extensions": ["vhdx"],
+      "mimeTypes": ["application/x-vhdx"],
+      "signatures": [
+        [
+          {
+            "ascii": "vhdxfile"
+          }
+        ]
+      ],
+      "traits": ["archive", "diskimage", "binary"],
+      "popularity": 2
+    },
+    {
+      "id": "vmdk",
+      "label": "VMDK",
+      "name": {
+        "en": "VMware virtual disk",
+        "id": "Virtual disk VMware"
+      },
+      "description": {
+        "en": "VMware virtual machine disk image.",
+        "id": "Image disk mesin virtual VMware."
+      },
+      "category": "archive",
+      "extensions": ["vmdk"],
+      "mimeTypes": ["application/x-vmdk"],
+      "signatures": [
+        [
+          {
+            "ascii": "KDMV"
+          }
+        ],
+        [
+          {
+            "ascii": "# Disk DescriptorFile"
+          }
+        ]
+      ],
+      "traits": ["archive", "diskimage", "binary"],
+      "popularity": 2
+    },
+    {
+      "id": "qcow2",
+      "label": "QCOW2",
+      "name": {
+        "en": "QEMU disk image",
+        "id": "Image disk QEMU"
+      },
+      "description": {
+        "en": "QEMU copy-on-write virtual disk image.",
+        "id": "Image virtual disk copy-on-write dari QEMU."
+      },
+      "category": "archive",
+      "extensions": ["qcow2", "qcow"],
+      "mimeTypes": ["application/x-qemu-disk"],
+      "signatures": [
+        [
+          {
+            "hex": "514649FB"
+          }
+        ]
+      ],
+      "traits": ["archive", "diskimage", "binary"],
+      "popularity": 2
+    }
+  ]
+}

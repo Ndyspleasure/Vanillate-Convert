@@ -1,0 +1,179 @@
+{
+  "$schema": "../schema/formats.schema.json",
+  "formats": [
+    {
+      "id": "srt",
+      "label": "SRT",
+      "name": {
+        "en": "SubRip subtitles",
+        "id": "Subtitle SubRip"
+      },
+      "description": {
+        "en": "The most common subtitle format, supported by almost every video player.",
+        "id": "Format subtitle paling umum, didukung hampir semua pemutar video."
+      },
+      "category": "subtitle",
+      "extensions": ["srt"],
+      "mimeTypes": ["application/x-subrip", "text/srt"],
+      "aliases": ["subrip"],
+      "sniff": {
+        "type": "text",
+        "pattern": "^\\uFEFF?\\s*\\d+\\s*\\r?\\n\\s*\\d{1,2}:\\d{2}:\\d{2}[,.]\\d{1,3}\\s*-->\\s*\\d{1,2}:\\d{2}:\\d{2}[,.]\\d{1,3}"
+      },
+      "traits": ["text", "timed"],
+      "popularity": 85
+    },
+    {
+      "id": "vtt",
+      "label": "VTT",
+      "name": {
+        "en": "WebVTT subtitles",
+        "id": "Subtitle WebVTT"
+      },
+      "description": {
+        "en": "Web Video Text Tracks, the subtitle format for HTML5 video.",
+        "id": "Web Video Text Tracks, format subtitle untuk video HTML5."
+      },
+      "category": "subtitle",
+      "extensions": ["vtt"],
+      "mimeTypes": ["text/vtt"],
+      "aliases": ["webvtt"],
+      "sniff": {
+        "type": "text",
+        "pattern": "^\\uFEFF?WEBVTT(?:[ \\t]|\\r?\\n|$)"
+      },
+      "traits": ["text", "timed"],
+      "popularity": 55
+    },
+    {
+      "id": "ass",
+      "label": "ASS",
+      "name": {
+        "en": "Advanced SubStation Alpha",
+        "id": "Advanced SubStation Alpha"
+      },
+      "description": {
+        "en": "Styled subtitles with fonts, colors and positioning, popular for anime fansubs.",
+        "id": "Subtitle bergaya dengan font, warna, dan posisi, populer untuk fansub anime."
+      },
+      "category": "subtitle",
+      "extensions": ["ass"],
+      "mimeTypes": ["text/x-ass"],
+      "sniff": {
+        "type": "text",
+        "pattern": "^\\uFEFF?\\s*\\[Script Info\\][\\s\\S]*?ScriptType:\\s*v4\\.00\\+",
+        "flags": "i"
+      },
+      "traits": ["text", "styled", "timed"],
+      "popularity": 40
+    },
+    {
+      "id": "ssa",
+      "label": "SSA",
+      "name": {
+        "en": "SubStation Alpha",
+        "id": "SubStation Alpha"
+      },
+      "description": {
+        "en": "Older version of the SubStation Alpha styled subtitle format.",
+        "id": "Versi lama format subtitle bergaya SubStation Alpha."
+      },
+      "category": "subtitle",
+      "extensions": ["ssa"],
+      "mimeTypes": ["text/x-ssa"],
+      "sniff": {
+        "type": "text",
+        "pattern": "^\\uFEFF?\\s*\\[Script Info\\][\\s\\S]*?ScriptType:\\s*v4\\.00(?!\\+)",
+        "flags": "i"
+      },
+      "traits": ["text", "styled", "legacy", "timed"],
+      "popularity": 12
+    },
+    {
+      "id": "sub",
+      "label": "SUB",
+      "name": {
+        "en": "MicroDVD subtitles",
+        "id": "Subtitle MicroDVD"
+      },
+      "description": {
+        "en": "Frame-based subtitle format; timing depends on the video's frame rate.",
+        "id": "Format subtitle berbasis frame; waktunya bergantung pada frame rate video."
+      },
+      "category": "subtitle",
+      "extensions": ["sub"],
+      "mimeTypes": ["text/x-microdvd"],
+      "aliases": ["microdvd"],
+      "sniff": {
+        "type": "text",
+        "pattern": "^\\uFEFF?\\s*\\{\\d+\\}\\{\\d*\\}"
+      },
+      "traits": ["text", "legacy", "timed"],
+      "popularity": 20
+    },
+    {
+      "id": "sbv",
+      "label": "SBV",
+      "name": {
+        "en": "YouTube SubViewer captions",
+        "id": "Caption YouTube SubViewer"
+      },
+      "description": {
+        "en": "Simple caption format exported by YouTube Studio.",
+        "id": "Format caption sederhana yang diekspor YouTube Studio."
+      },
+      "category": "subtitle",
+      "extensions": ["sbv"],
+      "mimeTypes": ["text/x-sbv"],
+      "sniff": {
+        "type": "text",
+        "pattern": "^\\uFEFF?\\s*\\d+:\\d{2}:\\d{2}\\.\\d{3},\\d+:\\d{2}:\\d{2}\\.\\d{3}\\s*\\r?\\n"
+      },
+      "traits": ["text", "timed"],
+      "popularity": 12
+    },
+    {
+      "id": "ttml",
+      "label": "TTML",
+      "name": {
+        "en": "Timed Text Markup Language",
+        "id": "Timed Text Markup Language"
+      },
+      "description": {
+        "en": "W3C XML caption standard used by streaming services and broadcasters.",
+        "id": "Standar caption XML dari W3C yang dipakai layanan streaming dan penyiaran."
+      },
+      "category": "subtitle",
+      "extensions": ["ttml"],
+      "mimeTypes": ["application/ttml+xml"],
+      "sniff": {
+        "type": "xml",
+        "root": "tt",
+        "namespace": "ttml"
+      },
+      "traits": ["text", "markup", "styled", "timed"],
+      "popularity": 15
+    },
+    {
+      "id": "dfxp",
+      "label": "DFXP",
+      "name": {
+        "en": "DFXP captions",
+        "id": "Caption DFXP"
+      },
+      "description": {
+        "en": "Distribution Format Exchange Profile, the original name of TTML 1.0 captions.",
+        "id": "Distribution Format Exchange Profile, nama awal caption TTML 1.0."
+      },
+      "category": "subtitle",
+      "extensions": ["dfxp"],
+      "mimeTypes": ["application/ttaf+xml", "application/ttml+xml"],
+      "sniff": {
+        "type": "xml",
+        "root": "tt"
+      },
+      "traits": ["text", "markup", "styled", "timed"],
+      "popularity": 10
+    }
+  ]
+}

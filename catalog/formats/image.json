@@ -1,0 +1,914 @@
+{
+  "$schema": "../schema/formats.schema.json",
+  "formats": [
+    {
+      "id": "jpg",
+      "label": "JPG",
+      "name": {
+        "en": "JPEG image",
+        "id": "Gambar JPEG"
+      },
+      "description": {
+        "en": "The most widely used photo format. Lossy compression keeps files small; it has no transparency.",
+        "id": "Format foto paling umum. Kompresi lossy membuat ukurannya kecil; tidak mendukung transparansi."
+      },
+      "category": "image",
+      "extensions": ["jpg", "jpeg", "jpe", "jfif"],
+      "mimeTypes": ["image/jpeg", "image/pjpeg"],
+      "aliases": ["jpeg", "jfif"],
+      "signatures": [
+        [
+          {
+            "hex": "FFD8FF"
+          }
+        ]
+      ],
+      "traits": ["raster", "lossy", "binary"],
+      "popularity": 100
+    },
+    {
+      "id": "png",
+      "label": "PNG",
+      "name": {
+        "en": "PNG image",
+        "id": "Gambar PNG"
+      },
+      "description": {
+        "en": "Lossless image format with full transparency, ideal for screenshots, logos and graphics.",
+        "id": "Format gambar lossless dengan transparansi penuh, cocok untuk screenshot, logo, dan grafis."
+      },
+      "category": "image",
+      "extensions": ["png"],
+      "mimeTypes": ["image/png"],
+      "signatures": [
+        [
+          {
+            "hex": "89504E470D0A1A0A"
+          }
+        ]
+      ],
+      "traits": ["raster", "lossless", "alpha", "binary"],
+      "popularity": 98
+    },
+    {
+      "id": "apng",
+      "label": "APNG",
+      "name": {
+        "en": "Animated PNG",
+        "id": "PNG animasi"
+      },
+      "description": {
+        "en": "PNG with animation frames. Supported by all modern browsers, with full transparency.",
+        "id": "PNG dengan frame animasi. Didukung semua browser modern, dengan transparansi penuh."
+      },
+      "category": "image",
+      "extensions": ["apng"],
+      "mimeTypes": ["image/apng", "image/vnd.mozilla.apng"],
+      "signatures": [
+        [
+          {
+            "hex": "89504E470D0A1A0A"
+          },
+          {
+            "offset": 8,
+            "ascii": "acTL",
+            "within": 65524
+          }
+        ]
+      ],
+      "traits": ["raster", "lossless", "alpha", "animation", "binary"],
+      "popularity": 25
+    },
+    {
+      "id": "webp",
+      "label": "WEBP",
+      "name": {
+        "en": "WebP image",
+        "id": "Gambar WebP"
+      },
+      "description": {
+        "en": "Modern web image format by Google with lossy and lossless modes, transparency and animation.",
+        "id": "Format gambar web modern dari Google dengan mode lossy dan lossless, transparansi, dan animasi."
+      },
+      "category": "image",
+      "extensions": ["webp"],
+      "mimeTypes": ["image/webp"],
+      "signatures": [
+        [
+          {
+            "ascii": "RIFF"
+          },
+          {
+            "offset": 8,
+            "ascii": "WEBP"
+          }
+        ]
+      ],
+      "traits": ["raster", "lossy", "lossless", "alpha", "animation", "binary"],
+      "popularity": 92
+    },
+    {
+      "id": "avif",
+      "label": "AVIF",
+      "name": {
+        "en": "AVIF image",
+        "id": "Gambar AVIF"
+      },
+      "description": {
+        "en": "Image format based on the AV1 video codec. Very small files at high quality.",
+        "id": "Format gambar berbasis codec video AV1. Ukuran sangat kecil dengan kualitas tinggi."
+      },
+      "category": "image",
+      "extensions": ["avif", "avifs"],
+      "mimeTypes": ["image/avif"],
+      "signatures": [
+        [
+          {
+            "offset": 4,
+            "ascii": "ftypavif"
+          }
+        ],
+        [
+          {
+            "offset": 4,
+            "ascii": "ftypavis"
+          }
+        ]
+      ],
+      "traits": ["raster", "lossy", "lossless", "alpha", "animation", "binary"],
+      "popularity": 72
+    },
+    {
+      "id": "heic",
+      "label": "HEIC",
+      "name": {
+        "en": "HEIC image",
+        "id": "Gambar HEIC"
+      },
+      "description": {
+        "en": "High Efficiency Image format used by iPhone and iPad cameras.",
+        "id": "Format High Efficiency Image yang dipakai kamera iPhone dan iPad."
+      },
+      "category": "image",
+      "extensions": ["heic", "heics"],
+      "mimeTypes": ["image/heic", "image/heic-sequence"],
+      "signatures": [
+        [
+          {
+            "offset": 4,
+            "ascii": "ftypheic"
+          }
+        ],
+        [
+          {
+            "offset": 4,
+            "ascii": "ftypheix"
+          }
+        ],
+        [
+          {
+            "offset": 4,
+            "ascii": "ftyphevc"
+          }
+        ],
+        [
+          {
+            "offset": 4,
+            "ascii": "ftyphevx"
+          }
+        ],
+        [
+          {
+            "offset": 4,
+            "ascii": "ftypheim"
+          }
+        ],
+        [
+          {
+            "offset": 4,
+            "ascii": "ftypheis"
+          }
+        ]
+      ],
+      "traits": ["raster", "lossy", "alpha", "binary"],
+      "popularity": 88
+    },
+    {
+      "id": "heif",
+      "label": "HEIF",
+      "name": {
+        "en": "HEIF image",
+        "id": "Gambar HEIF"
+      },
+      "description": {
+        "en": "High Efficiency Image File container, the general form of HEIC.",
+        "id": "Kontainer High Efficiency Image File, bentuk umum dari HEIC."
+      },
+      "category": "image",
+      "extensions": ["heif", "hif"],
+      "mimeTypes": ["image/heif", "image/heif-sequence"],
+      "signatures": [
+        [
+          {
+            "offset": 4,
+            "ascii": "ftypmif1"
+          }
+        ],
+        [
+          {
+            "offset": 4,
+            "ascii": "ftypmsf1"
+          }
+        ]
+      ],
+      "traits": ["raster", "lossy", "alpha", "binary"],
+      "popularity": 40
+    },
+    {
+      "id": "gif",
+      "label": "GIF",
+      "name": {
+        "en": "GIF image",
+        "id": "Gambar GIF"
+      },
+      "description": {
+        "en": "Classic animated image format limited to 256 colors per frame.",
+        "id": "Format gambar animasi klasik dengan batas 256 warna per frame."
+      },
+      "category": "image",
+      "extensions": ["gif"],
+      "mimeTypes": ["image/gif"],
+      "signatures": [
+        [
+          {
+            "ascii": "GIF87a"
+          }
+        ],
+        [
+          {
+            "ascii": "GIF89a"
+          }
+        ]
+      ],
+      "traits": ["raster", "lossless", "palette", "alpha", "animation", "binary"],
+      "popularity": 86
+    },
+    {
+      "id": "bmp",
+      "label": "BMP",
+      "name": {
+        "en": "Bitmap image",
+        "id": "Gambar Bitmap"
+      },
+      "description": {
+        "en": "Uncompressed Windows bitmap. Large files, but simple and widely readable.",
+        "id": "Bitmap Windows tanpa kompresi. Ukurannya besar, tetapi sederhana dan mudah dibaca."
+      },
+      "category": "image",
+      "extensions": ["bmp", "dib"],
+      "mimeTypes": ["image/bmp", "image/x-ms-bmp"],
+      "signatures": [
+        [
+          {
+            "ascii": "BM"
+          },
+          {
+            "offset": 14,
+            "hex": "28000000"
+          }
+        ],
+        [
+          {
+            "ascii": "BM"
+          },
+          {
+            "offset": 14,
+            "hex": "0C000000"
+          }
+        ],
+        [
+          {
+            "ascii": "BM"
+          },
+          {
+            "offset": 14,
+            "hex": "38000000"
+          }
+        ],
+        [
+          {
+            "ascii": "BM"
+          },
+          {
+            "offset": 14,
+            "hex": "40000000"
+          }
+        ],
+        [
+          {
+            "ascii": "BM"
+          },
+          {
+            "offset": 14,
+            "hex": "6C000000"
+          }
+        ],
+        [
+          {
+            "ascii": "BM"
+          },
+          {
+            "offset": 14,
+            "hex": "7C000000"
+          }
+        ]
+      ],
+      "traits": ["raster", "lossless", "alpha", "binary", "legacy"],
+      "popularity": 50
+    },
+    {
+      "id": "tiff",
+      "label": "TIFF",
+      "name": {
+        "en": "TIFF image",
+        "id": "Gambar TIFF"
+      },
+      "description": {
+        "en": "High-quality image format used in printing, scanning and photography. Can hold several pages.",
+        "id": "Format gambar berkualitas tinggi untuk cetak, pemindaian, dan fotografi. Bisa berisi beberapa halaman."
+      },
+      "category": "image",
+      "extensions": ["tif", "tiff"],
+      "mimeTypes": ["image/tiff"],
+      "aliases": ["tif"],
+      "signatures": [
+        [
+          {
+            "hex": "49492A00"
+          }
+        ],
+        [
+          {
+            "hex": "4D4D002A"
+          }
+        ],
+        [
+          {
+            "hex": "49492B00"
+          }
+        ],
+        [
+          {
+            "hex": "4D4D002B"
+          }
+        ]
+      ],
+      "traits": ["raster", "lossless", "alpha", "multipage", "binary"],
+      "popularity": 60
+    },
+    {
+      "id": "ico",
+      "label": "ICO",
+      "name": {
+        "en": "Windows icon",
+        "id": "Ikon Windows"
+      },
+      "description": {
+        "en": "Icon format used for Windows applications and website favicons.",
+        "id": "Format ikon untuk aplikasi Windows dan favicon situs web."
+      },
+      "category": "image",
+      "extensions": ["ico"],
+      "mimeTypes": ["image/vnd.microsoft.icon", "image/x-icon"],
+      "aliases": ["favicon"],
+      "signatures": [
+        [
+          {
+            "hex": "00000100"
+          }
+        ]
+      ],
+      "traits": ["raster", "lossless", "alpha", "binary"],
+      "popularity": 55
+    },
+    {
+      "id": "jxl",
+      "label": "JXL",
+      "name": {
+        "en": "JPEG XL image",
+        "id": "Gambar JPEG XL"
+      },
+      "description": {
+        "en": "Next-generation JPEG format with excellent compression and lossless JPEG recompression.",
+        "id": "Format JPEG generasi baru dengan kompresi sangat baik dan rekompresi JPEG tanpa kehilangan kualitas."
+      },
+      "category": "image",
+      "extensions": ["jxl"],
+      "mimeTypes": ["image/jxl"],
+      "signatures": [
+        [
+          {
+            "hex": "FF0A"
+          }
+        ],
+        [
+          {
+            "hex": "0000000C4A584C200D0A870A"
+          }
+        ]
+      ],
+      "traits": ["raster", "lossy", "lossless", "alpha", "animation", "binary"],
+      "popularity": 20
+    },
+    {
+      "id": "jp2",
+      "label": "JP2",
+      "name": {
+        "en": "JPEG 2000 image",
+        "id": "Gambar JPEG 2000"
+      },
+      "description": {
+        "en": "Wavelet-based successor to JPEG, used in archives, medical imaging and cinema.",
+        "id": "Penerus JPEG berbasis wavelet, dipakai untuk arsip, citra medis, dan sinema."
+      },
+      "category": "image",
+      "extensions": ["jp2", "j2k", "jpf", "jpx", "j2c"],
+      "mimeTypes": ["image/jp2", "image/jpx"],
+      "aliases": ["jpeg2000", "j2k"],
+      "signatures": [
+        [
+          {
+            "hex": "0000000C6A5020200D0A870A"
+          }
+        ],
+        [
+          {
+            "hex": "FF4FFF51"
+          }
+        ]
+      ],
+      "traits": ["raster", "lossy", "lossless", "alpha", "binary"],
+      "popularity": 15
+    },
+    {
+      "id": "tga",
+      "label": "TGA",
+      "name": {
+        "en": "Targa image",
+        "id": "Gambar Targa"
+      },
+      "description": {
+        "en": "Truevision Targa raster format, still common in game development and 3D textures.",
+        "id": "Format raster Truevision Targa, masih umum di pengembangan game dan tekstur 3D."
+      },
+      "category": "image",
+      "extensions": ["tga", "icb", "vda", "vst"],
+      "mimeTypes": ["image/x-tga", "image/x-targa"],
+      "aliases": ["targa"],
+      "traits": ["raster", "lossless", "alpha", "binary", "legacy"],
+      "popularity": 15
+    },
+    {
+      "id": "dds",
+      "label": "DDS",
+      "name": {
+        "en": "DirectDraw Surface",
+        "id": "DirectDraw Surface"
+      },
+      "description": {
+        "en": "GPU texture format used by DirectX games.",
+        "id": "Format tekstur GPU yang dipakai game DirectX."
+      },
+      "category": "image",
+      "extensions": ["dds"],
+      "mimeTypes": ["image/vnd-ms.dds", "image/x-dds"],
+      "signatures": [
+        [
+          {
+            "ascii": "DDS "
+          }
+        ]
+      ],
+      "traits": ["raster", "lossy", "alpha", "binary", "proprietary"],
+      "popularity": 10
+    },
+    {
+      "id": "exr",
+      "label": "EXR",
+      "name": {
+        "en": "OpenEXR image",
+        "id": "Gambar OpenEXR"
+      },
+      "description": {
+        "en": "High dynamic range format from Industrial Light & Magic for visual effects and rendering.",
+        "id": "Format high dynamic range dari Industrial Light & Magic untuk efek visual dan rendering."
+      },
+      "category": "image",
+      "extensions": ["exr"],
+      "mimeTypes": ["image/x-exr"],
+      "aliases": ["openexr"],
+      "signatures": [
+        [
+          {
+            "hex": "762F3101"
+          }
+        ]
+      ],
+      "traits": ["raster", "hdr", "lossless", "alpha", "binary"],
+      "popularity": 10
+    },
+    {
+      "id": "hdr",
+      "label": "HDR",
+      "name": {
+        "en": "Radiance HDR image",
+        "id": "Gambar Radiance HDR"
+      },
+      "description": {
+        "en": "Radiance RGBE high dynamic range format, common for environment maps.",
+        "id": "Format high dynamic range Radiance RGBE, umum untuk environment map."
+      },
+      "category": "image",
+      "extensions": ["hdr", "rgbe"],
+      "mimeTypes": ["image/vnd.radiance"],
+      "aliases": ["radiance", "rgbe"],
+      "signatures": [
+        [
+          {
+            "ascii": "#?RADIANCE"
+          }
+        ],
+        [
+          {
+            "ascii": "#?RGBE"
+          }
+        ]
+      ],
+      "traits": ["raster", "hdr", "binary"],
+      "popularity": 8
+    },
+    {
+      "id": "psd",
+      "label": "PSD",
+      "name": {
+        "en": "Photoshop document",
+        "id": "Dokumen Photoshop"
+      },
+      "description": {
+        "en": "Adobe Photoshop's layered image format. Conversions use the flattened image.",
+        "id": "Format gambar berlapis milik Adobe Photoshop. Konversi memakai gambar yang sudah digabung."
+      },
+      "category": "image",
+      "extensions": ["psd"],
+      "mimeTypes": ["image/vnd.adobe.photoshop", "application/x-photoshop"],
+      "aliases": ["photoshop"],
+      "signatures": [
+        [
+          {
+            "ascii": "8BPS"
+          },
+          {
+            "offset": 4,
+            "hex": "0001"
+          }
+        ]
+      ],
+      "traits": ["raster", "layered", "lossless", "alpha", "binary", "proprietary"],
+      "popularity": 45
+    },
+    {
+      "id": "psb",
+      "label": "PSB",
+      "name": {
+        "en": "Photoshop large document",
+        "id": "Dokumen besar Photoshop"
+      },
+      "description": {
+        "en": "Photoshop's large document format for images over 2 GB or 30,000 pixels.",
+        "id": "Format dokumen besar Photoshop untuk gambar di atas 2 GB atau 30.000 piksel."
+      },
+      "category": "image",
+      "extensions": ["psb"],
+      "mimeTypes": ["image/vnd.adobe.photoshop"],
+      "signatures": [
+        [
+          {
+            "ascii": "8BPS"
+          },
+          {
+            "offset": 4,
+            "hex": "0002"
+          }
+        ]
+      ],
+      "traits": ["raster", "layered", "lossless", "alpha", "binary", "proprietary"],
+      "popularity": 5
+    },
+    {
+      "id": "xcf",
+      "label": "XCF",
+      "name": {
+        "en": "GIMP image",
+        "id": "Gambar GIMP"
+      },
+      "description": {
+        "en": "GIMP's native layered format. Conversions use the flattened image.",
+        "id": "Format berlapis bawaan GIMP. Konversi memakai gambar yang sudah digabung."
+      },
+      "category": "image",
+      "extensions": ["xcf"],
+      "mimeTypes": ["image/x-xcf"],
+      "aliases": ["gimp"],
+      "signatures": [
+        [
+          {
+            "ascii": "gimp xcf "
+          }
+        ]
+      ],
+      "traits": ["raster", "layered", "lossless", "alpha", "binary"],
+      "status": "limited",
+      "popularity": 8
+    },
+    {
+      "id": "dng",
+      "label": "DNG",
+      "name": {
+        "en": "Digital Negative (RAW)",
+        "id": "Digital Negative (RAW)"
+      },
+      "description": {
+        "en": "Adobe's open camera RAW format, used by many phones and cameras.",
+        "id": "Format RAW kamera terbuka dari Adobe, dipakai banyak ponsel dan kamera."
+      },
+      "category": "image",
+      "extensions": ["dng"],
+      "mimeTypes": ["image/x-adobe-dng", "image/dng"],
+      "signatures": [
+        [
+          {
+            "hex": "49492A00"
+          }
+        ],
+        [
+          {
+            "hex": "4D4D002A"
+          }
+        ]
+      ],
+      "traits": ["raster", "raw", "lossless", "binary"],
+      "status": "experimental",
+      "popularity": 20
+    },
+    {
+      "id": "cr2",
+      "label": "CR2",
+      "name": {
+        "en": "Canon RAW 2",
+        "id": "Canon RAW 2"
+      },
+      "description": {
+        "en": "Canon camera RAW format used by older EOS cameras.",
+        "id": "Format RAW kamera Canon yang dipakai kamera EOS lama."
+      },
+      "category": "image",
+      "extensions": ["cr2"],
+      "mimeTypes": ["image/x-canon-cr2"],
+      "signatures": [
+        [
+          {
+            "hex": "49492A00"
+          },
+          {
+            "offset": 8,
+            "hex": "435202"
+          }
+        ]
+      ],
+      "traits": ["raster", "raw", "binary", "proprietary"],
+      "status": "experimental",
+      "popularity": 20
+    },
+    {
+      "id": "cr3",
+      "label": "CR3",
+      "name": {
+        "en": "Canon RAW 3",
+        "id": "Canon RAW 3"
+      },
+      "description": {
+        "en": "Canon camera RAW format used by newer EOS and mirrorless cameras.",
+        "id": "Format RAW kamera Canon yang dipakai kamera EOS dan mirrorless terbaru."
+      },
+      "category": "image",
+      "extensions": ["cr3"],
+      "mimeTypes": ["image/x-canon-cr3"],
+      "signatures": [
+        [
+          {
+            "offset": 4,
+            "ascii": "ftypcrx "
+          }
+        ]
+      ],
+      "traits": ["raster", "raw", "binary", "proprietary"],
+      "status": "experimental",
+      "popularity": 18
+    },
+    {
+      "id": "nef",
+      "label": "NEF",
+      "name": {
+        "en": "Nikon RAW",
+        "id": "Nikon RAW"
+      },
+      "description": {
+        "en": "Nikon Electronic Format camera RAW.",
+        "id": "Format RAW kamera Nikon (Nikon Electronic Format)."
+      },
+      "category": "image",
+      "extensions": ["nef", "nrw"],
+      "mimeTypes": ["image/x-nikon-nef"],
+      "signatures": [
+        [
+          {
+            "hex": "4D4D002A"
+          }
+        ],
+        [
+          {
+            "hex": "49492A00"
+          }
+        ]
+      ],
+      "traits": ["raster", "raw", "binary", "proprietary"],
+      "status": "experimental",
+      "popularity": 18
+    },
+    {
+      "id": "arw",
+      "label": "ARW",
+      "name": {
+        "en": "Sony RAW",
+        "id": "Sony RAW"
+      },
+      "description": {
+        "en": "Sony Alpha camera RAW format.",
+        "id": "Format RAW kamera Sony Alpha."
+      },
+      "category": "image",
+      "extensions": ["arw", "srf", "sr2"],
+      "mimeTypes": ["image/x-sony-arw"],
+      "signatures": [
+        [
+          {
+            "hex": "49492A00"
+          }
+        ]
+      ],
+      "traits": ["raster", "raw", "binary", "proprietary"],
+      "status": "experimental",
+      "popularity": 16
+    },
+    {
+      "id": "orf",
+      "label": "ORF",
+      "name": {
+        "en": "Olympus RAW",
+        "id": "Olympus RAW"
+      },
+      "description": {
+        "en": "Olympus and OM System camera RAW format.",
+        "id": "Format RAW kamera Olympus dan OM System."
+      },
+      "category": "image",
+      "extensions": ["orf"],
+      "mimeTypes": ["image/x-olympus-orf"],
+      "signatures": [
+        [
+          {
+            "ascii": "IIRO"
+          }
+        ],
+        [
+          {
+            "ascii": "IIRS"
+          }
+        ],
+        [
+          {
+            "ascii": "MMOR"
+          }
+        ]
+      ],
+      "traits": ["raster", "raw", "binary", "proprietary"],
+      "status": "experimental",
+      "popularity": 6
+    },
+    {
+      "id": "rw2",
+      "label": "RW2",
+      "name": {
+        "en": "Panasonic RAW",
+        "id": "Panasonic RAW"
+      },
+      "description": {
+        "en": "Panasonic Lumix camera RAW format.",
+        "id": "Format RAW kamera Panasonic Lumix."
+      },
+      "category": "image",
+      "extensions": ["rw2"],
+      "mimeTypes": ["image/x-panasonic-rw2"],
+      "signatures": [
+        [
+          {
+            "hex": "49495500"
+          }
+        ]
+      ],
+      "traits": ["raster", "raw", "binary", "proprietary"],
+      "status": "experimental",
+      "popularity": 6
+    },
+    {
+      "id": "raf",
+      "label": "RAF",
+      "name": {
+        "en": "Fujifilm RAW",
+        "id": "Fujifilm RAW"
+      },
+      "description": {
+        "en": "Fujifilm camera RAW format.",
+        "id": "Format RAW kamera Fujifilm."
+      },
+      "category": "image",
+      "extensions": ["raf"],
+      "mimeTypes": ["image/x-fuji-raf"],
+      "signatures": [
+        [
+          {
+            "ascii": "FUJIFILMCCD-RAW"
+          }
+        ]
+      ],
+      "traits": ["raster", "raw", "binary", "proprietary"],
+      "status": "experimental",
+      "popularity": 8
+    },
+    {
+      "id": "pef",
+      "label": "PEF",
+      "name": {
+        "en": "Pentax RAW",
+        "id": "Pentax RAW"
+      },
+      "description": {
+        "en": "Pentax Electronic File camera RAW format.",
+        "id": "Format RAW kamera Pentax (Pentax Electronic File)."
+      },
+      "category": "image",
+      "extensions": ["pef"],
+      "mimeTypes": ["image/x-pentax-pef"],
+      "signatures": [
+        [
+          {
+            "hex": "4D4D002A"
+          }
+        ],
+        [
+          {
+            "hex": "49492A00"
+          }
+        ]
+      ],
+      "traits": ["raster", "raw", "binary", "proprietary"],
+      "status": "experimental",
+      "popularity": 3
+    },
+    {
+      "id": "srw",
+      "label": "SRW",
+      "name": {
+        "en": "Samsung RAW",
+        "id": "Samsung RAW"
+      },
+      "description": {
+        "en": "Samsung camera RAW format.",
+        "id": "Format RAW kamera Samsung."
+      },
+      "category": "image",
+      "extensions": ["srw"],
+      "mimeTypes": ["image/x-samsung-srw"],
+      "signatures": [
+        [
+          {
+            "hex": "49492A00"
+          }
+        ]
+      ],
+      "traits": ["raster", "raw", "binary", "proprietary"],
+      "status": "experimental",
+      "popularity": 2
+    }
+  ]
+}

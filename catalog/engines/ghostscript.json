@@ -1,0 +1,19 @@
+{
+  "$schema": "../schema/engine.schema.json",
+  "engine": {
+    "id": "ghostscript",
+    "name": "Ghostscript",
+    "mode": "server",
+    "status": "available",
+    "description": "PostScript and PDF interpreter used for PDF compression and PostScript/EPS conversion. Always run with -dSAFER.",
+    "homepage": "https://www.ghostscript.com",
+    "license": "AGPL-3.0",
+    "licenseNotes": "AGPL: offering a modified Ghostscript over a network requires publishing the modified source. Unmodified binaries are used as a separate process. A commercial license from Artifex removes AGPL obligations.",
+    "binaries": ["gs"],
+    "pool": "document",
+    "capabilities": {
+      "read": ["pdf", "ps", "eps", "ai"],
+      "write": ["pdf", "ps", "png", "jpg", "tiff"]
+    }
+  }
+}

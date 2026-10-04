@@ -1,0 +1,87 @@
+{
+  "$schema": "../schema/rules.schema.json",
+  "rules": [
+    {
+      "id": "pdf.poppler.raster",
+      "description": "Render PDF pages to images with pdftoppm (one file per page).",
+      "mode": "server",
+      "steps": ["poppler"],
+      "from": { "formats": ["pdf", "ai"] },
+      "to": { "formats": ["png", "jpg", "tiff"] },
+      "status": "stable",
+      "priority": 50,
+      "cardinality": "1:n",
+      "metadata": "unsupported",
+      "options": ["dpi", "pageRange"],
+      "overrides": [
+        { "to": "jpg", "addOptions": ["quality"] },
+        { "from": "ai", "status": "limited" }
+      ]
+    },
+    {
+      "id": "pdf.poppler.svg",
+      "description": "Convert PDF pages to SVG with pdftocairo (one file per page).",
+      "mode": "server",
+      "steps": ["poppler"],
+      "from": { "formats": ["pdf", "ai"] },
+      "to": { "formats": ["svg"] },
+      "status": "supported",
+      "priority": 50,
+      "cardinality": "1:n",
+      "metadata": "unsupported",
+      "options": ["pageRange"],
+      "limitations": ["text-outlined"],
+      "overrides": [{ "from": "ai", "status": "limited" }]
+    },
+    {
+      "id": "pdf.poppler.text",
+      "description": "Extract text from PDF with pdftotext.",
+      "mode": "server",
+      "steps": ["poppler"],
+      "from": { "formats": ["pdf"] },
+      "to": { "formats": ["txt"] },
+      "status": "stable",
+      "priority": 50,
+      "metadata": "unsupported",
+      "options": ["pageRange"]
+    },
+    {
+      "id": "pdf.poppler.html",
+      "description": "Convert PDF to a single HTML page with pdftohtml.",
+      "mode": "server",
+      "steps": ["poppler"],
+      "from": { "formats": ["pdf"] },
+      "to": { "formats": ["html"] },
+      "status": "limited",
+      "priority": 50,
+      "metadata": "unsupported",
+      "imperfect": true,
+      "options": ["pageRange"],
+      "limitations": ["pdf-reflow"]
+    },
+    {
+      "id": "pdf.ghostscript.postscript",
+      "description": "Convert PDF to PostScript with Ghostscript (ps2write).",
+      "mode": "server",
+      "steps": ["ghostscript"],
+      "from": { "formats": ["pdf"] },
+      "to": { "formats": ["ps"] },
+      "status": "supported",
+      "priority": 50,
+      "metadata": "unsupported"
+    },
+    {
+      "id": "pdf.libreoffice.editable",
+      "description": "Import PDF into LibreOffice Writer and export an editable document.",
+      "mode": "server",
+      "steps": ["libreoffice"],
+      "from": { "formats": ["pdf"] },
+      "to": { "formats": ["docx", "odt"] },
+      "status": "experimental",
+      "priority": 50,
+      "metadata": "unsupported",
+      "imperfect": true,
+      "limitations": ["pdf-reflow", "experimental-quality"]
+    }
+  ]
+}

@@ -1,0 +1,275 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "tools": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 64,
+            "pattern": "^[a-z0-9]+(?:[-.][a-z0-9]+)*$"
+          },
+          "name": {
+            "type": "object",
+            "properties": {
+              "en": {
+                "type": "string",
+                "minLength": 1
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "en",
+              "id"
+            ],
+            "additionalProperties": false
+          },
+          "description": {
+            "type": "object",
+            "properties": {
+              "en": {
+                "type": "string",
+                "minLength": 1
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "en",
+              "id"
+            ],
+            "additionalProperties": false
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "image",
+              "pdf",
+              "document",
+              "spreadsheet",
+              "presentation",
+              "audio",
+              "video",
+              "archive",
+              "data",
+              "developer",
+              "ebook",
+              "subtitle",
+              "font",
+              "vector",
+              "3d",
+              "cad",
+              "scientific",
+              "web",
+              "metadata",
+              "specialized"
+            ]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "compress",
+              "transform",
+              "extract",
+              "combine",
+              "split",
+              "inspect",
+              "encode",
+              "format"
+            ]
+          },
+          "inputs": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 24,
+                  "pattern": "^[a-z0-9]+$"
+                },
+                {
+                  "type": "string",
+                  "const": "*"
+                }
+              ]
+            }
+          },
+          "acceptsText": {
+            "type": "boolean"
+          },
+          "output": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": "same"
+              },
+              {
+                "type": "string",
+                "const": "detect"
+              },
+              {
+                "type": "string",
+                "maxLength": 24,
+                "pattern": "^[a-z0-9]+$"
+              }
+            ]
+          },
+          "cardinality": {
+            "type": "string",
+            "enum": [
+              "1:1",
+              "1:n",
+              "n:1",
+              "n:n"
+            ]
+          },
+          "metadata": {
+            "type": "string",
+            "enum": [
+              "preserve",
+              "strip",
+              "transform",
+              "unsupported"
+            ]
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 64,
+              "pattern": "^[a-z0-9]+(?:[-.][a-z0-9]+)*$"
+            }
+          },
+          "routes": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "engine": {
+                  "type": "string",
+                  "maxLength": 64,
+                  "pattern": "^[a-z0-9]+(?:[-.][a-z0-9]+)*$"
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "browser",
+                    "server"
+                  ]
+                },
+                "operation": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]*$"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "stable",
+                    "supported",
+                    "limited",
+                    "experimental",
+                    "deprecated",
+                    "unsupported"
+                  ]
+                },
+                "priority": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1000
+                },
+                "options": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "default": {
+                            "type": [
+                              "string",
+                              "number",
+                              "boolean"
+                            ]
+                          },
+                          "min": {
+                            "type": "number"
+                          },
+                          "max": {
+                            "type": "number"
+                          },
+                          "choices": {
+                            "type": "array",
+                            "items": {
+                              "type": [
+                                "string",
+                                "number"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "id"
+                        ],
+                        "additionalProperties": false
+                      }
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "engine",
+                "mode",
+                "operation",
+                "status",
+                "priority"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "popularity": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "category",
+          "kind",
+          "inputs",
+          "output",
+          "cardinality",
+          "metadata",
+          "routes"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "tools"
+  ],
+  "additionalProperties": false
+}

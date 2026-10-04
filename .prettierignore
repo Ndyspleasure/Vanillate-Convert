@@ -1,0 +1,10 @@
+pnpm-lock.yaml
+node_modules
+.next
+coverage
+test-results
+playwright-report
+dist
+**/*.md
+catalog/schema/*.json
+apps/web/next-env.d.ts

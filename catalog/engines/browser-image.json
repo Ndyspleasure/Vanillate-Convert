@@ -1,0 +1,16 @@
+{
+  "$schema": "../schema/engine.schema.json",
+  "engine": {
+    "id": "browser-image",
+    "name": "Browser image engine",
+    "mode": "browser",
+    "status": "available",
+    "description": "Decodes images with the browser's own decoders (createImageBitmap / HTMLImageElement) and encodes with OffscreenCanvas or built-in TypeScript encoders (BMP, ICO, TIFF, PDF). Runs in a Web Worker; SVG rasterization runs on the main thread.",
+    "homepage": "https://developer.mozilla.org/docs/Web/API/OffscreenCanvas",
+    "license": "Project code (no third-party engine)",
+    "capabilities": {
+      "read": ["jpg", "png", "webp", "gif", "bmp", "ico", "avif", "svg"],
+      "write": ["jpg", "png", "webp", "bmp", "ico", "tiff", "pdf"]
+    }
+  }
+}

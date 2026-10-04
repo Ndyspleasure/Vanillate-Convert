@@ -1,0 +1,197 @@
+{
+  "$schema": "../schema/formats.schema.json",
+  "formats": [
+    {
+      "id": "docx",
+      "label": "DOCX",
+      "name": { "en": "Word document", "id": "Dokumen Word" },
+      "description": {
+        "en": "Microsoft Word's standard document format (Office Open XML).",
+        "id": "Format dokumen standar Microsoft Word (Office Open XML)."
+      },
+      "category": "document",
+      "extensions": ["docx"],
+      "mimeTypes": ["application/vnd.openxmlformats-officedocument.wordprocessingml.document"],
+      "aliases": ["word"],
+      "sniff": { "type": "zip", "entries": ["[Content_Types].xml"], "entryPrefixes": ["word/"] },
+      "traits": ["richtext", "multipage", "binary"],
+      "popularity": 96
+    },
+    {
+      "id": "doc",
+      "label": "DOC",
+      "name": { "en": "Word 97–2003 document", "id": "Dokumen Word 97–2003" },
+      "description": {
+        "en": "Legacy binary Microsoft Word format.",
+        "id": "Format biner lama Microsoft Word."
+      },
+      "category": "document",
+      "extensions": ["doc"],
+      "mimeTypes": ["application/msword"],
+      "signatures": [[{ "hex": "D0CF11E0A1B11AE1" }]],
+      "sniff": { "type": "ole", "streams": ["WordDocument"] },
+      "traits": ["richtext", "multipage", "binary", "legacy", "proprietary"],
+      "popularity": 70
+    },
+    {
+      "id": "odt",
+      "label": "ODT",
+      "name": { "en": "OpenDocument text", "id": "Teks OpenDocument" },
+      "description": {
+        "en": "Open standard document format used by LibreOffice Writer.",
+        "id": "Format dokumen standar terbuka yang dipakai LibreOffice Writer."
+      },
+      "category": "document",
+      "extensions": ["odt"],
+      "mimeTypes": ["application/vnd.oasis.opendocument.text"],
+      "sniff": { "type": "zip", "mimetype": "application/vnd.oasis.opendocument.text" },
+      "traits": ["richtext", "multipage", "binary"],
+      "popularity": 40
+    },
+    {
+      "id": "rtf",
+      "label": "RTF",
+      "name": { "en": "Rich Text Format", "id": "Rich Text Format" },
+      "description": {
+        "en": "Simple formatted text format readable by almost every word processor.",
+        "id": "Format teks berformat sederhana yang bisa dibuka hampir semua pengolah kata."
+      },
+      "category": "document",
+      "extensions": ["rtf"],
+      "mimeTypes": ["application/rtf", "text/rtf"],
+      "signatures": [[{ "ascii": "{\\rtf" }]],
+      "traits": ["richtext", "text", "legacy"],
+      "popularity": 40
+    },
+    {
+      "id": "txt",
+      "label": "TXT",
+      "name": { "en": "Plain text", "id": "Teks biasa" },
+      "description": {
+        "en": "Unformatted text without fonts, images or layout.",
+        "id": "Teks tanpa format, tanpa font, gambar, atau tata letak."
+      },
+      "category": "document",
+      "extensions": ["txt", "text", "log"],
+      "mimeTypes": ["text/plain"],
+      "aliases": ["text", "plaintext"],
+      "traits": ["text"],
+      "popularity": 80
+    },
+    {
+      "id": "md",
+      "label": "MD",
+      "name": { "en": "Markdown", "id": "Markdown" },
+      "description": {
+        "en": "Lightweight markup language for formatted text, popular for documentation and notes.",
+        "id": "Bahasa markup ringan untuk teks berformat, populer untuk dokumentasi dan catatan."
+      },
+      "category": "document",
+      "alsoIn": ["developer"],
+      "extensions": ["md", "markdown", "mdown", "mkd", "mkdn"],
+      "mimeTypes": ["text/markdown", "text/x-markdown"],
+      "aliases": ["markdown"],
+      "traits": ["text", "markup"],
+      "popularity": 60
+    },
+    {
+      "id": "tex",
+      "label": "TeX",
+      "name": { "en": "LaTeX document", "id": "Dokumen LaTeX" },
+      "description": {
+        "en": "Typesetting markup widely used for scientific papers and theses.",
+        "id": "Markup tata letak yang banyak dipakai untuk makalah ilmiah dan skripsi."
+      },
+      "category": "document",
+      "extensions": ["tex", "latex"],
+      "mimeTypes": ["application/x-tex", "text/x-tex"],
+      "aliases": ["latex"],
+      "sniff": { "type": "text", "pattern": "\\\\(documentclass|begin\\{document\\})" },
+      "traits": ["text", "markup"],
+      "popularity": 22
+    },
+    {
+      "id": "rst",
+      "label": "RST",
+      "name": { "en": "reStructuredText", "id": "reStructuredText" },
+      "description": {
+        "en": "Plain-text markup used by Python documentation and Sphinx.",
+        "id": "Markup teks biasa yang dipakai dokumentasi Python dan Sphinx."
+      },
+      "category": "document",
+      "alsoIn": ["developer"],
+      "extensions": ["rst", "rest"],
+      "mimeTypes": ["text/x-rst"],
+      "aliases": ["restructuredtext"],
+      "traits": ["text", "markup"],
+      "popularity": 8
+    },
+    {
+      "id": "org",
+      "label": "Org",
+      "name": { "en": "Org mode document", "id": "Dokumen Org mode" },
+      "description": {
+        "en": "Plain-text outline and notes format from Emacs Org mode.",
+        "id": "Format kerangka dan catatan teks biasa dari Emacs Org mode."
+      },
+      "category": "document",
+      "extensions": ["org"],
+      "mimeTypes": ["text/org"],
+      "aliases": ["orgmode"],
+      "traits": ["text", "markup"],
+      "popularity": 4
+    },
+    {
+      "id": "wpd",
+      "label": "WPD",
+      "name": { "en": "WordPerfect document", "id": "Dokumen WordPerfect" },
+      "description": {
+        "en": "Legacy Corel WordPerfect document.",
+        "id": "Dokumen lama Corel WordPerfect."
+      },
+      "category": "document",
+      "extensions": ["wpd", "wp"],
+      "mimeTypes": ["application/vnd.wordperfect"],
+      "aliases": ["wordperfect"],
+      "signatures": [[{ "hex": "FF575043" }]],
+      "traits": ["richtext", "multipage", "binary", "legacy", "proprietary"],
+      "popularity": 5
+    },
+    {
+      "id": "pages",
+      "label": "PAGES",
+      "name": { "en": "Apple Pages document", "id": "Dokumen Apple Pages" },
+      "description": {
+        "en": "Document format of Apple Pages.",
+        "id": "Format dokumen Apple Pages."
+      },
+      "category": "document",
+      "extensions": ["pages"],
+      "mimeTypes": ["application/vnd.apple.pages", "application/x-iwork-pages-sffpages"],
+      "sniff": { "type": "zip", "entries": ["Index/Document.iwa"] },
+      "traits": ["richtext", "multipage", "binary", "proprietary"],
+      "status": "experimental",
+      "popularity": 15
+    },
+    {
+      "id": "xps",
+      "label": "XPS",
+      "name": { "en": "XPS document", "id": "Dokumen XPS" },
+      "description": {
+        "en": "Microsoft's fixed-layout document format, similar to PDF.",
+        "id": "Format dokumen tata letak tetap dari Microsoft, mirip PDF."
+      },
+      "category": "document",
+      "extensions": ["xps", "oxps"],
+      "mimeTypes": ["application/vnd.ms-xpsdocument", "application/oxps"],
+      "aliases": ["oxps"],
+      "sniff": {
+        "type": "zip",
+        "entries": ["[Content_Types].xml"],
+        "entryPrefixes": ["Documents/"]
+      },
+      "traits": ["layout", "multipage", "binary", "proprietary"],
+      "popularity": 5
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "../schema/engine.schema.json",
+  "engine": {
+    "id": "browser-text",
+    "name": "Browser text utilities",
+    "mode": "browser",
+    "status": "available",
+    "description": "Encoders and inspectors that run on raw bytes or text: Base64, URL encoding and file inspection (format detection and SHA-256).",
+    "homepage": "https://github.com/Ndyspleasure/Vanillate-Convert",
+    "license": "Project code",
+    "capabilities": {
+      "read": ["txt", "base64"],
+      "write": ["txt", "base64", "json"]
+    }
+  }
+}

@@ -1,0 +1,639 @@
+{
+  "$schema": "./schema/tools.schema.json",
+  "tools": [
+    {
+      "id": "json-formatter",
+      "name": { "en": "JSON formatter", "id": "Formatter JSON" },
+      "description": {
+        "en": "Validate and pretty-print JSON with consistent indentation.",
+        "id": "Validasi dan rapikan JSON dengan indentasi yang konsisten."
+      },
+      "category": "data",
+      "kind": "format",
+      "inputs": ["json"],
+      "acceptsText": true,
+      "output": "same",
+      "cardinality": "1:1",
+      "metadata": "unsupported",
+      "routes": [
+        {
+          "engine": "browser-data",
+          "mode": "browser",
+          "operation": "json-format",
+          "status": "stable",
+          "priority": 10,
+          "options": [{ "id": "jsonIndent", "choices": ["2", "4", "tab"] }]
+        }
+      ],
+      "popularity": 80
+    },
+    {
+      "id": "json-minifier",
+      "name": { "en": "JSON minifier", "id": "Minifier JSON" },
+      "description": {
+        "en": "Remove whitespace from JSON to make it as small as possible.",
+        "id": "Hapus spasi dari JSON agar ukurannya sekecil mungkin."
+      },
+      "category": "data",
+      "kind": "format",
+      "inputs": ["json"],
+      "acceptsText": true,
+      "output": "same",
+      "cardinality": "1:1",
+      "metadata": "unsupported",
+      "routes": [
+        {
+          "engine": "browser-data",
+          "mode": "browser",
+          "operation": "json-minify",
+          "status": "stable",
+          "priority": 10
+        }
+      ],
+      "popularity": 60
+    },
+    {
+      "id": "xml-formatter",
+      "name": { "en": "XML formatter", "id": "Formatter XML" },
+      "description": {
+        "en": "Validate and pretty-print XML.",
+        "id": "Validasi dan rapikan XML."
+      },
+      "category": "data",
+      "kind": "format",
+      "inputs": ["xml", "svg", "ttml", "dfxp"],
+      "acceptsText": true,
+      "output": "same",
+      "cardinality": "1:1",
+      "metadata": "unsupported",
+      "routes": [
+        {
+          "engine": "browser-data",
+          "mode": "browser",
+          "operation": "xml-format",
+          "status": "stable",
+          "priority": 10
+        }
+      ],
+      "popularity": 40
+    },
+    {
+      "id": "xml-minifier",
+      "name": { "en": "XML minifier", "id": "Minifier XML" },
+      "description": {
+        "en": "Remove insignificant whitespace and comments from XML.",
+        "id": "Hapus spasi dan komentar yang tidak penting dari XML."
+      },
+      "category": "data",
+      "kind": "format",
+      "inputs": ["xml", "svg"],
+      "acceptsText": true,
+      "output": "same",
+      "cardinality": "1:1",
+      "metadata": "unsupported",
+      "routes": [
+        {
+          "engine": "browser-data",
+          "mode": "browser",
+          "operation": "xml-minify",
+          "status": "stable",
+          "priority": 10
+        }
+      ],
+      "popularity": 25
+    },
+    {
+      "id": "base64-encode",
+      "name": { "en": "Base64 encoder", "id": "Encoder Base64" },
+      "description": {
+        "en": "Encode any file or text as Base64, optionally as a data URI.",
+        "id": "Encode file atau teks apa pun menjadi Base64, bisa juga sebagai data URI."
+      },
+      "category": "developer",
+      "kind": "encode",
+      "inputs": ["*"],
+      "acceptsText": true,
+      "output": "base64",
+      "cardinality": "1:1",
+      "metadata": "unsupported",
+      "routes": [
+        {
+          "engine": "browser-text",
+          "mode": "browser",
+          "operation": "base64-encode",
+          "status": "stable",
+          "priority": 10,
+          "options": ["base64Variant", "base64DataUri"]
+        }
+      ],
+      "popularity": 60
+    },
+    {
+      "id": "base64-decode",
+      "name": { "en": "Base64 decoder", "id": "Decoder Base64" },
+      "description": {
+        "en": "Decode Base64 text or a data URI back into the original file. The result's format is detected automatically.",
+        "id": "Decode teks Base64 atau data URI kembali menjadi file asli. Format hasil dideteksi otomatis."
+      },
+      "category": "developer",
+      "kind": "encode",
+      "inputs": ["base64", "txt"],
+      "acceptsText": true,
+      "output": "detect",
+      "cardinality": "1:1",
+      "metadata": "unsupported",
+      "routes": [
+        {
+          "engine": "browser-text",
+          "mode": "browser",
+          "operation": "base64-decode",
+          "status": "stable",
+          "priority": 10
+        }
+      ],
+      "popularity": 55
+    },
+    {
+      "id": "url-encode",
+      "name": { "en": "URL encoder", "id": "Encoder URL" },
+      "description": {
+        "en": "Percent-encode text for use in URLs and query strings.",
+        "id": "Encode teks dengan persen-encoding untuk dipakai di URL dan query string."
+      },
+      "category": "developer",
+      "kind": "encode",
+      "inputs": ["txt"],
+      "acceptsText": true,
+      "output": "txt",
+      "cardinality": "1:1",
+      "metadata": "unsupported",
+      "routes": [
+        {
+          "engine": "browser-text",
+          "mode": "browser",
+          "operation": "url-encode",
+          "status": "stable",
+          "priority": 10,
+          "options": ["urlMode"]
+        }
+      ],
+      "popularity": 40
+    },
+    {
+      "id": "url-decode",
+      "name": { "en": "URL decoder", "id": "Decoder URL" },
+      "description": {
+        "en": "Decode percent-encoded URLs and query strings back into readable text.",
+        "id": "Decode URL dan query string yang ter-encode kembali menjadi teks yang mudah dibaca."
+      },
+      "category": "developer",
+      "kind": "encode",
+      "inputs": ["txt"],
+      "acceptsText": true,
+      "output": "txt",
+      "cardinality": "1:1",
+      "metadata": "unsupported",
+      "routes": [
+        {
+          "engine": "browser-text",
+          "mode": "browser",
+          "operation": "url-decode",
+          "status": "stable",
+          "priority": 10
+        }
+      ],
+      "popularity": 35
+    },
+    {
+      "id": "file-inspector",
+      "name": { "en": "File inspector", "id": "Inspektor file" },
+      "description": {
+        "en": "Identify a file by its contents: detected format, MIME type, size and SHA-256 checksum.",
+        "id": "Kenali file dari isinya: format terdeteksi, tipe MIME, ukuran, dan checksum SHA-256."
+      },
+      "category": "developer",
+      "kind": "inspect",
+      "inputs": ["*"],
+      "output": "json",
+      "cardinality": "1:1",
+      "metadata": "unsupported",
+      "routes": [
+        {
+          "engine": "browser-text",
+          "mode": "browser",
+          "operation": "inspect",
+          "status": "stable",
+          "priority": 10
+        }
+      ],
+      "popularity": 30
+    },
+    {
+      "id": "subtitle-shift",
+      "name": { "en": "Subtitle shifter", "id": "Penggeser subtitle" },
+      "description": {
+        "en": "Move all subtitles earlier or later to fix out-of-sync captions.",
+        "id": "Geser semua subtitle lebih awal atau lebih lambat untuk memperbaiki subtitle yang tidak sinkron."
+      },
+      "category": "subtitle",
+      "kind": "transform",
+      "inputs": ["srt", "vtt", "sbv", "ass", "ssa", "ttml", "dfxp"],
+      "output": "same",
+      "cardinality": "1:1",
+      "metadata": "unsupported",
+      "routes": [
+        {
+          "engine": "browser-subtitle",
+          "mode": "browser",
+          "operation": "shift",
+          "status": "stable",
+          "priority": 10,
+          "options": ["offsetMs"]
+        }
+      ],
+      "popularity": 45
+    },
+    {
+      "id": "image-compressor",
+      "name": { "en": "Image compressor", "id": "Kompresor gambar" },
+      "description": {
+        "en": "Make JPG and WebP images smaller by re-encoding them at a lower quality.",
+        "id": "Perkecil ukuran gambar JPG dan WebP dengan meng-encode ulang pada kualitas lebih rendah."
+      },
+      "category": "image",
+      "kind": "compress",
+      "inputs": ["jpg", "webp"],
+      "output": "same",
+      "cardinality": "1:1",
+      "metadata": "strip",
+      "limitations": ["lossy-output", "color-srgb"],
+      "routes": [
+        {
+          "engine": "browser-image",
+          "mode": "browser",
+          "operation": "compress",
+          "status": "stable",
+          "priority": 10,
+          "options": [{ "id": "quality", "default": 75 }, "width", "height"]
+        }
+      ],
+      "popularity": 85
+    },
+    {
+      "id": "image-resizer",
+      "name": { "en": "Image resizer", "id": "Pengubah ukuran gambar" },
+      "description": {
+        "en": "Resize images to a new width or height while keeping the aspect ratio.",
+        "id": "Ubah ukuran gambar ke lebar atau tinggi baru dengan rasio aspek tetap."
+      },
+      "category": "image",
+      "kind": "transform",
+      "inputs": ["jpg", "png", "webp", "bmp"],
+      "output": "same",
+      "cardinality": "1:1",
+      "metadata": "strip",
+      "limitations": ["color-srgb"],
+      "routes": [
+        {
+          "engine": "browser-image",
+          "mode": "browser",
+          "operation": "resize",
+          "status": "stable",
+          "priority": 10,
+          "options": [{ "id": "width", "default": 1280 }, "height", "quality"]
+        }
+      ],
+      "popularity": 75
+    },
+    {
+      "id": "image-rotator",
+      "name": { "en": "Image rotator", "id": "Pemutar gambar" },
+      "description": {
+        "en": "Rotate images by 90, 180 or 270 degrees.",
+        "id": "Putar gambar 90, 180, atau 270 derajat."
+      },
+      "category": "image",
+      "kind": "transform",
+      "inputs": ["jpg", "png", "webp", "bmp"],
+      "output": "same",
+      "cardinality": "1:1",
+      "metadata": "strip",
+      "limitations": ["color-srgb"],
+      "routes": [
+        {
+          "engine": "browser-image",
+          "mode": "browser",
+          "operation": "rotate",
+          "status": "stable",
+          "priority": 10,
+          "options": ["rotate", "quality"]
+        }
+      ],
+      "popularity": 40
+    },
+    {
+      "id": "images-to-pdf",
+      "name": { "en": "Images to PDF", "id": "Gambar ke PDF" },
+      "description": {
+        "en": "Combine JPG, PNG, WebP and other images into one PDF, in the order you choose.",
+        "id": "Gabungkan gambar JPG, PNG, WebP, dan lainnya menjadi satu PDF sesuai urutan pilihanmu."
+      },
+      "category": "pdf",
+      "kind": "combine",
+      "inputs": ["jpg", "png", "webp", "gif", "bmp", "avif"],
+      "output": "pdf",
+      "cardinality": "n:1",
+      "metadata": "strip",
+      "limitations": ["page-size-from-image"],
+      "routes": [
+        {
+          "engine": "browser-image",
+          "mode": "browser",
+          "operation": "images-to-pdf",
+          "status": "stable",
+          "priority": 10,
+          "options": ["pageSize", "pageOrientation", "margin"]
+        }
+      ],
+      "popularity": 90
+    },
+    {
+      "id": "zip-creator",
+      "name": { "en": "Create ZIP", "id": "Buat ZIP" },
+      "description": {
+        "en": "Put several files into one ZIP archive, right in your browser.",
+        "id": "Masukkan beberapa file ke satu arsip ZIP, langsung di browser kamu."
+      },
+      "category": "archive",
+      "kind": "combine",
+      "inputs": ["*"],
+      "output": "zip",
+      "cardinality": "n:1",
+      "metadata": "unsupported",
+      "limitations": ["archive-flattened-metadata"],
+      "routes": [
+        {
+          "engine": "browser-archive",
+          "mode": "browser",
+          "operation": "create-zip",
+          "status": "stable",
+          "priority": 10,
+          "options": ["zipLevel"]
+        }
+      ],
+      "popularity": 60
+    },
+    {
+      "id": "archive-extractor",
+      "name": { "en": "Extract archive", "id": "Ekstrak arsip" },
+      "description": {
+        "en": "Unpack ZIP, RAR, 7Z, TAR and other archives safely and download the files inside.",
+        "id": "Buka arsip ZIP, RAR, 7Z, TAR, dan lainnya dengan aman lalu unduh file di dalamnya."
+      },
+      "category": "archive",
+      "kind": "extract",
+      "inputs": [
+        "zip",
+        "tar",
+        "tgz",
+        "gz",
+        "7z",
+        "rar",
+        "tbz2",
+        "bz2",
+        "txz",
+        "xz",
+        "lzma",
+        "iso",
+        "cab",
+        "arj",
+        "lzh",
+        "cpio",
+        "rpm",
+        "deb",
+        "cbz",
+        "cbr"
+      ],
+      "output": "detect",
+      "cardinality": "1:n",
+      "metadata": "unsupported",
+      "limitations": ["archive-flattened-metadata"],
+      "routes": [
+        {
+          "engine": "browser-archive",
+          "mode": "browser",
+          "operation": "extract",
+          "status": "stable",
+          "priority": 10
+        },
+        {
+          "engine": "sevenzip",
+          "mode": "server",
+          "operation": "extract",
+          "status": "stable",
+          "priority": 50
+        }
+      ],
+      "popularity": 75
+    },
+    {
+      "id": "pdf-compressor",
+      "name": { "en": "Compress PDF", "id": "Kompres PDF" },
+      "description": {
+        "en": "Reduce PDF file size by recompressing images and removing redundant data.",
+        "id": "Perkecil ukuran PDF dengan mengompres ulang gambar dan membuang data yang berulang."
+      },
+      "category": "pdf",
+      "kind": "compress",
+      "inputs": ["pdf"],
+      "output": "same",
+      "cardinality": "1:1",
+      "metadata": "preserve",
+      "limitations": ["lossy-output"],
+      "routes": [
+        {
+          "engine": "ghostscript",
+          "mode": "server",
+          "operation": "compress-pdf",
+          "status": "stable",
+          "priority": 50,
+          "options": ["compressionLevel"]
+        }
+      ],
+      "popularity": 95
+    },
+    {
+      "id": "pdf-merger",
+      "name": { "en": "Merge PDF", "id": "Gabung PDF" },
+      "description": {
+        "en": "Combine several PDF files into one document in the order you choose.",
+        "id": "Gabungkan beberapa file PDF menjadi satu dokumen sesuai urutan pilihanmu."
+      },
+      "category": "pdf",
+      "kind": "combine",
+      "inputs": ["pdf"],
+      "output": "same",
+      "cardinality": "n:1",
+      "metadata": "transform",
+      "routes": [
+        {
+          "engine": "qpdf",
+          "mode": "server",
+          "operation": "merge",
+          "status": "stable",
+          "priority": 40
+        }
+      ],
+      "popularity": 95
+    },
+    {
+      "id": "pdf-splitter",
+      "name": { "en": "Split PDF", "id": "Pisah PDF" },
+      "description": {
+        "en": "Split a PDF into one file per page.",
+        "id": "Pisahkan PDF menjadi satu file per halaman."
+      },
+      "category": "pdf",
+      "kind": "split",
+      "inputs": ["pdf"],
+      "output": "same",
+      "cardinality": "1:n",
+      "metadata": "preserve",
+      "routes": [
+        {
+          "engine": "qpdf",
+          "mode": "server",
+          "operation": "split",
+          "status": "stable",
+          "priority": 40,
+          "options": ["pageRange"]
+        }
+      ],
+      "popularity": 80
+    },
+    {
+      "id": "pdf-page-extractor",
+      "name": { "en": "Extract PDF pages", "id": "Ambil halaman PDF" },
+      "description": {
+        "en": "Create a new PDF containing only the pages you select.",
+        "id": "Buat PDF baru yang hanya berisi halaman yang kamu pilih."
+      },
+      "category": "pdf",
+      "kind": "extract",
+      "inputs": ["pdf"],
+      "output": "same",
+      "cardinality": "1:1",
+      "metadata": "preserve",
+      "routes": [
+        {
+          "engine": "qpdf",
+          "mode": "server",
+          "operation": "select-pages",
+          "status": "stable",
+          "priority": 40,
+          "options": ["pageRange"]
+        }
+      ],
+      "popularity": 60
+    },
+    {
+      "id": "pdf-rotator",
+      "name": { "en": "Rotate PDF", "id": "Putar PDF" },
+      "description": {
+        "en": "Rotate all pages, or only selected pages, of a PDF.",
+        "id": "Putar semua halaman, atau halaman tertentu saja, pada PDF."
+      },
+      "category": "pdf",
+      "kind": "transform",
+      "inputs": ["pdf"],
+      "output": "same",
+      "cardinality": "1:1",
+      "metadata": "preserve",
+      "routes": [
+        {
+          "engine": "qpdf",
+          "mode": "server",
+          "operation": "rotate",
+          "status": "stable",
+          "priority": 40,
+          "options": ["rotate", "pageRange"]
+        }
+      ],
+      "popularity": 55
+    },
+    {
+      "id": "video-compressor",
+      "name": { "en": "Compress video", "id": "Kompres video" },
+      "description": {
+        "en": "Reduce video file size with an efficient H.264 encode at a quality you choose.",
+        "id": "Perkecil ukuran video dengan encoding H.264 yang efisien pada kualitas pilihanmu."
+      },
+      "category": "video",
+      "kind": "compress",
+      "inputs": ["mp4", "mov", "mkv", "webm", "avi", "m4v"],
+      "output": "mp4",
+      "cardinality": "1:1",
+      "metadata": "preserve",
+      "limitations": ["lossy-output"],
+      "routes": [
+        {
+          "engine": "ffmpeg",
+          "mode": "server",
+          "operation": "compress-video",
+          "status": "stable",
+          "priority": 50,
+          "options": [{ "id": "videoQuality", "default": "small" }, "resolution", "removeAudio"]
+        }
+      ],
+      "popularity": 85
+    },
+    {
+      "id": "metadata-remover",
+      "name": { "en": "Remove metadata", "id": "Hapus metadata" },
+      "description": {
+        "en": "Remove EXIF, GPS location, camera details and other metadata without re-encoding the file.",
+        "id": "Hapus EXIF, lokasi GPS, detail kamera, dan metadata lain tanpa meng-encode ulang file."
+      },
+      "category": "metadata",
+      "kind": "transform",
+      "inputs": ["jpg", "png", "webp", "tiff", "mp4", "mov", "m4a", "mp3"],
+      "output": "same",
+      "cardinality": "1:1",
+      "metadata": "strip",
+      "routes": [
+        {
+          "engine": "exiftool",
+          "mode": "server",
+          "operation": "strip-metadata",
+          "status": "stable",
+          "priority": 50
+        }
+      ],
+      "popularity": 50
+    },
+    {
+      "id": "metadata-viewer",
+      "name": { "en": "View metadata", "id": "Lihat metadata" },
+      "description": {
+        "en": "See the hidden metadata inside photos, audio and video files, including GPS location.",
+        "id": "Lihat metadata tersembunyi di dalam foto, audio, dan video, termasuk lokasi GPS."
+      },
+      "category": "metadata",
+      "kind": "inspect",
+      "inputs": ["jpg", "png", "webp", "tiff", "heic", "gif", "mp4", "mov", "m4a", "mp3"],
+      "output": "json",
+      "cardinality": "1:1",
+      "metadata": "preserve",
+      "routes": [
+        {
+          "engine": "exiftool",
+          "mode": "server",
+          "operation": "read-metadata",
+          "status": "stable",
+          "priority": 50
+        }
+      ],
+      "popularity": 45
+    }
+  ]
+}

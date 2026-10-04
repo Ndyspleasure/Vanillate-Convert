@@ -1,0 +1,420 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "formats": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 24,
+            "pattern": "^[a-z0-9]+$"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 16
+          },
+          "name": {
+            "type": "object",
+            "properties": {
+              "en": {
+                "type": "string",
+                "minLength": 1
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "en",
+              "id"
+            ],
+            "additionalProperties": false
+          },
+          "description": {
+            "type": "object",
+            "properties": {
+              "en": {
+                "type": "string",
+                "minLength": 1
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "en",
+              "id"
+            ],
+            "additionalProperties": false
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "image",
+              "pdf",
+              "document",
+              "spreadsheet",
+              "presentation",
+              "audio",
+              "video",
+              "archive",
+              "data",
+              "developer",
+              "ebook",
+              "subtitle",
+              "font",
+              "vector",
+              "3d",
+              "cad",
+              "scientific",
+              "web",
+              "metadata",
+              "specialized"
+            ]
+          },
+          "alsoIn": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "image",
+                "pdf",
+                "document",
+                "spreadsheet",
+                "presentation",
+                "audio",
+                "video",
+                "archive",
+                "data",
+                "developer",
+                "ebook",
+                "subtitle",
+                "font",
+                "vector",
+                "3d",
+                "cad",
+                "scientific",
+                "web",
+                "metadata",
+                "specialized"
+              ]
+            }
+          },
+          "extensions": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 16,
+              "pattern": "^[a-z0-9]+(?:\\.[a-z0-9]+)*$"
+            }
+          },
+          "mimeTypes": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9!#$&^_.+-]*\\/[a-z0-9][a-z0-9!#$&^_.+-]*$"
+            }
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 24,
+              "pattern": "^[a-z0-9]+$"
+            }
+          },
+          "signatures": {
+            "type": "array",
+            "items": {
+              "minItems": 1,
+              "maxItems": 4,
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "offset": {
+                    "type": "integer",
+                    "minimum": -65536,
+                    "maximum": 65536
+                  },
+                  "hex": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9A-F]{2})+$"
+                  },
+                  "ascii": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 64
+                  },
+                  "mask": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9A-F]{2})+$"
+                  },
+                  "within": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 65536
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "sniff": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "zip"
+                  },
+                  "entries": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "entryPrefixes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "mimetype": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "ole"
+                  },
+                  "streams": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                },
+                "required": [
+                  "type",
+                  "streams"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "text"
+                  },
+                  "pattern": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "flags": {
+                    "type": "string",
+                    "pattern": "^[imsu]*$"
+                  }
+                },
+                "required": [
+                  "type",
+                  "pattern"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "json"
+                  },
+                  "requireKeys": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "ndjson"
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "xml"
+                  },
+                  "root": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "namespace": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "type"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "tar-in"
+                  },
+                  "compression": {
+                    "type": "string",
+                    "enum": [
+                      "gzip"
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "compression"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "traits": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "raster",
+                "vector",
+                "lossy",
+                "lossless",
+                "alpha",
+                "animation",
+                "multipage",
+                "palette",
+                "hdr",
+                "raw",
+                "layered",
+                "text",
+                "binary",
+                "structured",
+                "tabular",
+                "richtext",
+                "layout",
+                "markup",
+                "macro",
+                "audio",
+                "video",
+                "container",
+                "styled",
+                "timed",
+                "archive",
+                "compressed",
+                "diskimage",
+                "font",
+                "model3d",
+                "cad",
+                "scientific",
+                "proprietary",
+                "legacy",
+                "sensitive"
+              ]
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "stable",
+              "supported",
+              "limited",
+              "experimental",
+              "deprecated",
+              "unsupported"
+            ]
+          },
+          "popularity": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "notes": {
+            "type": "object",
+            "properties": {
+              "en": {
+                "type": "string",
+                "minLength": 1
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "en",
+              "id"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "name",
+          "description",
+          "category",
+          "extensions",
+          "mimeTypes"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "formats"
+  ],
+  "additionalProperties": false
+}

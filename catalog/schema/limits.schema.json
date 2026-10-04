@@ -1,0 +1,321 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "defaults": {
+      "type": "object",
+      "properties": {
+        "browser": {
+          "type": "object",
+          "properties": {
+            "maxInputBytes": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 68719476736
+            },
+            "maxTotalInputBytes": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 68719476736
+            },
+            "maxOutputBytes": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 68719476736
+            },
+            "maxFilesPerJob": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 1000
+            },
+            "maxJobSeconds": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 86400
+            }
+          },
+          "required": [
+            "maxInputBytes",
+            "maxTotalInputBytes",
+            "maxOutputBytes",
+            "maxFilesPerJob",
+            "maxJobSeconds"
+          ],
+          "additionalProperties": false
+        },
+        "server": {
+          "type": "object",
+          "properties": {
+            "maxInputBytes": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 68719476736
+            },
+            "maxTotalInputBytes": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 68719476736
+            },
+            "maxOutputBytes": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 68719476736
+            },
+            "maxFilesPerJob": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 1000
+            },
+            "maxJobSeconds": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 86400
+            }
+          },
+          "required": [
+            "maxInputBytes",
+            "maxTotalInputBytes",
+            "maxOutputBytes",
+            "maxFilesPerJob",
+            "maxJobSeconds"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "browser",
+        "server"
+      ],
+      "additionalProperties": false
+    },
+    "categories": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "enum": [
+          "image",
+          "pdf",
+          "document",
+          "spreadsheet",
+          "presentation",
+          "audio",
+          "video",
+          "archive",
+          "data",
+          "developer",
+          "ebook",
+          "subtitle",
+          "font",
+          "vector",
+          "3d",
+          "cad",
+          "scientific",
+          "web",
+          "metadata",
+          "specialized"
+        ]
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "browser": {
+            "type": "object",
+            "properties": {
+              "maxInputBytes": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 68719476736
+              },
+              "maxTotalInputBytes": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 68719476736
+              },
+              "maxOutputBytes": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 68719476736
+              },
+              "maxFilesPerJob": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 1000
+              },
+              "maxJobSeconds": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 86400
+              }
+            },
+            "additionalProperties": false
+          },
+          "server": {
+            "type": "object",
+            "properties": {
+              "maxInputBytes": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 68719476736
+              },
+              "maxTotalInputBytes": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 68719476736
+              },
+              "maxOutputBytes": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 68719476736
+              },
+              "maxFilesPerJob": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 1000
+              },
+              "maxJobSeconds": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 86400
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "archive": {
+      "type": "object",
+      "properties": {
+        "maxEntries": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "maxExtractedBytes": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 68719476736
+        },
+        "maxCompressionRatio": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "maxPathLength": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "maxDepth": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "maxEntries",
+        "maxExtractedBytes",
+        "maxCompressionRatio",
+        "maxPathLength",
+        "maxDepth"
+      ],
+      "additionalProperties": false
+    },
+    "media": {
+      "type": "object",
+      "properties": {
+        "maxDurationSeconds": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "maxPixels": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "maxPages": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "maxDurationSeconds",
+        "maxPixels",
+        "maxPages"
+      ],
+      "additionalProperties": false
+    },
+    "retention": {
+      "type": "object",
+      "properties": {
+        "abandonedUploadSeconds": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "outputSeconds": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "failedSeconds": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "signedUrlSeconds": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "jobRecordSeconds": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "abandonedUploadSeconds",
+        "outputSeconds",
+        "failedSeconds",
+        "signedUrlSeconds",
+        "jobRecordSeconds"
+      ],
+      "additionalProperties": false
+    },
+    "rateLimits": {
+      "type": "object",
+      "properties": {
+        "jobsPerHour": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "jobsPerMinute": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        }
+      },
+      "required": [
+        "jobsPerHour",
+        "jobsPerMinute"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "defaults",
+    "categories",
+    "archive",
+    "media",
+    "retention",
+    "rateLimits"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,192 @@
+{
+  "$schema": "../schema/rules.schema.json",
+  "rules": [
+    {
+      "id": "audio.ffmpeg.transcode",
+      "description": "Audio transcoding with FFmpeg. Tags such as title and artist are kept.",
+      "mode": "server",
+      "steps": ["ffmpeg"],
+      "from": { "categories": ["audio"] },
+      "to": {
+        "formats": [
+          "mp3",
+          "wav",
+          "flac",
+          "aac",
+          "m4a",
+          "alac",
+          "m4r",
+          "ogg",
+          "opus",
+          "aiff",
+          "wma",
+          "ac3",
+          "mka"
+        ]
+      },
+      "status": "stable",
+      "priority": 50,
+      "metadata": "preserve",
+      "options": ["audioBitrate", "sampleRate", "channels"],
+      "overrides": [
+        { "to": ["wav", "flac", "alac", "aiff"], "options": ["sampleRate", "channels"] },
+        { "to": "opus", "options": [{ "id": "audioBitrate", "default": 128 }, "channels"] },
+        {
+          "to": "ac3",
+          "options": [
+            { "id": "audioBitrate", "choices": [96, 128, 160, 192, 256, 320], "default": 192 },
+            "channels"
+          ]
+        },
+        {
+          "to": "wma",
+          "options": [
+            { "id": "audioBitrate", "choices": [64, 96, 128, 160, 192], "default": 128 },
+            "channels"
+          ]
+        },
+        { "to": "m4r", "limitations": ["ringtone-length"] },
+        { "to": ["ac3", "mka", "wma"], "status": "supported" },
+        { "from": ["dts", "ape", "amr", "ac3", "mka"], "status": "supported" }
+      ]
+    },
+    {
+      "id": "audio.ffmpeg.from-video",
+      "description": "Extract and convert the audio track of a video with FFmpeg.",
+      "mode": "server",
+      "steps": ["ffmpeg"],
+      "from": { "categories": ["video"] },
+      "to": {
+        "formats": ["mp3", "wav", "flac", "aac", "m4a", "ogg", "opus", "aiff", "wma", "ac3", "m4r"]
+      },
+      "status": "stable",
+      "priority": 50,
+      "metadata": "preserve",
+      "options": ["audioBitrate", "sampleRate", "channels"],
+      "overrides": [
+        { "to": ["wav", "flac", "aiff"], "options": ["sampleRate", "channels"] },
+        { "to": "opus", "options": [{ "id": "audioBitrate", "default": 128 }, "channels"] },
+        {
+          "to": "ac3",
+          "options": [
+            { "id": "audioBitrate", "choices": [96, 128, 160, 192, 256, 320], "default": 192 },
+            "channels"
+          ]
+        },
+        {
+          "to": "wma",
+          "options": [
+            { "id": "audioBitrate", "choices": [64, 96, 128, 160, 192], "default": 128 },
+            "channels"
+          ]
+        },
+        { "to": "m4r", "limitations": ["ringtone-length"] },
+        { "to": ["ac3", "wma"], "status": "supported" },
+        { "from": ["rm", "asf", "vob", "3g2"], "status": "supported" }
+      ]
+    },
+    {
+      "id": "video.ffmpeg.transcode",
+      "description": "Video transcoding with FFmpeg.",
+      "mode": "server",
+      "steps": ["ffmpeg"],
+      "from": { "categories": ["video"] },
+      "to": {
+        "formats": [
+          "mp4",
+          "m4v",
+          "mov",
+          "mkv",
+          "webm",
+          "avi",
+          "wmv",
+          "flv",
+          "mpg",
+          "ts",
+          "3gp",
+          "ogv"
+        ]
+      },
+      "status": "stable",
+      "priority": 50,
+      "metadata": "preserve",
+      "options": ["videoQuality", "resolution", "fps", "removeAudio", "audioBitrate"],
+      "overrides": [
+        {
+          "to": "mp4",
+          "addOptions": [
+            { "id": "videoCodec", "choices": ["h264", "h265", "av1"], "default": "h264" }
+          ]
+        },
+        {
+          "to": "mov",
+          "addOptions": [{ "id": "videoCodec", "choices": ["h264", "h265"], "default": "h264" }]
+        },
+        {
+          "to": "mkv",
+          "addOptions": [
+            { "id": "videoCodec", "choices": ["h264", "h265", "vp9", "av1"], "default": "h264" }
+          ]
+        },
+        {
+          "to": "webm",
+          "addOptions": [{ "id": "videoCodec", "choices": ["vp9", "av1"], "default": "vp9" }]
+        },
+        {
+          "to": "avi",
+          "addOptions": [{ "id": "videoCodec", "choices": ["mpeg4", "h264"], "default": "mpeg4" }]
+        },
+        {
+          "to": "ts",
+          "addOptions": [
+            { "id": "videoCodec", "choices": ["h264", "h265", "mpeg2"], "default": "h264" }
+          ]
+        },
+        { "to": ["flv", "wmv", "mpg", "3gp", "ogv"], "status": "supported" },
+        { "from": ["rm", "asf", "vob", "3g2"], "status": "supported" }
+      ]
+    },
+    {
+      "id": "video.ffmpeg.gif",
+      "description": "Video to animated GIF with a generated palette (FFmpeg palettegen/paletteuse).",
+      "mode": "server",
+      "steps": ["ffmpeg"],
+      "from": { "categories": ["video"] },
+      "to": { "formats": ["gif"] },
+      "status": "stable",
+      "priority": 50,
+      "metadata": "unsupported",
+      "options": [
+        { "id": "fps", "choices": [15, 12, 10, 8, 5], "default": 10 },
+        { "id": "width", "default": 480, "max": 1280 },
+        "loop"
+      ],
+      "limitations": ["gif-size"],
+      "overrides": [{ "from": ["rm", "asf", "vob", "3g2"], "status": "supported" }]
+    },
+    {
+      "id": "video.ffmpeg.from-animation",
+      "description": "Animated GIF/APNG to video with FFmpeg.",
+      "mode": "server",
+      "steps": ["ffmpeg"],
+      "from": { "formats": ["gif", "apng"] },
+      "to": { "formats": ["mp4", "webm", "mov"] },
+      "status": "stable",
+      "priority": 50,
+      "metadata": "unsupported",
+      "options": ["videoQuality"]
+    },
+    {
+      "id": "video.ffmpeg.subtitles",
+      "description": "Extract the first text subtitle track of a video with FFmpeg.",
+      "mode": "server",
+      "steps": ["ffmpeg"],
+      "from": { "formats": ["mkv", "mp4", "mov", "webm", "ts", "m2ts"] },
+      "to": { "formats": ["srt", "vtt", "ass"] },
+      "status": "supported",
+      "priority": 50,
+      "metadata": "unsupported",
+      "limitations": ["first-subtitle-track"]
+    }
+  ]
+}
