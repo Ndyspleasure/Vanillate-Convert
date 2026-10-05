@@ -36,6 +36,7 @@
       "status": "stable",
       "priority": 40,
       "metadata": "preserve",
+      "limitations": ["external-resources-ignored"],
       "overrides": [
         { "from": "tex", "status": "supported", "limitations": ["layout-may-change"] },
         { "from": "fb2", "status": "supported" },
@@ -56,6 +57,7 @@
       "limitations": ["layout-may-change"],
       "overrides": [
         { "from": "html", "limitations": ["external-resources-ignored"] },
+        { "to": ["md", "rst", "tex", "org"], "limitations": ["images-not-included"] },
         { "to": ["tex", "org", "fb2"], "status": "supported" }
       ]
     },

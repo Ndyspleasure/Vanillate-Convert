@@ -311,6 +311,16 @@ export function validateCatalog(input: unknown): CatalogValidation {
         add(`${path}.routes[${i}]`, `engine "${engine.id}" is a ${engine.mode} engine`);
       for (const [j, ref] of (route.options ?? []).entries())
         checkOptionRef(`${path}.routes[${i}].options[${j}]`, ref);
+      for (const id of route.inputs ?? []) {
+        if (!tool.inputs.includes(id) && !tool.inputs.includes('*'))
+          add(`${path}.routes[${i}]`, `route input "${id}" is not an input of the tool`);
+      }
+    }
+    if (!tool.inputs.includes('*')) {
+      for (const id of tool.inputs) {
+        if (!tool.routes.some((r) => !r.inputs || r.inputs.includes(id)))
+          add(path, `no route handles input "${id}"`);
+      }
     }
   }
 

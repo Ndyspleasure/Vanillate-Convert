@@ -182,6 +182,8 @@ export interface ToolRoute {
   options: OptionDef[];
   pool: WorkerPool | null;
   offered: boolean;
+  /** Input formats this route handles; `*` accepts any file. */
+  inputs: string[];
 }
 
 export interface Tool {

@@ -395,6 +395,7 @@ function compileTool(raw: RawCatalog['tools'][number], ctx: ExpandContext): Tool
       options: ctx.options.resolveList(route.options ?? [], `tool ${raw.id}`),
       pool: route.mode === 'server' ? engine.pool : null,
       offered: isOffered(status),
+      inputs: route.inputs ?? raw.inputs,
     };
   });
   routes.sort(
@@ -494,7 +495,7 @@ export function compileRegistry(raw: RawCatalog, env: RegistryEnvironment = {}):
   for (const tool of tools) {
     for (const route of tool.routes) {
       if (!route.offered) continue;
-      for (const input of tool.inputs) {
+      for (const input of route.inputs) {
         if (input === '*') continue;
         touch(input, route.mode, route.status, [route.engine]);
       }

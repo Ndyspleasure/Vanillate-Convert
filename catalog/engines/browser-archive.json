@@ -9,7 +9,7 @@
     "homepage": "https://github.com/101arrowz/fflate",
     "license": "Project code; fflate (MIT)",
     "capabilities": {
-      "read": ["zip", "tar", "tgz", "gz"],
+      "read": ["zip", "tar", "tgz", "gz", "cbz"],
       "write": ["zip", "tar", "tgz"]
     }
   }

@@ -491,7 +491,8 @@
           "mode": "browser",
           "operation": "extract",
           "status": "stable",
-          "priority": 10
+          "priority": 10,
+          "inputs": ["zip", "tar", "tgz", "gz", "cbz"]
         },
         {
           "engine": "sevenzip",

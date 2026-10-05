@@ -1,0 +1,17 @@
+{
+  "name": "@vanillate/storage",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Object storage abstraction for job inputs and outputs: memory, local filesystem and S3-compatible drivers with signed URLs.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@vanillate/core": "workspace:*",
+    "aws4fetch": "^1.0.20"
+  }
+}

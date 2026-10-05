@@ -29,7 +29,7 @@
       "metadata": "preserve",
       "options": ["audioBitrate", "sampleRate", "channels"],
       "overrides": [
-        { "to": ["wav", "flac", "alac", "aiff"], "options": ["sampleRate", "channels"] },
+        { "to": ["wav", "flac", "alac", "aiff", "mka"], "options": ["sampleRate", "channels"] },
         { "to": "opus", "options": [{ "id": "audioBitrate", "default": 128 }, "channels"] },
         {
           "to": "ac3",
@@ -143,6 +143,16 @@
           ]
         },
         { "to": ["flv", "wmv", "mpg", "3gp", "ogv"], "status": "supported" },
+        {
+          "to": "mpg",
+          "options": [
+            "videoQuality",
+            "resolution",
+            { "id": "fps", "choices": [0, 60, 50, 30, 25, 24] },
+            "removeAudio",
+            "audioBitrate"
+          ]
+        },
         { "from": ["rm", "asf", "vob", "3g2"], "status": "supported" }
       ]
     },

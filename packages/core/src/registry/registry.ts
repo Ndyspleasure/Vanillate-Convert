@@ -187,6 +187,19 @@ export class Registry {
     return this.toolRouteById.get(id);
   }
 
+  /**
+   * Routes of a tool that can handle every given input format, in preference order.
+   * Unknown formats (`null`) are only handled by routes accepting any file.
+   */
+  toolRoutesFor(tool: Tool, formats: readonly (string | null)[]): ToolRoute[] {
+    return tool.routes.filter((route) =>
+      formats.every(
+        (format) =>
+          route.inputs.includes('*') || (format !== null && route.inputs.includes(format)),
+      ),
+    );
+  }
+
   offeredTools(): Tool[] {
     return this.tools.filter((t) => t.offered);
   }

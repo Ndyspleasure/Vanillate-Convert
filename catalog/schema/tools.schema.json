@@ -234,6 +234,23 @@
                       }
                     ]
                   }
+                },
+                "inputs": {
+                  "minItems": 1,
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "maxLength": 24,
+                        "pattern": "^[a-z0-9]+$"
+                      },
+                      {
+                        "type": "string",
+                        "const": "*"
+                      }
+                    ]
+                  }
                 }
               },
               "required": [

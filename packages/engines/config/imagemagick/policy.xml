@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Vanillate Convert ImageMagick policy (IM6 and IM7).
+  Installed as the system policy in worker images and referenced via MAGICK_CONFIGURE_PATH.
+  - Resource limits bound memory, disk, pixel area and time per command.
+  - No delegates (external programs) and no coders that read URLs, scripts or PostScript/PDF:
+    PDF and PostScript are handled by Poppler/Ghostscript, SVG by librsvg.
+-->
+<policymap>
+  <policy domain="resource" name="memory" value="1GiB"/>
+  <policy domain="resource" name="map" value="2GiB"/>
+  <policy domain="resource" name="disk" value="4GiB"/>
+  <policy domain="resource" name="area" value="128MP"/>
+  <policy domain="resource" name="width" value="32KP"/>
+  <policy domain="resource" name="height" value="32KP"/>
+  <policy domain="resource" name="list-length" value="256"/>
+  <policy domain="resource" name="time" value="600"/>
+  <policy domain="resource" name="thread" value="2"/>
+  <policy domain="delegate" rights="none" pattern="*"/>
+  <policy domain="coder" rights="none" pattern="{MVG,MSL,URL,HTTP,HTTPS,FTP,TEXT,LABEL,CAPTION,PANGO,EPHEMERAL,SHOW,WIN,X,PLASMA,VID,INLINE,PS,PS2,PS3,EPS,EPI,EPSI,EPSF,EPT,PDF,PDFA,XPS,AI,SVG,SVGZ,MSVG,RSVG}"/>
+  <policy domain="path" rights="none" pattern="@*"/>
+  <policy domain="filter" rights="none" pattern="*"/>
+</policymap>

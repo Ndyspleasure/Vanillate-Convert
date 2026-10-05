@@ -266,6 +266,14 @@
       }
     },
     {
+      "id": "images-not-included",
+      "severity": "warning",
+      "text": {
+        "en": "Images are not included in the output; only the text and its structure are converted.",
+        "id": "Gambar tidak disertakan dalam hasil; hanya teks dan strukturnya yang dikonversi."
+      }
+    },
+    {
       "id": "text-outlined",
       "severity": "info",
       "text": {

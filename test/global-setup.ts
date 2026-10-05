@@ -17,12 +17,6 @@ import { join } from 'node:path';
 
 import type { TestProject } from 'vitest/node';
 
-declare module 'vitest' {
-  export interface ProvidedContext {
-    databaseUrl: string | null;
-  }
-}
-
 function findPgBin(): string | null {
   const base = '/usr/lib/postgresql';
   if (!existsSync(base)) return null;

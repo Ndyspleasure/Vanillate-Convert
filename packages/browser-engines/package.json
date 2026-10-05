@@ -5,7 +5,10 @@
   "description": "In-browser conversion engines (data, subtitles, archives, text tools, images). Pure TypeScript plus Web APIs; runs inside a Web Worker.",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./pdf": "./src/image/encoders/pdf.ts",
+    "./ico": "./src/image/encoders/ico.ts",
+    "./csv": "./src/data/csv.ts"
   },
   "scripts": {
     "typecheck": "tsc -p tsconfig.json"

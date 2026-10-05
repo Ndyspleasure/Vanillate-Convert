@@ -1,0 +1,18 @@
+{
+  "name": "@vanillate/jobs",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Job store and queue (memory and PostgreSQL), job service (creation, upload verification, leases, retries, retention) and rate limiting.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@vanillate/core": "workspace:*",
+    "@vanillate/storage": "workspace:*",
+    "postgres": "^3.4.9"
+  }
+}

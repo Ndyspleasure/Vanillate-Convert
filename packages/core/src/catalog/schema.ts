@@ -366,6 +366,11 @@ export const toolRouteSchema = z.strictObject({
   status: statusSchema,
   priority: z.number().int().min(0).max(1000),
   options: z.array(optionRefSchema).optional(),
+  /** Input formats this route handles (a subset of the tool's inputs); defaults to all. */
+  inputs: z
+    .array(z.union([id, z.literal('*')]))
+    .min(1)
+    .optional(),
 });
 
 export const toolSchema = z.strictObject({

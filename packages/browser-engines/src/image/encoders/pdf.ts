@@ -8,7 +8,9 @@ import { deflateZlib } from '../../archive/gzip.ts';
 
 export type PdfImage =
   | { kind: 'jpeg'; bytes: Uint8Array; width: number; height: number; components: 1 | 3 }
-  | { kind: 'rgba'; rgba: Uint8Array | Uint8ClampedArray; width: number; height: number };
+  | { kind: 'rgba'; rgba: Uint8Array | Uint8ClampedArray; width: number; height: number }
+  /** Pre-compressed pixels (see `compressRgba`), so callers can free RGBA buffers early. */
+  | { kind: 'flate'; rgb: Uint8Array; alpha: Uint8Array | null; width: number; height: number };
 
 export type PageSize = 'fit' | 'a4' | 'letter';
 export type PageOrientation = 'auto' | 'portrait' | 'landscape';
@@ -126,7 +128,12 @@ class PdfBuilder {
   }
 }
 
-async function rgbaToStreams(rgba: Uint8Array | Uint8ClampedArray, width: number, height: number) {
+/** Splits RGBA pixels into zlib-compressed RGB and (when not opaque) alpha streams. */
+export async function compressRgba(
+  rgba: Uint8Array | Uint8ClampedArray,
+  width: number,
+  height: number,
+): Promise<{ rgb: Uint8Array; alpha: Uint8Array | null }> {
   const pixels = width * height;
   const rgb = new Uint8Array(pixels * 3);
   const alpha = new Uint8Array(pixels);
@@ -166,7 +173,8 @@ export async function buildPdf(
         image.bytes,
       );
     } else {
-      const { rgb, alpha } = await rgbaToStreams(image.rgba, image.width, image.height);
+      const { rgb, alpha } =
+        image.kind === 'flate' ? image : await compressRgba(image.rgba, image.width, image.height);
       let smask = '';
       if (alpha) {
         const maskId = pdf.reserve();

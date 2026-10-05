@@ -87,6 +87,7 @@ async function readEntries(input: BrowserInputFile, limits: Limits): Promise<Tar
     let raw: TarEntry[];
     switch (input.format) {
       case 'zip':
+      case 'cbz':
         raw = readZip(input.bytes, limits);
         break;
       case 'tar':
