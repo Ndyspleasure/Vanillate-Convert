@@ -399,7 +399,19 @@ export interface PublicError {
   fields?: Record<string, string>;
 }
 
+/** Marks platform errors; registered globally so every copy of this module shares it. */
+const BRAND = Symbol.for('vanillate.error');
+
 export class VanillateError extends Error {
+  /**
+   * `instanceof` recognizes errors created by any copy of this module. Bundlers can load a
+   * package more than once (Next.js compiles instrumentation and route handlers separately),
+   * and a class identity check would then turn a user error into an internal one.
+   */
+  static override [Symbol.hasInstance](value: unknown): boolean {
+    return typeof value === 'object' && value !== null && Object.hasOwn(value, BRAND);
+  }
+
   override name = 'VanillateError';
   readonly code: ErrorCode;
   readonly kind: ErrorKind;
@@ -426,6 +438,7 @@ export class VanillateError extends Error {
     this.retryable = options.retryable ?? spec.retryable;
     this.detail = options.detail;
     this.fields = options.fields;
+    Object.defineProperty(this, BRAND, { value: true });
   }
 
   toPublic(locale: Locale = 'en'): PublicError {

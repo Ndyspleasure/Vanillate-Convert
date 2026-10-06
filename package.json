@@ -22,9 +22,10 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "pnpm --filter @vanillate/web test:e2e",
-    "catalog:check": "node scripts/catalog-check.ts && node scripts/catalog-schema.ts --check",
+    "catalog:check": "node scripts/catalog-check.ts && node scripts/catalog-schema.ts --check && node scripts/docs-matrix.ts --check",
     "catalog:schema": "node scripts/catalog-schema.ts",
     "db:migrate": "node scripts/db-migrate.ts",
+    "docs:matrix": "node scripts/docs-matrix.ts",
     "validate": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm catalog:check && pnpm test && pnpm build"
   },
   "devDependencies": {

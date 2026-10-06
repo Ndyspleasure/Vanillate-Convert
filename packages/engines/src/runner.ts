@@ -183,7 +183,10 @@ export class ProcessRunner {
       const started = Date.now();
       const child = spawn(executable, rest, {
         cwd: options.cwd,
-        env,
+        // Deliberately minimal (no inherited variables such as NODE_ENV or secrets). The cast is
+        // needed where Next.js types are loaded (apps/web): they make NODE_ENV a required key.
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+        env: env as NodeJS.ProcessEnv,
         detached: true,
         stdio: ['ignore', 'pipe', 'pipe'],
         ...(this.user ? { uid: this.user.uid, gid: this.user.gid } : {}),

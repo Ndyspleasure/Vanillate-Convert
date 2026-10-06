@@ -1,8 +1,11 @@
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
+
 import { describe, expect, it } from 'vitest';
 
 import { parseProbe, videoFilters } from '../src/engines/ffmpeg.ts';
 import { publicMetadata } from '../src/engines/exiftool.ts';
-import { parsePam } from '../src/engines/imagemagick.ts';
+import { parsePam, POLICY_XML } from '../src/engines/imagemagick.ts';
 import { EXPORT_FILTERS, IMPORT_FILTERS } from '../src/engines/libreoffice.ts';
 import { parsePdfInfo } from '../src/engines/poppler.ts';
 import { rasterSize, svgSize } from '../src/engines/rsvg.ts';
@@ -98,6 +101,17 @@ describe('ffprobe parsing', () => {
     expect(videoFilters(0, null, true, 'yuv420p')).toMatch(
       /drawbox=.*c=white@1.*overlay=format=auto,scale=.*\[v\]$/,
     );
+  });
+});
+
+describe('ImageMagick policy', () => {
+  it('embeds exactly the policy file that worker images install', async () => {
+    const file = await readFile(
+      join(import.meta.dirname, '..', 'config', 'imagemagick', 'policy.xml'),
+      'utf8',
+    );
+    expect(POLICY_XML).toBe(file);
+    expect(POLICY_XML).toContain('<policy domain="delegate" rights="none" pattern="*"/>');
   });
 });
 

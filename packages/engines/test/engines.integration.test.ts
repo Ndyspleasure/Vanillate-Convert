@@ -16,6 +16,7 @@ import {
 } from '@vanillate/core';
 import { describe, expect, it } from 'vitest';
 
+import { POLICY_XML } from '../src/engines/imagemagick.ts';
 import { executeConversion, executeTool, SERVER_ENGINES, type EngineFile } from '../src/index.ts';
 import {
   detected,
@@ -147,6 +148,40 @@ describe.skipIf(!has('imagemagick'))('ImageMagick', () => {
       const pdf = await readFile(outputs[0]?.path ?? '');
       expect(pdf.subarray(0, 5).toString()).toBe('%PDF-');
       expect(pdf.toString('latin1')).toContain('/Count 2');
+    }));
+
+  it('runs under the Vanillate security policy', () =>
+    withJob(async (job) => {
+      const dir = join(job.dir, 'tmp', 'policy');
+      await generate('mkdir', ['-p', dir], job.dir);
+      await writeFile(join(dir, 'policy.xml'), POLICY_XML);
+      const result = await job.ctx.runner.run(
+        probes.imagemagick?.binary ?? 'convert',
+        ['-list', 'policy'],
+        {
+          cwd: job.dir,
+          timeoutMs: 20_000,
+          writable: [job.dir],
+          env: { MAGICK_CONFIGURE_PATH: dir },
+        },
+      );
+      expect(result.stdout).toContain(`${dir}/policy.xml`);
+      expect(result.stdout).toMatch(/Policy: Delegate\s+rights: None\s+pattern: \*/);
+      // Enforced, not just listed: script coders are refused.
+      const script = join(dir, 'x.msl');
+      await writeFile(script, '<image><read filename="/etc/hostname"/></image>');
+      const blocked = await job.ctx.runner.run(
+        probes.imagemagick?.binary ?? 'convert',
+        [`MSL:${script}`, join(dir, 'out.png')],
+        {
+          cwd: job.dir,
+          timeoutMs: 20_000,
+          writable: [job.dir],
+          env: { MAGICK_CONFIGURE_PATH: dir },
+        },
+      );
+      expect(blocked.exitCode).not.toBe(0);
+      expect(blocked.stderr).toMatch(/not allowed by the security policy|not authorized/i);
     }));
 
   it('refuses images above the pixel limit before decoding', () =>

@@ -4,6 +4,8 @@
  *   jobs/<jobId>/in/<inputId>
  *   jobs/<jobId>/out/<outputId>
  */
+import { VanillateError } from '@vanillate/core';
+
 export interface StoredObject {
   key: string;
   size: number;
@@ -49,6 +51,18 @@ export interface Storage {
 }
 
 const KEY_PATTERN = /^jobs\/job_[a-z2-7]{26}\/(in|out)\/(in|out)_[a-z2-7]{26}$/;
+
+/** An upload longer than the size it was signed for: a client error. */
+export function tooLarge(size: number): VanillateError {
+  return new VanillateError('bad-request', { detail: `upload exceeds the signed ${size} bytes` });
+}
+
+/** An upload that ended before the signed size, e.g. an interrupted connection. */
+export function incomplete(size: number, received: number): VanillateError {
+  return new VanillateError('upload-incomplete', {
+    detail: `expected ${size} bytes, got ${received}`,
+  });
+}
 
 /** Validates platform-generated keys; anything else is a programming error. */
 export function assertValidKey(key: string): void {

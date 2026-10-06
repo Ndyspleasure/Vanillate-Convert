@@ -13,6 +13,8 @@ import { pipeline } from 'node:stream/promises';
 import { signToken } from './signing.ts';
 import {
   assertValidKey,
+  incomplete,
+  tooLarge,
   type DownloadUrlOptions,
   type SignedRequest,
   type Storage,
@@ -25,6 +27,14 @@ export interface LocalStorageOptions {
   signingSecret: string;
   /** Public path (or absolute URL) of the storage route, e.g. `/api/v1/storage`. */
   publicPath: string;
+}
+
+/**
+ * Whether a storage instance is the local driver. Use this rather than `instanceof`: the
+ * instance can come from another bundle's copy of this package.
+ */
+export function isLocalStorage(storage: Storage): storage is LocalStorage {
+  return storage.driver === 'local';
 }
 
 export class LocalStorage implements Storage {
@@ -136,7 +146,7 @@ export class LocalStorage implements Storage {
         write(chunk: Buffer, _encoding, callback) {
           written += chunk.length;
           if (written > options.size) {
-            callback(new RangeError(`upload exceeds ${options.size} bytes`));
+            callback(tooLarge(options.size));
             return;
           }
           sink.write(chunk, callback);
@@ -146,8 +156,7 @@ export class LocalStorage implements Storage {
         },
       });
       await pipeline(source, counter);
-      if (written !== options.size)
-        throw new RangeError(`expected ${options.size} bytes, got ${written}`);
+      if (written !== options.size) throw incomplete(options.size, written);
       await rename(temp, target);
     } catch (error) {
       await rm(temp, { force: true });

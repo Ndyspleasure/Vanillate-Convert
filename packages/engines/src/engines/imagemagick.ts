@@ -39,7 +39,50 @@ import {
   str,
 } from '../util.ts';
 
-export const POLICY_DIR = join(import.meta.dirname, '..', '..', 'config', 'imagemagick');
+/**
+ * The Vanillate ImageMagick policy, identical to `config/imagemagick/policy.xml` (which worker
+ * images install as the system policy; a test keeps the two in sync). It is written into each
+ * job's scratch space so the adapter works wherever the code runs, bundled or not.
+ */
+export const POLICY_XML = `<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Vanillate Convert ImageMagick policy (IM6 and IM7).
+  Installed as the system policy in worker images and referenced via MAGICK_CONFIGURE_PATH.
+  - Resource limits bound memory, disk, pixel area and time per command.
+  - No delegates (external programs) and no coders that read URLs, scripts or PostScript/PDF:
+    PDF and PostScript are handled by Poppler/Ghostscript, SVG by librsvg.
+-->
+<policymap>
+  <policy domain="resource" name="memory" value="1GiB"/>
+  <policy domain="resource" name="map" value="2GiB"/>
+  <policy domain="resource" name="disk" value="4GiB"/>
+  <policy domain="resource" name="area" value="128MP"/>
+  <policy domain="resource" name="width" value="32KP"/>
+  <policy domain="resource" name="height" value="32KP"/>
+  <policy domain="resource" name="list-length" value="256"/>
+  <policy domain="resource" name="time" value="600"/>
+  <policy domain="resource" name="thread" value="2"/>
+  <policy domain="delegate" rights="none" pattern="*"/>
+  <policy domain="coder" rights="none" pattern="{MVG,MSL,URL,HTTP,HTTPS,FTP,TEXT,LABEL,CAPTION,PANGO,EPHEMERAL,SHOW,WIN,X,PLASMA,VID,INLINE,PS,PS2,PS3,EPS,EPI,EPSI,EPSF,EPT,PDF,PDFA,XPS,AI,SVG,SVGZ,MSVG,RSVG}"/>
+  <policy domain="path" rights="none" pattern="@*"/>
+  <policy domain="filter" rights="none" pattern="*"/>
+</policymap>
+`;
+
+const policyDirs = new WeakMap<EngineContext, Promise<string>>();
+
+/** A directory holding the policy for this run, referenced by MAGICK_CONFIGURE_PATH. */
+function policyDir(ctx: EngineContext): Promise<string> {
+  let dir = policyDirs.get(ctx);
+  if (!dir) {
+    dir = scratchDir(ctx, 'magick-policy').then(async (path) => {
+      await writeFile(join(path, 'policy.xml'), POLICY_XML);
+      return path;
+    });
+    policyDirs.set(ctx, dir);
+  }
+  return dir;
+}
 
 const CODERS: Record<string, string> = {
   jpg: 'JPEG',
@@ -135,8 +178,7 @@ async function magick(ctx: EngineContext, args: string[]): Promise<string> {
       ...args,
     ],
     runOptions(ctx, {
-      env: { MAGICK_CONFIGURE_PATH: POLICY_DIR, MAGICK_THREAD_LIMIT: '2' },
-      readable: [POLICY_DIR],
+      env: { MAGICK_CONFIGURE_PATH: await policyDir(ctx), MAGICK_THREAD_LIMIT: '2' },
     }),
   );
   assertSuccess(result, 'imagemagick', FAILURES);

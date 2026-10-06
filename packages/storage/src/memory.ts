@@ -2,6 +2,8 @@ import { concatBytes } from '@vanillate/core';
 
 import {
   assertValidKey,
+  incomplete,
+  tooLarge,
   type DownloadUrlOptions,
   type SignedRequest,
   type Storage,
@@ -96,9 +98,14 @@ export class MemoryStorage implements Storage {
     options: { contentType: string; size: number },
   ): Promise<void> {
     assertValidKey(key);
-    const bytes = body instanceof Uint8Array ? body : await readAll(body, options.size);
-    if (bytes.length !== options.size)
-      throw new RangeError(`expected ${options.size} bytes, got ${bytes.length}`);
+    let bytes: Uint8Array;
+    try {
+      bytes = body instanceof Uint8Array ? body : await readAll(body, options.size);
+    } catch (error) {
+      throw error instanceof RangeError ? tooLarge(options.size) : error;
+    }
+    if (bytes.length > options.size) throw tooLarge(options.size);
+    if (bytes.length < options.size) throw incomplete(options.size, bytes.length);
     this.objects.set(key, { bytes: bytes.slice(), contentType: options.contentType });
   }
 

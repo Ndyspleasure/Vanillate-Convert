@@ -5,7 +5,8 @@
   "description": "Server conversion engine adapters (ImageMagick, FFmpeg, LibreOffice, Poppler, Ghostscript, qpdf, Pandoc, 7-Zip, librsvg, assimp, ExifTool, fontTools) and a sandboxed process runner.",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./files": "./src/files.ts"
   },
   "scripts": {
     "typecheck": "tsc -p tsconfig.json"

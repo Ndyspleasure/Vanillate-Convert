@@ -9,6 +9,7 @@
 import { stat } from 'node:fs/promises';
 
 import {
+  fileStem,
   outputFilename,
   readImageDimensions,
   sameFamily,
@@ -52,6 +53,18 @@ function uniqueNames(): (name: string) => string {
     used.add(candidate.toLowerCase());
     return candidate;
   };
+}
+
+/** `report.pdf` + `page-3` → `report-page-3.png`. */
+export function labelledName(
+  inputName: string,
+  label: string,
+  target: { extensions: readonly string[] },
+  knownExtensions: readonly string[],
+): string {
+  const stem = fileStem(sanitizeFilename(inputName), knownExtensions) || 'file';
+  const suffix = label.replace(/[^A-Za-z0-9_-]+/g, '-').slice(0, 40);
+  return sanitizeFilename(`${stem}-${suffix}.${target.extensions[0] ?? 'bin'}`);
 }
 
 /** A relative path from an archive entry, each segment sanitized. */
@@ -128,12 +141,14 @@ export async function finalizeOutputs(
     const input = inputs[output.inputIndex] ?? inputs[0];
     const name = output.entryPath
       ? entryName(output.entryPath) || outputFilename('file', target)
-      : outputFilename(
-          input?.name ?? 'file',
-          target,
-          output.part ? { index: output.part.index - 1, total: output.part.total } : undefined,
-          extensions,
-        );
+      : output.label
+        ? labelledName(input?.name ?? 'file', output.label, target, extensions)
+        : outputFilename(
+            input?.name ?? 'file',
+            target,
+            output.part ? { index: output.part.index - 1, total: output.part.total } : undefined,
+            extensions,
+          );
     results.push({
       path: output.path,
       name: unique(name),

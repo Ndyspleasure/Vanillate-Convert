@@ -367,3 +367,16 @@ describe('worker control flow', () => {
     expect(job.outputs).toEqual([]);
   });
 });
+
+describe('output names', () => {
+  it('labels multi-file outputs after the input', async () => {
+    const { labelledName, entryName } = await import('../src/outputs.ts');
+    expect(labelledName('Annual Report.pdf', 'page-3', { extensions: ['png'] }, [])).toBe(
+      'Annual Report-page-3.png',
+    );
+    expect(labelledName('archive.tar.gz', 'page-1', { extensions: ['png'] }, ['tar.gz'])).toBe(
+      'archive-page-1.png',
+    );
+    expect(entryName('../x/./a<b>.txt')).toBe('x/a_b_.txt');
+  });
+});
