@@ -23,6 +23,9 @@ importers:
       '@vanillate/core':
         specifier: workspace:*
         version: link:packages/core
+      '@vanillate/jobs':
+        specifier: workspace:*
+        version: link:packages/jobs
       eslint:
         specifier: 10.12.0
         version: 10.12.0
@@ -109,6 +112,21 @@ importers:
       aws4fetch:
         specifier: ^1.0.20
         version: 1.0.20
+
+  workers/runtime:
+    dependencies:
+      '@vanillate/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      '@vanillate/engines':
+        specifier: workspace:*
+        version: link:../../packages/engines
+      '@vanillate/jobs':
+        specifier: workspace:*
+        version: link:../../packages/jobs
+      '@vanillate/storage':
+        specifier: workspace:*
+        version: link:../../packages/storage
 
 packages:
 

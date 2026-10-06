@@ -145,11 +145,15 @@ export class PostgresJobStore implements JobStore {
     pools: readonly WorkerPool[],
     leaseSeconds: number,
     now: Date,
+    engines?: readonly string[],
   ): Promise<JobRecord | null> {
+    const engineFilter =
+      engines === undefined ? this.sql`` : this.sql`and engines <@ ${engines as string[]}::text[]`;
     const rows = await this.sql<Row[]>`
       with next as (
         select id from vc_jobs
         where status = 'queued' and pool = any(${pools as string[]}) and run_after <= ${now.toISOString()}
+          ${engineFilter}
         order by priority desc, run_after, created_at
         for update skip locked
         limit 1
@@ -261,12 +265,17 @@ export class PostgresJobStore implements JobStore {
 }
 
 /** Applies pending SQL migrations from `migrations/` in order, inside a transaction each. */
+/** Advisory lock key for migrations ("vani" in ASCII). */
+const MIGRATION_LOCK_ID = 0x76616e69;
+
 export async function migrate(
   url: string,
   directory = join(import.meta.dirname, '..', 'migrations'),
 ): Promise<string[]> {
   const sql = postgres(url, { max: 1, prepare: false, onnotice: () => undefined });
   try {
+    // One migrator at a time (several instances may start together during a deploy).
+    await sql`select pg_advisory_lock(${MIGRATION_LOCK_ID})`;
     await sql`create table if not exists vc_migrations (id text primary key, applied_at timestamptz not null default now())`;
     const applied = new Set(
       (await sql<{ id: string }[]>`select id from vc_migrations`).map((r) => r.id),

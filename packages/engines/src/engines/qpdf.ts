@@ -2,7 +2,6 @@
  * qpdf adapter: merge, split, page extraction and rotation. Structure-preserving: pages are
  * copied, never re-rendered, so quality and text are unchanged.
  */
-import { mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { VanillateError, type ErrorCode } from '@vanillate/core';
@@ -24,6 +23,7 @@ import {
   rangeText,
   requireFile,
   runOptions,
+  scratchDir,
   selectedPages,
 } from '../util.ts';
 
@@ -104,8 +104,7 @@ async function run(request: EngineRequest, ctx: EngineContext): Promise<EngineOu
         await pageCount(ctx, input),
         ctx.limits.maxPages,
       );
-      const dir = join(ctx.workDir, 'tmp', 'split');
-      await mkdir(dir, { recursive: true });
+      const dir = await scratchDir(ctx, 'split');
       await qpdf(ctx, [
         input.path,
         '--pages',
@@ -125,7 +124,7 @@ async function run(request: EngineRequest, ctx: EngineContext): Promise<EngineOu
         path,
         format: 'pdf',
         part: { index: i + 1, total: files.length },
-        entryPath: `page-${pages[i] ?? i + 1}.pdf`,
+        label: `page-${pages[i] ?? i + 1}`,
       }));
     }
     default:

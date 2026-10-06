@@ -1,8 +1,8 @@
 /**
  * Shared helpers for engine adapters.
  */
-import { readdir, stat } from 'node:fs/promises';
-import { join } from 'node:path';
+import { chown, mkdir, mkdtemp, readdir, stat } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
 
 import { parsePageRange, VanillateError, type ErrorCode } from '@vanillate/core';
 
@@ -149,4 +149,35 @@ export async function numberedFiles(dir: string, pattern: RegExp): Promise<strin
   const files = (await listFiles(dir)).filter((file) => pattern.test(file));
   const number = (file: string): number => Number(/(\d+)(?=\.[^.]+$)/.exec(file)?.[1] ?? 0);
   return files.sort((a, b) => number(a) - number(b));
+}
+
+/** Gives a path to the engine user (when engines run as a separate user). */
+export async function grant(ctx: EngineContext, path: string): Promise<void> {
+  const user = ctx.runner.user;
+  if (user) await chown(path, user.uid, user.gid);
+}
+
+/** Creates a directory (and missing parents) that engine processes can write to. */
+export async function ensureDir(ctx: EngineContext, path: string): Promise<string> {
+  const first = await mkdir(path, { recursive: true });
+  if (first !== undefined && ctx.runner.user) {
+    const created: string[] = [];
+    for (let dir = path; dir.length >= first.length; dir = dirname(dir)) {
+      created.push(dir);
+      if (dir === first) break;
+    }
+    for (const dir of created.reverse()) await grant(ctx, dir);
+  }
+  return path;
+}
+
+/**
+ * A fresh, empty directory for one engine run inside the job's temporary directory. Never
+ * reuse fixed names: a job converting several files would otherwise mix their leftovers.
+ */
+export async function scratchDir(ctx: EngineContext, prefix: string): Promise<string> {
+  const base = await ensureDir(ctx, join(ctx.workDir, 'tmp'));
+  const dir = await mkdtemp(join(base, `${prefix}-`));
+  await grant(ctx, dir);
+  return dir;
 }

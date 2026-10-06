@@ -27,6 +27,7 @@ import {
   num,
   onlyInput,
   runOptions,
+  scratchDir,
   sibling,
   str,
 } from '../util.ts';
@@ -694,7 +695,7 @@ async function videoToGif(
   const fps = num(options.fps, 10);
   const width = num(options.width, 480);
   const base = `fps=${fps},scale='min(${width},iw)':-2:flags=lanczos`;
-  const palette = join(ctx.workDir, 'tmp', 'palette.png');
+  const palette = join(await scratchDir(ctx, 'gif'), 'palette.png');
   // Two passes keep memory bounded: the palette pass streams, then frames are mapped.
   await ffmpeg(
     ctx,

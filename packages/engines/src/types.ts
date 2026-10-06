@@ -14,9 +14,14 @@ export interface EngineOutput {
   path: string;
   /** Output format id; `null` when it must be detected from the content (extracted files). */
   format: string | null;
-  /** Optional suffix for multi-file outputs, e.g. the page number. */
+  /** Position in a multi-file output (1-based), for ordering. */
   part?: { index: number; total: number };
-  /** Relative path for extracted archive entries. */
+  /** Name suffix, e.g. `page-3` → `report-page-3.png`. */
+  label?: string;
+  /**
+   * Exact relative path to deliver the file under (archive entries, or files that reference
+   * each other by name such as an OBJ and its MTL).
+   */
   entryPath?: string;
 }
 

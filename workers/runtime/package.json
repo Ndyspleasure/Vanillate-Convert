@@ -1,0 +1,20 @@
+{
+  "name": "@vanillate/worker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Processing worker: claims server jobs, runs sandboxed engines, validates and stores outputs.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "start": "node src/main.ts",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@vanillate/core": "workspace:*",
+    "@vanillate/engines": "workspace:*",
+    "@vanillate/jobs": "workspace:*",
+    "@vanillate/storage": "workspace:*"
+  }
+}

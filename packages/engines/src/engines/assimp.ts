@@ -5,7 +5,7 @@
  * assimp picks the importer from the file extension, so the input is staged with the
  * extension of its detected format.
  */
-import { copyFile, mkdir } from 'node:fs/promises';
+import { copyFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { VanillateError, type ErrorCode } from '@vanillate/core';
@@ -20,11 +20,13 @@ import type {
 } from '../types.ts';
 import {
   assertSuccess,
+  ensureDir,
   extensionOf,
   firstLine,
   listFiles,
   onlyInput,
   runOptions,
+  scratchDir,
 } from '../util.ts';
 
 /** Catalog format → assimp exporter id (binary variants where they exist). */
@@ -66,6 +68,16 @@ async function probe(runner: ProcessRunner): Promise<EngineProbe> {
   return { available: false, version: null, binary: null };
 }
 
+/** A portable file stem from the user's file name (ASCII letters, digits, `-`, `_`). */
+export function modelName(name: string): string {
+  const stem = name.replace(/\.[^.]*$/, '').normalize('NFKD');
+  const safe = stem
+    .replace(/[^A-Za-z0-9_-]+/g, '_')
+    .replace(/^_+|_+$/g, '')
+    .slice(0, 64);
+  return safe || 'model';
+}
+
 async function run(request: EngineRequest, ctx: EngineContext): Promise<EngineOutput[]> {
   if (request.kind !== 'convert') {
     throw new VanillateError('conversion-unsupported', { detail: `assimp ${request.operation}` });
@@ -76,19 +88,19 @@ async function run(request: EngineRequest, ctx: EngineContext): Promise<EngineOu
       detail: `assimp cannot write ${request.to}`,
     });
   const input = onlyInput(request);
-  const dir = join(ctx.workDir, 'tmp', 'assimp');
-  const outDir = join(dir, 'out');
-  await mkdir(outDir, { recursive: true });
-  const staged = join(dir, `model.${extensionOf(ctx, input.format)}`);
+  const dir = await scratchDir(ctx, 'assimp');
+  const outDir = await ensureDir(ctx, join(dir, 'out'));
+  const staged = join(dir, `input.${extensionOf(ctx, input.format)}`);
   await copyFile(input.path, staged);
-  const target = join(outDir, `model.${extensionOf(ctx, request.to)}`);
+  // Files are delivered under these names, and OBJ refers to its MTL by name.
+  const target = join(outDir, `${modelName(input.name)}.${extensionOf(ctx, request.to)}`);
   const result = await ctx.runner.run(
     ctx.binaries.assimp ?? 'assimp',
     ['export', staged, target, `-f${exporter}`],
     runOptions(ctx),
   );
   assertSuccess(result, 'assimp', FAILURES);
-  // OBJ also writes a material library (`model.mtl`) next to the mesh.
+  // OBJ also writes a material library (`<name>.mtl`) next to the mesh.
   const files = await listFiles(outDir);
   if (!files.includes(target))
     throw new VanillateError('conversion-failed', { detail: 'assimp wrote no model' });

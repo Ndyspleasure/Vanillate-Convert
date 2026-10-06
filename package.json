@@ -2,7 +2,7 @@
   "name": "vanillate-convert",
   "version": "0.1.0",
   "private": true,
-  "description": "Vanillate Convert \u2014 registry-driven file conversion and processing platform.",
+  "description": "Vanillate Convert — registry-driven file conversion and processing platform.",
   "license": "UNLICENSED",
   "type": "module",
   "packageManager": "pnpm@10.28.0",
@@ -41,6 +41,7 @@
     "vitest": "5.0.3",
     "@vanillate/core": "workspace:*",
     "@vanillate/catalog": "workspace:*",
-    "zod": "^4.6.5"
+    "zod": "^4.6.5",
+    "@vanillate/jobs": "workspace:*"
   }
 }

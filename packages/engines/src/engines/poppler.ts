@@ -4,7 +4,7 @@
  * The page count, page sizes and encryption are read with `pdfinfo` first, so page limits,
  * rendered pixel limits and password protection are reported before rendering starts.
  */
-import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { copyFile, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { VanillateError, type ErrorCode } from '@vanillate/core';
@@ -28,6 +28,7 @@ import {
   pageRuns,
   requireFile,
   runOptions,
+  scratchDir,
   selectedPages,
   sibling,
 } from '../util.ts';
@@ -87,8 +88,7 @@ async function selection(
 ): Promise<string> {
   const runs = pageRuns(pages);
   if (runs.length === 1 && runs[0]?.[0] === 1 && runs[0][1] === pageCount) return input;
-  const dir = join(ctx.workDir, 'tmp', 'pages');
-  await mkdir(dir, { recursive: true });
+  const dir = await scratchDir(ctx, 'pages');
   const parts: string[] = [];
   for (const page of pages) {
     const part = join(dir, `page-${page}.pdf`);
@@ -124,8 +124,7 @@ async function rasterize(
       : to === 'jpg'
         ? ['-jpeg', '-jpegopt', `quality=${num(options.quality, 85)},optimize=y`]
         : ['-tiff', '-tiffcompression', 'deflate'];
-  const dir = join(ctx.workDir, 'tmp', 'raster');
-  await mkdir(dir, { recursive: true });
+  const dir = await scratchDir(ctx, 'raster');
   const runs = pageRuns(pages);
   for (const [i, [first, last]] of runs.entries()) {
     await runPoppler(ctx, 'pdftoppm', [
@@ -152,7 +151,12 @@ async function rasterize(
   for (const [i, file] of files.entries()) {
     const out = join(outDir, `page-${pages[i] ?? i + 1}.${ext}`);
     await copyFile(file, out);
-    outputs.push({ path: out, format: to, part: { index: i + 1, total: files.length } });
+    outputs.push({
+      path: out,
+      format: to,
+      part: { index: i + 1, total: files.length },
+      label: `page-${pages[i] ?? i + 1}`,
+    });
   }
   return outputs;
 }
@@ -181,6 +185,7 @@ async function toSvg(
       path: await requireFile(out, 'pdftocairo'),
       format: 'svg',
       part: { index: i + 1, total: pages.length },
+      label: `page-${page}`,
     });
     ctx.progress(0.1 + (0.85 * (i + 1)) / pages.length);
   }
@@ -209,8 +214,7 @@ async function toHtml(
   const { pages: count } = await pdfInfo(ctx, input.path);
   const pages = selectedPages(options.pageRange, count, ctx.limits.maxPages);
   const source = await selection(ctx, input.path, pages, count);
-  const dir = join(ctx.workDir, 'tmp', 'html');
-  await mkdir(dir, { recursive: true });
+  const dir = await scratchDir(ctx, 'html');
   // -s single document, -i no images (they would be separate files), -noframes one file.
   await runPoppler(ctx, 'pdftohtml', [
     '-s',

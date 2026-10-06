@@ -51,9 +51,16 @@ export class MemoryJobStore implements JobStore {
     pools: readonly WorkerPool[],
     leaseSeconds: number,
     now: Date,
+    engines?: readonly string[],
   ): Promise<JobRecord | null> {
     const candidates = [...this.jobs.values()]
-      .filter((j) => j.status === 'queued' && pools.includes(j.pool) && new Date(j.runAfter) <= now)
+      .filter(
+        (j) =>
+          j.status === 'queued' &&
+          pools.includes(j.pool) &&
+          new Date(j.runAfter) <= now &&
+          (engines === undefined || j.engines.every((engine) => engines.includes(engine))),
+      )
       .sort(
         (a, b) =>
           b.priority - a.priority ||

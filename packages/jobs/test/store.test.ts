@@ -74,6 +74,22 @@ function contract(
       expect((await store.claim('w2', ['archive', 'media'], 60, now))?.id).toBe(other.id);
     });
 
+    it('only claims jobs whose engines the worker has', async () => {
+      const pipeline = makeJob({
+        pool: 'convert-test',
+        engines: ['pandoc', 'libreoffice'],
+      } as never);
+      const simple = makeJob({ pool: 'convert-test', engines: ['pandoc'] } as never);
+      for (const job of [pipeline, simple]) await store.insert(job);
+      const now = new Date();
+      const pools = ['convert-test'] as never;
+      expect(await store.claim('w1', pools, 60, now, ['libreoffice'])).toBeNull();
+      expect((await store.claim('w1', pools, 60, now, ['pandoc']))?.id).toBe(simple.id);
+      expect(
+        (await store.claim('w2', pools, 60, now, ['pandoc', 'libreoffice', 'ffmpeg']))?.id,
+      ).toBe(pipeline.id);
+    });
+
     it('never hands the same job to two workers', async () => {
       const jobs = Array.from({ length: 5 }, () => makeJob({ pool: 'document' }));
       for (const job of jobs) await store.insert(job);

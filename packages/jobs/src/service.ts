@@ -94,6 +94,11 @@ export interface JobServiceOptions {
   storage: Storage;
   registry: Registry;
   logger: Logger;
+  /**
+   * Decompresses the beginning of a gzip stream so `.tar.gz` uploads are recognized by content
+   * (runtime-specific; omitted where no decompressor is available).
+   */
+  inflateHead?: (head: Uint8Array) => Promise<Uint8Array | null>;
   now?: () => Date;
   /** Skip the live worker check (tests, or deployments that accept queuing without workers). */
   requireWorkers?: boolean;
@@ -117,12 +122,14 @@ export class JobService {
   private readonly logger: Logger;
   private readonly now: () => Date;
   private readonly requireWorkers: boolean;
+  private readonly inflateHead: JobServiceOptions['inflateHead'];
 
   constructor(options: JobServiceOptions) {
     this.store = options.store;
     this.storage = options.storage;
     this.registry = options.registry;
     this.logger = options.logger;
+    this.inflateHead = options.inflateHead;
     this.now = options.now ?? (() => new Date());
     this.requireWorkers = options.requireWorkers ?? true;
   }
@@ -178,8 +185,8 @@ export class JobService {
       pool: route.pool,
       multiInput: tool.cardinality === 'n:1' || tool.cardinality === 'n:n',
       acceptsFormat: (format) =>
-        tool.inputs.includes('*') ||
-        (tool.inputs.includes(format) && (serverInputs.size === 0 || serverInputs.has(format))),
+        route.inputs.includes('*') ||
+        (route.inputs.includes(format) && (serverInputs.size === 0 || serverInputs.has(format))),
     };
   }
 
@@ -392,8 +399,9 @@ export class JobService {
               input.size - 1,
             )
           : head;
+      const inflatedHead = this.inflateHead ? await this.inflateHead(head) : null;
       const detection = detectFormat(
-        { name: input.name, size: input.size, head, tail },
+        { name: input.name, size: input.size, head, tail, inflatedHead },
         this.registry,
       );
       const resolved = this.resolve(this.publicTarget(job.target));
@@ -477,8 +485,9 @@ export class JobService {
     workerId: string,
     pools: readonly WorkerPool[],
     leaseSeconds: number,
+    engines?: readonly string[],
   ): Promise<JobRecord | null> {
-    return this.store.claim(workerId, pools, leaseSeconds, this.now());
+    return this.store.claim(workerId, pools, leaseSeconds, this.now(), engines);
   }
 
   /** Extends the lease. Returns false when the worker must stop (cancelled or lease lost). */

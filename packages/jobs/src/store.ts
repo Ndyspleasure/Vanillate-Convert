@@ -37,12 +37,17 @@ export interface JobStore {
     changes: JobChanges,
     now: Date,
   ): Promise<JobRecord | null>;
-  /** Atomically claims the next runnable queued job of the given pools. */
+  /**
+   * Atomically claims the next runnable queued job of the given pools. When `engines` is given,
+   * only jobs whose engines are all in that list are claimed, so a worker never takes a job it
+   * cannot run (for example a document job on a worker without LibreOffice).
+   */
   claim(
     workerId: string,
     pools: readonly WorkerPool[],
     leaseSeconds: number,
     now: Date,
+    engines?: readonly string[],
   ): Promise<JobRecord | null>;
   /** Extends the lease. Returns the job status while the lease is held, null when it was lost. */
   heartbeat(

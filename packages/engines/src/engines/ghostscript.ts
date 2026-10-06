@@ -6,7 +6,7 @@
  * the process sandbox. Ghostscript is AGPL-licensed; it runs as a separate program and is
  * never linked into the application.
  */
-import { copyFile, mkdir, stat } from 'node:fs/promises';
+import { copyFile, stat } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { VanillateError, type ErrorCode } from '@vanillate/core';
@@ -29,6 +29,7 @@ import {
   onlyInput,
   requireFile,
   runOptions,
+  scratchDir,
 } from '../util.ts';
 
 const FAILURES: [RegExp, ErrorCode][] = [
@@ -65,7 +66,7 @@ async function compressPdf(
     PDF_SETTINGS[
       typeof options.compressionLevel === 'string' ? options.compressionLevel : 'balanced'
     ] ?? '/ebook';
-  const candidate = join(ctx.workDir, 'tmp', 'compressed.pdf');
+  const candidate = join(await scratchDir(ctx, 'compress'), 'compressed.pdf');
   await gs(ctx, [
     '-sDEVICE=pdfwrite',
     '-dCompatibilityLevel=1.6',
@@ -113,8 +114,7 @@ async function render(
       detail: `ghostscript cannot write ${to}`,
     });
   }
-  const dir = join(ctx.workDir, 'tmp', 'gs');
-  await mkdir(dir, { recursive: true });
+  const dir = await scratchDir(ctx, 'gs');
   const ext = extensionOf(ctx, to);
   await gs(ctx, [
     ...device,
@@ -137,7 +137,12 @@ async function render(
   for (const [i, file] of files.entries()) {
     const out = join(outDir, `page-${i + 1}.${ext}`);
     await copyFile(file, out);
-    outputs.push({ path: out, format: to, part: { index: i + 1, total: files.length } });
+    outputs.push({
+      path: out,
+      format: to,
+      part: { index: i + 1, total: files.length },
+      label: `page-${i + 1}`,
+    });
   }
   return outputs;
 }

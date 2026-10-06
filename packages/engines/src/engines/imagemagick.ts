@@ -29,7 +29,15 @@ import type {
   ProcessRunner,
   ServerEngine,
 } from '../types.ts';
-import { assertSuccess, extensionOf, firstLine, num, runOptions, str } from '../util.ts';
+import {
+  assertSuccess,
+  extensionOf,
+  firstLine,
+  num,
+  runOptions,
+  scratchDir,
+  str,
+} from '../util.ts';
 
 export const POLICY_DIR = join(import.meta.dirname, '..', '..', 'config', 'imagemagick');
 
@@ -239,7 +247,12 @@ export function parsePam(bytes: Uint8Array): { width: number; height: number; of
 }
 
 /** Decodes one image for PDF embedding: JPEG passthrough when possible, else compressed RGBA. */
-async function pdfImage(input: EngineFile, index: number, ctx: EngineContext): Promise<PdfImage> {
+async function pdfImage(
+  input: EngineFile,
+  index: number,
+  dir: string,
+  ctx: EngineContext,
+): Promise<PdfImage> {
   await dimensions(input, ctx);
   if (input.format === 'jpg') {
     const bytes = await readFile(input.path);
@@ -254,7 +267,7 @@ async function pdfImage(input: EngineFile, index: number, ctx: EngineContext): P
       };
     }
   }
-  const pam = join(ctx.workDir, 'tmp', `pdf-${index}.pam`);
+  const pam = join(dir, `image-${index}.pam`);
   await magick(ctx, [
     inputSpec(input, false),
     '-auto-orient',
@@ -282,8 +295,9 @@ async function imagesToPdf(
   ctx: EngineContext,
 ): Promise<void> {
   const images: PdfImage[] = [];
+  const dir = await scratchDir(ctx, 'pdf');
   for (const [index, input] of inputs.entries()) {
-    images.push(await pdfImage(input, index, ctx));
+    images.push(await pdfImage(input, index, dir, ctx));
     ctx.progress((0.8 * (index + 1)) / inputs.length);
   }
   await writeFile(

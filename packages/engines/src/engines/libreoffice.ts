@@ -8,7 +8,7 @@
  * - Text inputs are normalized to UTF-8 first; CSV delimiters are detected and formulas in CSV
  *   cells are kept as text (no formula injection into spreadsheets).
  */
-import { copyFile, mkdir, readFile, rename, writeFile } from 'node:fs/promises';
+import { copyFile, readFile, rename, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -25,11 +25,14 @@ import type {
 } from '../types.ts';
 import {
   assertSuccess,
+  ensureDir,
   extensionOf,
   firstLine,
+  grant,
   onlyInput,
   requireFile,
   runOptions,
+  scratchDir,
 } from '../util.ts';
 
 type Family = 'writer' | 'calc' | 'impress' | 'draw';
@@ -185,12 +188,13 @@ export async function convertWithLibreOffice(
       detail: `libreoffice ${input.format} → ${to}`,
     });
   }
-  const dir = join(ctx.workDir, 'tmp', 'libreoffice');
+  const dir = await scratchDir(ctx, 'libreoffice');
   const profile = join(dir, 'profile');
-  const outDir = join(dir, 'out');
-  await mkdir(join(profile, 'user'), { recursive: true });
-  await mkdir(outDir, { recursive: true });
-  await writeFile(join(profile, 'user', 'registrymodifications.xcu'), REGISTRY);
+  const outDir = await ensureDir(ctx, join(dir, 'out'));
+  await ensureDir(ctx, join(profile, 'user'));
+  const registry = join(profile, 'user', 'registrymodifications.xcu');
+  await writeFile(registry, REGISTRY);
+  await grant(ctx, registry);
   const staged = await stageInput(input.path, input.format, spec, dir, ctx);
   ctx.progress(0.1);
 

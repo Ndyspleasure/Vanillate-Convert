@@ -412,6 +412,24 @@ describe.skipIf(!has('poppler'))('Poppler', () => {
     }),
   );
 
+  it('keeps the files of a multi-file job apart', { timeout: SLOW }, () =>
+    withJob(async (job) => {
+      // Regression: engines once reused fixed scratch folders, mixing pages across inputs.
+      const a = await job.file('a.pdf', textPdf(['A one', 'A two']), 'pdf');
+      const b = await job.file('b.pdf', textPdf(['B one']), 'pdf');
+      const pages = await convert(job, 'pdf', 'png', [a, b], { dpi: 30 });
+      expect(pages.map((p) => [p.inputIndex, p.label])).toEqual([
+        [0, 'page-1'],
+        [0, 'page-2'],
+        [1, 'page-1'],
+      ]);
+      const texts = await convert(job, 'pdf', 'txt', [a, b]);
+      expect(await readFile(texts[0]?.path ?? '', 'utf8')).toContain('A two');
+      expect(await readFile(texts[1]?.path ?? '', 'utf8')).toContain('B one');
+      expect(await readFile(texts[1]?.path ?? '', 'utf8')).not.toContain('A one');
+    }),
+  );
+
   it('validates page ranges and page limits', () =>
     withJob(
       async (job) => {
@@ -438,7 +456,7 @@ describe.skipIf(!has('qpdf'))('qpdf', () => {
 
       const parts = await tool(job, 'pdf-splitter', [a]);
       expect(parts).toHaveLength(2);
-      expect(parts.map((p) => p.entryPath)).toEqual(['page-1.pdf', 'page-2.pdf']);
+      expect(parts.map((p) => p.label)).toEqual(['page-1', 'page-2']);
 
       const [selected] = await tool(job, 'pdf-page-extractor', [a], { pageRange: '2' });
       expect((await readFile(selected?.path ?? '')).toString('latin1')).toMatch(/\/Count 1/);
@@ -764,10 +782,17 @@ describe.skipIf(!has('assimp'))('assimp', () => {
   it('converts OBJ meshes to STL and GLB', { timeout: SLOW }, () =>
     withJob(async (job) => {
       const obj = await job.file('cube.obj', `${cube}\n`, 'obj');
-      const [stl] = await convert(job, 'obj', 'stl', [obj]);
-      expect((await stat(stl?.path ?? '')).size).toBeGreaterThan(84);
       const [glb] = await convert(job, 'obj', 'glb', [obj]);
       expect((await readFile(glb?.path ?? '')).subarray(0, 4).toString()).toBe('glTF');
+      const [stl] = await convert(job, 'obj', 'stl', [obj]);
+      expect((await stat(stl?.path ?? '')).size).toBeGreaterThan(84);
+
+      // OBJ output: mesh and material library named after the input, linked by that name.
+      const mesh = await job.file('My Cube.stl', await readFile(stl?.path ?? ''), 'stl');
+      const objOutputs = await convert(job, 'stl', 'obj', [mesh]);
+      expect(objOutputs.map((o) => o.entryPath).sort()).toEqual(['My_Cube.mtl', 'My_Cube.obj']);
+      const model = objOutputs.find((o) => o.entryPath === 'My_Cube.obj');
+      expect(await readFile(model?.path ?? '', 'utf8')).toContain('mtllib My_Cube.mtl');
     }),
   );
 });

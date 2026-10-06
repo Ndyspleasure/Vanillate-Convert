@@ -8,7 +8,7 @@
  *   - size: entry count, total expanded size and compression ratio ("zip bombs"). A watchdog
  *     also measures the output while 7-Zip runs, because headers can lie about sizes.
  */
-import { copyFile, lstat, mkdir, readdir } from 'node:fs/promises';
+import { copyFile, lstat, readdir } from 'node:fs/promises';
 import { join, relative } from 'node:path';
 
 import { VanillateError, type ErrorCode } from '@vanillate/core';
@@ -22,7 +22,15 @@ import type {
   ProcessRunner,
   ServerEngine,
 } from '../types.ts';
-import { assertSuccess, firstLine, onlyInput, requireFile, runOptions } from '../util.ts';
+import {
+  assertSuccess,
+  ensureDir,
+  firstLine,
+  onlyInput,
+  requireFile,
+  runOptions,
+  scratchDir,
+} from '../util.ts';
 
 /** Ratio checks start above this expanded size (small archives compress text very well). */
 const RATIO_THRESHOLD_BYTES = 100 * 1024 * 1024;
@@ -206,7 +214,7 @@ async function extractLayer(
   ctx: EngineContext,
 ): Promise<TreeFile[]> {
   checkListing(await list(archive, ctx), size, ctx);
-  await mkdir(dir, { recursive: true });
+  await ensureDir(ctx, dir);
   const limit = ctx.limits.archive.maxExtractedBytes;
   const watchdog = new AbortController();
   let exceeded = false;
@@ -244,7 +252,7 @@ async function extractAll(
   input: EngineFile,
   ctx: EngineContext,
 ): Promise<{ root: string; files: TreeFile[] }> {
-  const root = join(ctx.workDir, 'tmp', 'extract');
+  const root = await scratchDir(ctx, 'extract');
   const files = await extractLayer(input.path, input.size, root, ctx);
   ctx.progress(0.4);
   const [only] = files;
@@ -254,7 +262,7 @@ async function extractAll(
     only &&
     /\.tar$/i.test(only.relative)
   ) {
-    const inner = join(ctx.workDir, 'tmp', 'extract-tar');
+    const inner = await scratchDir(ctx, 'extract-tar');
     return { root: inner, files: await extractLayer(only.path, only.size, inner, ctx) };
   }
   return { root, files };
@@ -284,9 +292,10 @@ async function create(root: string, to: string, out: string, ctx: EngineContext)
   };
   const compressed = COMPRESSED_TAR[to];
   if (compressed) {
-    const tar = join(ctx.workDir, 'tmp', 'repack.tar');
+    const dir = await scratchDir(ctx, 'repack');
+    const tar = join(dir, 'archive.tar');
     await make(['-ttar'], tar, ['*'], root);
-    await make([compressed, '-mx=5'], out, [tar], join(ctx.workDir, 'tmp'));
+    await make([compressed, '-mx=5'], out, [tar], dir);
   } else {
     const type = CREATE_TYPES[to];
     if (!type)

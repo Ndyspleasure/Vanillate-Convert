@@ -6,12 +6,13 @@
  * (`n:1`, e.g. images → one PDF). Intermediate files stay in the job's temporary directory.
  * Every output records which input it came from, so it can be named after it.
  */
-import { mkdir, stat } from 'node:fs/promises';
+import { stat } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { VanillateError, type OptionValues, type Route, type ToolRoute } from '@vanillate/core';
 
 import type { EngineContext, EngineFile, EngineOutput, ServerEngine } from './types.ts';
+import { ensureDir } from './util.ts';
 
 export type EngineSet = Readonly<Record<string, ServerEngine>>;
 
@@ -70,7 +71,7 @@ export async function executeConversion(
       );
       // Separate directories keep engines' fixed output names from colliding.
       const dir = batches.length > 1 ? join(stepDir, `file-${b + 1}`) : stepDir;
-      await mkdir(dir, { recursive: true });
+      await ensureDir(ctx, dir);
       const produced = await engine.run(
         {
           kind: 'convert',
@@ -119,7 +120,7 @@ export async function executeTool(
   const outputs: PipelineOutput[] = [];
   for (const [b, batch] of batches.entries()) {
     const dir = batches.length > 1 ? join(outDir, `file-${b + 1}`) : outDir;
-    await mkdir(dir, { recursive: true });
+    await ensureDir(ctx, dir);
     const produced = await engine.run(
       { kind: 'operation', operation: route.operation, options, inputs: batch, outDir: dir },
       scoped(ctx, b / batches.length, (b + 1) / batches.length),

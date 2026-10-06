@@ -6,7 +6,7 @@
  * official release binaries) or as an isolated engine process (bubblewrap sandbox or a
  * separate user). With neither available the conversion is refused. The heap is capped.
  */
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { decodeText, stripBom, VanillateError, type ErrorCode } from '@vanillate/core';
@@ -27,6 +27,7 @@ import {
   onlyInput,
   requireFile,
   runOptions,
+  scratchDir,
 } from '../util.ts';
 
 const READERS: Record<string, string> = {
@@ -74,8 +75,7 @@ function supportsSandbox(ctx: EngineContext, binary: string): Promise<boolean> {
   let cached = sandboxSupport.get(binary);
   if (!cached) {
     cached = (async () => {
-      const dir = join(ctx.workDir, 'tmp', 'pandoc-probe');
-      await mkdir(dir, { recursive: true });
+      const dir = await scratchDir(ctx, 'pandoc-probe');
       const source = join(dir, 'probe.md');
       await writeFile(source, '# probe\n');
       const result = await ctx.runner.run(
@@ -119,8 +119,7 @@ export async function convertWithPandoc(
       detail: 'pandoc needs --sandbox support or isolated engine processes for untrusted input',
     });
   }
-  const dir = join(ctx.workDir, 'tmp', 'pandoc');
-  await mkdir(dir, { recursive: true });
+  const dir = await scratchDir(ctx, 'pandoc');
   const source = await stage(input, dir);
   // A metadata file only supplies values the document lacks (document metadata wins).
   const meta = join(dir, 'metadata.yaml');
