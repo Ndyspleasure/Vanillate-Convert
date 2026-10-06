@@ -20,14 +20,23 @@ export async function startEmbeddedWorker(): Promise<void> {
     return;
   }
   const config = workerConfigFromEnv();
-  const runner = new ProcessRunner({ sandbox: config.sandbox, user: config.engineUser });
+  const runner = new ProcessRunner({
+    sandbox: config.sandbox,
+    user: config.engineUser,
+    memoryBytes: config.engineMemoryBytes,
+  });
   if (process.env.NODE_ENV === 'production') {
     services.logger.warn('worker.embedded_in_production', {
       message: 'run workers separately in production (pnpm worker)',
     });
   }
   const ids = services.registry.engines
-    .filter((engine) => engine.mode === 'server' && !config.disabledEngines.includes(engine.id))
+    .filter(
+      (engine) =>
+        engine.mode === 'server' &&
+        engine.status !== 'disabled' &&
+        !config.disabledEngines.includes(engine.id),
+    )
     .map((engine) => engine.id);
   const probes = await probeEngines(runner, ids);
   const engines = Object.fromEntries(

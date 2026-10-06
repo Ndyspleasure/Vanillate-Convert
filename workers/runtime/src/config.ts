@@ -11,6 +11,7 @@
  *   WORKER_SHUTDOWN_GRACE_MS   time running jobs get to finish on SIGTERM (default 25000)
  *   VANILLATE_SANDBOX          auto | bwrap | none (default auto)
  *   VANILLATE_ENGINE_USER      auto | none | <uid>:<gid> (auto: 65534:65534 when running as root)
+ *   VANILLATE_ENGINE_MEMORY_MB address-space limit per engine process, 0 = none (default 4096)
  *   VANILLATE_DISABLED_ENGINES comma-separated engine ids not to use on this worker
  *   VANILLATE_ALLOW_UNISOLATED "1" allows production without sandbox or engine user (unsafe)
  */
@@ -33,6 +34,8 @@ export interface WorkerConfig {
   shutdownGraceMs: number;
   sandbox: SandboxMode;
   engineUser: EngineUser | null;
+  /** Address-space limit per engine process in bytes, or null for none. */
+  engineMemoryBytes: number | null;
   disabledEngines: string[];
   allowUnisolated: boolean;
   production: boolean;
@@ -96,6 +99,8 @@ export function workerConfigFromEnv(env: Env = process.env): WorkerConfig {
     shutdownGraceMs: integer(env, 'WORKER_SHUTDOWN_GRACE_MS', 25_000, 0, 3_600_000),
     sandbox: resolveSandbox(env.VANILLATE_SANDBOX),
     engineUser: parseEngineUser(env.VANILLATE_ENGINE_USER, uid),
+    engineMemoryBytes:
+      integer(env, 'VANILLATE_ENGINE_MEMORY_MB', 4096, 0, 1_048_576) * 1024 * 1024 || null,
     disabledEngines: list(env.VANILLATE_DISABLED_ENGINES),
     allowUnisolated: env.VANILLATE_ALLOW_UNISOLATED === '1',
     production: env.NODE_ENV === 'production',

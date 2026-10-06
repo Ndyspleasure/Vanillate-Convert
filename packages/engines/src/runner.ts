@@ -3,7 +3,8 @@
  *
  * - Commands run from argument arrays (never a shell), in their own process group, with a
  *   minimal environment (no secrets), and are killed as a group on timeout or cancellation.
- * - `prlimit` (when present) caps CPU time, written file size and open files.
+ * - `prlimit` (when present) caps CPU time, address space (memory), written file size and
+ *   open files.
  * - `bwrap` (when enabled) isolates the process: no network, private /tmp, read-only /usr,
  *   an allowlisted subset of /etc, and only the job directory writable. Other jobs, the
  *   application's environment and credentials are not visible inside the sandbox.
@@ -29,6 +30,8 @@ export interface RunOptions {
   cpuSeconds?: number;
   /** Largest file the process may write. */
   fileSizeLimit?: number;
+  /** Address-space limit in bytes (default: the runner's `memoryBytes`). */
+  memoryBytes?: number;
   /** HOME and TMPDIR for the process (default: `<cwd>/home`, `<cwd>/tmp`). */
   homeDir?: string;
   tmpDir?: string;
@@ -144,11 +147,19 @@ export class ProcessRunner {
   readonly sandbox: SandboxMode;
   /** Unprivileged user the engines run as (when the worker itself runs as root). */
   readonly user: EngineUser | null;
+  /** Address-space limit for every engine process, in bytes (null: unlimited). */
+  readonly memoryBytes: number | null;
   private readonly prlimit: boolean;
 
-  constructor(options: { sandbox: SandboxMode; prlimit?: boolean; user?: EngineUser | null }) {
+  constructor(options: {
+    sandbox: SandboxMode;
+    prlimit?: boolean;
+    user?: EngineUser | null;
+    memoryBytes?: number | null;
+  }) {
     this.sandbox = options.sandbox;
     this.user = options.user ?? null;
+    this.memoryBytes = options.memoryBytes ?? null;
     this.prlimit = options.prlimit ?? hasCommand('prlimit');
   }
 
@@ -172,6 +183,8 @@ export class ProcessRunner {
     let argv = [command, ...args];
     if (this.prlimit) {
       const limits = ['--nofile=1024'];
+      const memory = options.memoryBytes ?? this.memoryBytes;
+      if (memory) limits.push(`--as=${Math.ceil(memory)}`);
       if (options.cpuSeconds) limits.push(`--cpu=${Math.ceil(options.cpuSeconds)}`);
       if (options.fileSizeLimit) limits.push(`--fsize=${Math.ceil(options.fileSizeLimit)}`);
       argv = ['prlimit', ...limits, '--', ...argv];

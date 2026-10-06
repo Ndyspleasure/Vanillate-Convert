@@ -86,6 +86,36 @@ describe('ProcessRunner', () => {
   });
 });
 
+describe.skipIf(!hasCommand('prlimit') || !hasCommand('python3'))('memory limit', () => {
+  const script = 'import sys; b = bytearray(256 * 1024 * 1024); sys.stdout.write("allocated")';
+
+  it('stops a process that allocates more than the runner allows', async () => {
+    const limited = new ProcessRunner({
+      sandbox: 'none',
+      prlimit: true,
+      memoryBytes: 128 * 1024 ** 2,
+    });
+    const result = await limited.run('python3', ['-c', script], options());
+    expect(result.exitCode).not.toBe(0);
+    expect(result.stdout).not.toContain('allocated');
+    expect(result.stderr).toMatch(/MemoryError/);
+  });
+
+  it('lets a run raise or lower the limit', async () => {
+    const limited = new ProcessRunner({
+      sandbox: 'none',
+      prlimit: true,
+      memoryBytes: 128 * 1024 ** 2,
+    });
+    const result = await limited.run('python3', ['-c', script], {
+      ...options(),
+      memoryBytes: 1024 ** 3,
+    });
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).toBe('allocated');
+  });
+});
+
 describe.skipIf(!bwrapAvailable())('bubblewrap sandbox', () => {
   const runner = new ProcessRunner({ sandbox: 'bwrap' });
 

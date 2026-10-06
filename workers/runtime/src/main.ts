@@ -33,7 +33,11 @@ async function main(): Promise<void> {
     );
   }
 
-  const runner = new ProcessRunner({ sandbox: config.sandbox, user: config.engineUser });
+  const runner = new ProcessRunner({
+    sandbox: config.sandbox,
+    user: config.engineUser,
+    memoryBytes: config.engineMemoryBytes,
+  });
   if (!runner.isolated) {
     if (config.production && !config.allowUnisolated) {
       throw new Error(

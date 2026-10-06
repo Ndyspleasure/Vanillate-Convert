@@ -75,6 +75,7 @@ function harness(
     shutdownGraceMs: 100,
     sandbox: runner.sandbox,
     engineUser: null,
+    engineMemoryBytes: null,
     disabledEngines: [],
     allowUnisolated: true,
     production: false,

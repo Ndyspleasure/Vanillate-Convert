@@ -19,7 +19,11 @@ import {
 } from '../src/index.ts';
 
 export const registry: Registry = getRegistry();
-export const runner = new ProcessRunner({ sandbox: resolveSandbox(process.env.VANILLATE_SANDBOX) });
+/** Like production: the sandbox when available and the worker's default memory limit. */
+export const runner = new ProcessRunner({
+  sandbox: resolveSandbox(process.env.VANILLATE_SANDBOX),
+  memoryBytes: 4096 * 1024 ** 2,
+});
 
 let probing: Promise<Record<string, EngineProbe>> | null = null;
 export function engineProbes(): Promise<Record<string, EngineProbe>> {
