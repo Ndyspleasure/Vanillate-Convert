@@ -91,7 +91,8 @@ docker compose up --build      # http://localhost:3000
 
 ## Deployment
 
-- **Web app** on Vercel (root directory `apps/web`). Set `NEXT_PUBLIC_SITE_URL`; for server
+- **Web app** on Vercel (root directory `apps/web`), served at https://convert.vanillate.id;
+  `*.vercel.app` hosts redirect there in production. Set `NEXT_PUBLIC_SITE_URL`; for server
   processing also `VANILLATE_SERVER_PROCESSING=enabled`, `DATABASE_URL`, `STORAGE_DRIVER=s3`
   and the `S3_*` variables, and `RATE_LIMIT_SALT`.
 - **Workers** from `workers/Dockerfile` on any container platform, close to the database and

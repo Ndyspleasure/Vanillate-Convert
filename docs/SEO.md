@@ -30,6 +30,10 @@ All paths come from one builder, `paths` in `packages/core/src/routing/slugs.ts`
   — saved choice (`vc-locale` cookie), then `Accept-Language`, then English — straight to the
   localized URL (`/id/convert/jpg-ke-png`), with `Vary: Accept-Language, Cookie`.
 - Unknown locales are 404.
+- On Vercel production deployments, every `*.vercel.app` host (the project alias and deployment
+  URLs) gets a **308** to the canonical origin with path and query kept
+  (`apps/web/src/config/redirects.ts`), so the site has one domain. Previews are not redirected.
+  The canonical origin is `NEXT_PUBLIC_SITE_URL`, else Vercel's production domain.
 
 ## Generation
 
