@@ -15,7 +15,7 @@
     "start": "pnpm --filter @vanillate/web start",
     "worker": "pnpm --filter @vanillate/worker start",
     "typecheck": "pnpm -r --workspace-concurrency=4 typecheck && tsc -p tsconfig.json",
-    "lint": "eslint . --max-warnings=0",
+    "lint": "pnpm --filter @vanillate/web exec next typegen && eslint . --max-warnings=0",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
