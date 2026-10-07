@@ -37,11 +37,13 @@ the detailed checklists below remain the long-term plan.
 | Server processing | Job API, PostgreSQL queue, S3/local storage, sandboxed worker with ImageMagick, FFmpeg, LibreOffice, Poppler, Ghostscript, qpdf, Pandoc, 7-Zip, librsvg, assimp, ExifTool, fontTools |
 | Security | bubblewrap + unprivileged engine user, CPU/memory/file limits, content detection at every boundary, engine hardening, signed transfers, rate limits |
 | Deployment | Vercel-ready web app; worker image (`workers/Dockerfile`); `docker compose` for the full stack |
+| **Production** | **Beta** at https://convert.vanillate.id — browser-only (205 conversions, 16 tools). Server processing is not deployed yet |
 
 Next priorities:
 
-1. Production deployment: managed PostgreSQL and S3-compatible storage, worker hosting with
-   bubblewrap enabled, monitoring and alerting on queue depth and failures.
+1. Production deployment of server processing (the step out of beta): managed PostgreSQL and
+   S3-compatible storage, worker hosting with bubblewrap enabled, monitoring and alerting on
+   queue depth and failures.
 2. Promote experimental conversions (RAW images, 3D models, PDF → Office) after broader
    real-world test files.
 3. Batch UX (multiple targets, ZIP of server results), per-format advanced options.
