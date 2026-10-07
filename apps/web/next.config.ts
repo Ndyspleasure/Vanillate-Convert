@@ -1,5 +1,7 @@
 import type { NextConfig } from 'next';
 
+import { hostRedirects } from './src/config/redirects.ts';
+
 const isDev = process.env.NODE_ENV === 'development';
 /**
  * The embedded worker (local development and end-to-end tests) is compiled in only when it is
@@ -78,6 +80,9 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ['postgres'],
   compiler: {
     defineServer: { 'process.env.VANILLATE_EMBEDDED_WORKER': embeddedWorker ? '1' : '0' },
+  },
+  redirects() {
+    return Promise.resolve(hostRedirects(process.env));
   },
   headers() {
     return Promise.resolve([
