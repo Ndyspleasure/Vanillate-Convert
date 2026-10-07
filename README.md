@@ -4,8 +4,14 @@ A scalable, secure file conversion and processing platform by Vanillate Studio. 
 engines and conversions are defined as data; one registry drives the website, the API and the
 processing workers.
 
-- **182 formats, 1554 conversions, 24 tools** — the full list is
-  [docs/CONVERSION-MATRIX.md](docs/CONVERSION-MATRIX.md).
+> **Status: Beta.** Live at https://convert.vanillate.id as a **browser-only** deployment: 205
+> conversions and 16 tools, all running in the visitor's browser. Server processing (office
+> documents, PDF rendering, audio/video, most archives and specialized formats) is built and
+> tested but **not deployed yet**: production has no workers, job database or object storage, so
+> those conversions are not offered there. See [Production status](#production-status).
+
+- **182 formats, 1554 conversions, 24 tools** in the full catalog (with server processing) — the
+  full list is [docs/CONVERSION-MATRIX.md](docs/CONVERSION-MATRIX.md).
 - **Browser first**: about 200 conversions run entirely in the visitor's browser; files never
   leave the device.
 - **Server workers** for office documents, PDF, audio/video, archives and specialized formats —
@@ -15,7 +21,9 @@ processing workers.
 - Honest statuses: stable, supported, limited, experimental — experimental conversions are
   labeled and never presented as stable.
 
-> 🇮🇩 **Ringkasan.** Vanillate Convert adalah platform konversi dan pemrosesan file. Format,
+> 🇮🇩 **Ringkasan.** **Status: Beta.** Saat ini yang aktif di https://convert.vanillate.id hanya
+> konversi di peramban (205 konversi dan 16 alat); pemrosesan server belum di-deploy.
+> Vanillate Convert adalah platform konversi dan pemrosesan file. Format,
 > engine, dan konversi didefinisikan sebagai data (registry) yang menggerakkan website, API, dan
 > worker. Konversi ringan berjalan langsung di browser (file tidak diunggah); konversi berat
 > diproses oleh worker yang terisolasi, dan semua file dihapus otomatis. Dokumentasi teknis ada
@@ -88,6 +96,22 @@ docker compose up --build      # http://localhost:3000
 | `pnpm catalog:check` | Validate the catalog and generated files |
 | `pnpm docs:matrix` | Regenerate the conversion matrix |
 | `pnpm validate` | Everything CI checks |
+
+## Production status
+
+| | |
+| --- | --- |
+| Stage | **Beta** (since October 2026) |
+| URL | https://convert.vanillate.id (Vercel; `*.vercel.app` redirects there) |
+| Mode | Browser-only: `VANILLATE_SERVER_PROCESSING` is not set, so the build offers, lists and indexes only browser conversions |
+| Live | 205 conversions, 16 tools, every page in Indonesian and English |
+| Not live yet | Server conversions and tools (the rest of the 1554 conversions): needs workers, PostgreSQL and S3-compatible storage |
+| Listed on | vanillate.id product catalog (status "Beta") |
+
+Leaving beta requires the server stack in production (ROADMAP "Next priorities"): managed
+PostgreSQL, S3-compatible storage, worker hosting with bubblewrap, monitoring, then a build with
+`VANILLATE_SERVER_PROCESSING=enabled`. Update this table, the product entry on vanillate.id and
+`ROADMAP.md` when that happens.
 
 ## Deployment
 
