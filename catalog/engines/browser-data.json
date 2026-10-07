@@ -1,0 +1,30 @@
+{
+  "$schema": "../schema/engine.schema.json",
+  "engine": {
+    "id": "browser-data",
+    "name": "Browser data engine",
+    "mode": "browser",
+    "status": "available",
+    "description": "Parses structured and tabular data into a neutral value model and serializes it to the target format. Uses yaml, smol-toml and fast-xml-parser; CSV, TSV, INI, NDJSON, SQL, XLSX, HTML and Markdown writers are project code.",
+    "homepage": "https://github.com/Ndyspleasure/Vanillate-Convert",
+    "license": "Project code; yaml (ISC), smol-toml (BSD-3-Clause), fast-xml-parser (MIT), fflate (MIT)",
+    "capabilities": {
+      "read": ["json", "yaml", "toml", "xml", "csv", "tsv", "ndjson", "jsonl", "ini"],
+      "write": [
+        "json",
+        "yaml",
+        "toml",
+        "xml",
+        "csv",
+        "tsv",
+        "ndjson",
+        "jsonl",
+        "ini",
+        "sql",
+        "html",
+        "md",
+        "xlsx"
+      ]
+    }
+  }
+}

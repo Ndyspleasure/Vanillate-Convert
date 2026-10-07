@@ -1,0 +1,69 @@
+{
+  "$schema": "../schema/formats.schema.json",
+  "formats": [
+    {
+      "id": "dxf",
+      "label": "DXF",
+      "name": { "en": "AutoCAD DXF drawing", "id": "Gambar AutoCAD DXF" },
+      "description": {
+        "en": "Drawing Exchange Format for sharing CAD drawings between programs.",
+        "id": "Drawing Exchange Format untuk berbagi gambar CAD antar program."
+      },
+      "category": "cad",
+      "alsoIn": ["vector"],
+      "extensions": ["dxf"],
+      "mimeTypes": ["image/vnd.dxf", "application/dxf"],
+      "sniff": { "type": "text", "pattern": "^\\s*0\\s*\\r?\\n\\s*SECTION" },
+      "traits": ["cad", "vector", "text"],
+      "popularity": 25
+    },
+    {
+      "id": "dwg",
+      "label": "DWG",
+      "name": { "en": "AutoCAD drawing", "id": "Gambar AutoCAD" },
+      "description": {
+        "en": "AutoCAD's native binary drawing format.",
+        "id": "Format gambar biner bawaan AutoCAD."
+      },
+      "category": "cad",
+      "extensions": ["dwg"],
+      "mimeTypes": ["image/vnd.dwg"],
+      "aliases": ["autocad"],
+      "signatures": [[{ "ascii": "AC10" }], [{ "ascii": "AC1.5" }], [{ "ascii": "AC2.1" }]],
+      "traits": ["cad", "vector", "binary", "proprietary"],
+      "popularity": 30
+    },
+    {
+      "id": "step",
+      "label": "STEP",
+      "name": { "en": "STEP model", "id": "Model STEP" },
+      "description": {
+        "en": "ISO 10303 exchange format for 3D CAD models.",
+        "id": "Format pertukaran ISO 10303 untuk model CAD 3D."
+      },
+      "category": "cad",
+      "extensions": ["step", "stp"],
+      "mimeTypes": ["model/step"],
+      "aliases": ["stp"],
+      "signatures": [[{ "ascii": "ISO-10303-21;" }]],
+      "traits": ["cad", "model3d", "text"],
+      "popularity": 15
+    },
+    {
+      "id": "iges",
+      "label": "IGES",
+      "name": { "en": "IGES model", "id": "Model IGES" },
+      "description": {
+        "en": "Legacy neutral CAD exchange format.",
+        "id": "Format pertukaran CAD netral yang lama."
+      },
+      "category": "cad",
+      "extensions": ["iges", "igs"],
+      "mimeTypes": ["model/iges"],
+      "aliases": ["igs"],
+      "sniff": { "type": "text", "pattern": "^.{72}S\\s*\\d+\\r?\\n" },
+      "traits": ["cad", "model3d", "text", "legacy"],
+      "popularity": 5
+    }
+  ]
+}

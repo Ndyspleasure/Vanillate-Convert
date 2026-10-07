@@ -1,0 +1,164 @@
+{
+  "$schema": "../schema/formats.schema.json",
+  "formats": [
+    {
+      "id": "fits",
+      "label": "FITS",
+      "name": { "en": "FITS astronomical data", "id": "Data astronomi FITS" },
+      "description": {
+        "en": "Flexible Image Transport System used in astronomy.",
+        "id": "Flexible Image Transport System yang dipakai di astronomi."
+      },
+      "category": "scientific",
+      "extensions": ["fits", "fit", "fts"],
+      "mimeTypes": ["image/fits", "application/fits"],
+      "signatures": [[{ "ascii": "SIMPLE  =" }]],
+      "traits": ["scientific", "binary"],
+      "popularity": 5
+    },
+    {
+      "id": "mat",
+      "label": "MAT",
+      "name": { "en": "MATLAB data", "id": "Data MATLAB" },
+      "description": {
+        "en": "MATLAB workspace variables file.",
+        "id": "File variabel workspace MATLAB."
+      },
+      "category": "scientific",
+      "extensions": ["mat"],
+      "mimeTypes": ["application/x-matlab-data"],
+      "aliases": ["matlab"],
+      "signatures": [
+        [{ "ascii": "MATLAB 5.0 MAT-file" }],
+        [{ "offset": 512, "hex": "894844460D0A1A0A" }]
+      ],
+      "traits": ["scientific", "binary", "proprietary"],
+      "popularity": 5
+    },
+    {
+      "id": "hdf5",
+      "label": "HDF5",
+      "name": { "en": "HDF5 data", "id": "Data HDF5" },
+      "description": {
+        "en": "Hierarchical Data Format version 5 for large scientific datasets.",
+        "id": "Hierarchical Data Format versi 5 untuk dataset ilmiah berukuran besar."
+      },
+      "category": "scientific",
+      "extensions": ["h5", "hdf5", "he5"],
+      "mimeTypes": ["application/x-hdf5"],
+      "aliases": ["h5"],
+      "signatures": [[{ "hex": "894844460D0A1A0A" }]],
+      "traits": ["scientific", "binary"],
+      "popularity": 5
+    },
+    {
+      "id": "hdf",
+      "label": "HDF4",
+      "name": { "en": "HDF4 data", "id": "Data HDF4" },
+      "description": {
+        "en": "Hierarchical Data Format version 4, used by older satellite products.",
+        "id": "Hierarchical Data Format versi 4, dipakai produk satelit lama."
+      },
+      "category": "scientific",
+      "extensions": ["hdf", "hdf4", "h4"],
+      "mimeTypes": ["application/x-hdf"],
+      "aliases": ["hdf4"],
+      "signatures": [[{ "hex": "0E031301" }]],
+      "traits": ["scientific", "binary", "legacy"],
+      "popularity": 2
+    },
+    {
+      "id": "netcdf",
+      "label": "NetCDF",
+      "name": { "en": "NetCDF data", "id": "Data NetCDF" },
+      "description": {
+        "en": "Network Common Data Form for climate and ocean data.",
+        "id": "Network Common Data Form untuk data iklim dan laut."
+      },
+      "category": "scientific",
+      "extensions": ["nc", "nc4", "netcdf"],
+      "mimeTypes": ["application/x-netcdf"],
+      "aliases": ["nc"],
+      "signatures": [[{ "hex": "43444601" }], [{ "hex": "43444602" }]],
+      "traits": ["scientific", "binary"],
+      "popularity": 3
+    },
+    {
+      "id": "cdf",
+      "label": "CDF",
+      "name": { "en": "NASA Common Data Format", "id": "NASA Common Data Format" },
+      "description": {
+        "en": "Self-describing scientific data format from NASA.",
+        "id": "Format data ilmiah yang mendeskripsikan dirinya sendiri dari NASA."
+      },
+      "category": "scientific",
+      "extensions": ["cdf"],
+      "mimeTypes": ["application/x-cdf"],
+      "signatures": [[{ "hex": "CDF30001" }], [{ "hex": "CDF26002" }]],
+      "traits": ["scientific", "binary"],
+      "popularity": 2
+    },
+    {
+      "id": "dicom",
+      "label": "DICOM",
+      "name": { "en": "DICOM medical image", "id": "Citra medis DICOM" },
+      "description": {
+        "en": "Medical imaging standard for CT, MRI and X-ray. May contain patient information.",
+        "id": "Standar citra medis untuk CT, MRI, dan rontgen. Bisa berisi informasi pasien."
+      },
+      "category": "scientific",
+      "extensions": ["dcm", "dicom"],
+      "mimeTypes": ["application/dicom"],
+      "aliases": ["dcm"],
+      "signatures": [[{ "offset": 128, "ascii": "DICM" }]],
+      "traits": ["scientific", "binary", "sensitive"],
+      "popularity": 10
+    },
+    {
+      "id": "nifti",
+      "label": "NIfTI",
+      "name": { "en": "NIfTI neuroimaging data", "id": "Data neuroimaging NIfTI" },
+      "description": {
+        "en": "Neuroimaging format for MRI brain scans. May contain sensitive data.",
+        "id": "Format neuroimaging untuk pindaian otak MRI. Bisa berisi data sensitif."
+      },
+      "category": "scientific",
+      "extensions": ["nii"],
+      "mimeTypes": ["application/x-nifti"],
+      "aliases": ["nii"],
+      "signatures": [[{ "offset": 344, "hex": "6E2B3100" }]],
+      "traits": ["scientific", "binary", "sensitive"],
+      "popularity": 3
+    },
+    {
+      "id": "mrc",
+      "label": "MRC",
+      "name": { "en": "MRC electron microscopy data", "id": "Data mikroskop elektron MRC" },
+      "description": {
+        "en": "Volume format used in cryo-electron microscopy.",
+        "id": "Format volume yang dipakai di mikroskop elektron cryo."
+      },
+      "category": "scientific",
+      "extensions": ["mrc", "mrcs"],
+      "mimeTypes": ["application/x-mrc"],
+      "signatures": [[{ "offset": 208, "ascii": "MAP " }]],
+      "traits": ["scientific", "binary"],
+      "popularity": 2
+    },
+    {
+      "id": "vtk",
+      "label": "VTK",
+      "name": { "en": "VTK legacy data", "id": "Data lama VTK" },
+      "description": {
+        "en": "Visualization Toolkit data file for meshes and fields.",
+        "id": "File data Visualization Toolkit untuk mesh dan medan."
+      },
+      "category": "scientific",
+      "extensions": ["vtk"],
+      "mimeTypes": ["application/x-vtk"],
+      "signatures": [[{ "ascii": "# vtk DataFile" }]],
+      "traits": ["scientific", "text"],
+      "popularity": 2
+    }
+  ]
+}

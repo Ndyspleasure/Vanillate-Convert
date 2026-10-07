@@ -1,0 +1,48 @@
+{
+  "$schema": "../schema/rules.schema.json",
+  "rules": [
+    {
+      "id": "archive.browser.repack",
+      "description": "Repack ZIP and TAR archives in the browser.",
+      "mode": "browser",
+      "steps": ["browser-archive"],
+      "from": { "formats": ["zip", "tar", "tgz"] },
+      "to": { "formats": ["zip", "tar", "tgz"] },
+      "status": "stable",
+      "priority": 10,
+      "metadata": "unsupported",
+      "limitations": ["archive-flattened-metadata"],
+      "overrides": [{ "to": "zip", "addOptions": ["zipLevel"] }]
+    },
+    {
+      "id": "archive.sevenzip.repack",
+      "description": "Extract with 7-Zip (after inspecting every entry) and create a new archive.",
+      "mode": "server",
+      "steps": ["sevenzip"],
+      "from": { "categories": ["archive", "ebook"] },
+      "to": { "formats": ["zip", "7z", "tar", "tgz", "tbz2", "txz"] },
+      "status": "stable",
+      "priority": 50,
+      "metadata": "unsupported",
+      "limitations": ["archive-flattened-metadata"],
+      "overrides": [
+        { "from": ["iso", "wim", "dmg", "vhd", "vhdx", "vmdk", "qcow2"], "status": "experimental" },
+        {
+          "from": ["arj", "lzh", "cab", "cpio", "rpm", "deb", "lzma", "cbz", "cbr"],
+          "status": "supported"
+        }
+      ]
+    },
+    {
+      "id": "ebook.sevenzip.comic",
+      "description": "Repack comic archives (and plain archives of images) as CBZ.",
+      "mode": "server",
+      "steps": ["sevenzip"],
+      "from": { "formats": ["cbr", "rar", "7z", "zip"] },
+      "to": { "formats": ["cbz"] },
+      "status": "stable",
+      "priority": 50,
+      "metadata": "unsupported"
+    }
+  ]
+}

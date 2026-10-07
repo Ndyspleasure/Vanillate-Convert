@@ -1,0 +1,115 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NEXT_TELEMETRY_DISABLED: '1'
+
+jobs:
+  checks:
+    name: Format, lint, types, catalog
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm format:check
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm catalog:check
+
+  test:
+    name: Unit, integration and conversion tests
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: vanillate
+          POSTGRES_PASSWORD: vanillate
+          POSTGRES_DB: vanillate_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U vanillate" --health-interval 2s --health-timeout 3s
+          --health-retries 30
+    env:
+      TEST_DATABASE_URL: postgres://vanillate:vanillate@localhost:5432/vanillate_test
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install conversion engines
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            imagemagick ffmpeg \
+            libreoffice-writer-nogui libreoffice-calc-nogui libreoffice-impress-nogui libreoffice-draw-nogui \
+            poppler-utils ghostscript qpdf pandoc 7zip librsvg2-bin assimp-utils \
+            libimage-exiftool-perl python3-fonttools python3-brotli bubblewrap util-linux \
+            fonts-dejavu-core fonts-liberation
+      - name: Allow bubblewrap sandboxes
+        # Ubuntu 24.04 restricts unprivileged user namespaces with AppArmor.
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test
+
+  e2e:
+    name: End-to-end tests
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install engines used by the end-to-end tests
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils bubblewrap
+      - run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @vanillate/web exec playwright install --with-deps chromium
+      - run: pnpm test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-results
+          path: apps/web/test-results
+          retention-days: 7
+
+  build:
+    name: Production builds
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - name: Browser-only build
+        run: pnpm build
+      - name: Build with server processing
+        run: pnpm build
+        env:
+          VANILLATE_SERVER_PROCESSING: enabled
+      - name: Worker image
+        run: docker build -f workers/Dockerfile -t vanillate-worker .
+      - name: Worker image starts and finds its engines
+        run: |
+          docker run --rm -w /app/workers/runtime --entrypoint node vanillate-worker --input-type=module -e "
+            import { probeEngines, ProcessRunner, SERVER_ENGINES } from '@vanillate/engines';
+            const probes = await probeEngines(new ProcessRunner({ sandbox: 'none' }), Object.keys(SERVER_ENGINES));
+            const missing = Object.entries(probes).filter(([, p]) => !p.available).map(([id]) => id);
+            console.log(probes);
+            if (missing.length) { console.error('missing engines:', missing); process.exit(1); }
+          "

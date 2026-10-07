@@ -1,0 +1,19 @@
+{
+  "$schema": "../schema/engine.schema.json",
+  "engine": {
+    "id": "poppler",
+    "name": "Poppler",
+    "mode": "server",
+    "status": "available",
+    "description": "PDF rendering and extraction: pdftoppm (raster), pdftocairo (SVG), pdftotext, pdftohtml, pdfunite, pdfseparate and pdfimages.",
+    "homepage": "https://poppler.freedesktop.org",
+    "license": "GPL-2.0-or-later",
+    "licenseNotes": "Used as separate executables; distributing container images requires GPL source availability.",
+    "binaries": ["pdftoppm", "pdftocairo"],
+    "pool": "document",
+    "capabilities": {
+      "read": ["pdf", "ai"],
+      "write": ["png", "jpg", "tiff", "svg", "txt", "html", "pdf"]
+    }
+  }
+}

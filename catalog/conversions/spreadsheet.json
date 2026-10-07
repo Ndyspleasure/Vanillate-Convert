@@ -1,0 +1,40 @@
+{
+  "$schema": "../schema/rules.schema.json",
+  "rules": [
+    {
+      "id": "spreadsheet.libreoffice.calc",
+      "description": "Spreadsheets with LibreOffice Calc.",
+      "mode": "server",
+      "steps": ["libreoffice"],
+      "from": { "formats": ["xls", "xlsx", "xlsm", "xlsb", "ods", "csv", "dbf", "numbers"] },
+      "to": { "formats": ["xlsx", "xls", "ods", "csv", "pdf", "html"] },
+      "status": "stable",
+      "priority": 50,
+      "metadata": "preserve",
+      "overrides": [
+        { "from": "csv", "addOptions": ["csvInputDelimiter"] },
+        { "to": "csv", "addOptions": ["csvDelimiter"], "limitations": ["first-sheet-only"] },
+        { "to": "pdf", "limitations": ["fonts-substituted"] },
+        { "to": "html", "status": "supported" },
+        { "from": ["dbf", "xlsb"], "status": "supported" },
+        { "from": "numbers", "status": "experimental" }
+      ]
+    },
+    {
+      "id": "presentation.libreoffice.impress",
+      "description": "Presentations with LibreOffice Impress.",
+      "mode": "server",
+      "steps": ["libreoffice"],
+      "from": { "formats": ["ppt", "pptx", "ppsx", "odp", "key"] },
+      "to": { "formats": ["pptx", "ppt", "odp", "pdf"] },
+      "status": "stable",
+      "priority": 50,
+      "metadata": "preserve",
+      "overrides": [
+        { "to": ["pptx", "ppt", "odp"], "limitations": ["layout-may-change"] },
+        { "to": "pdf", "limitations": ["fonts-substituted"] },
+        { "from": "key", "status": "experimental" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "../schema/formats.schema.json",
+  "formats": [
+    {
+      "id": "xmp",
+      "label": "XMP",
+      "name": { "en": "XMP metadata sidecar", "id": "Sidecar metadata XMP" },
+      "description": {
+        "en": "Adobe Extensible Metadata Platform file holding photo metadata and edits.",
+        "id": "File Adobe Extensible Metadata Platform yang menyimpan metadata dan editan foto."
+      },
+      "category": "metadata",
+      "extensions": ["xmp"],
+      "mimeTypes": ["application/rdf+xml"],
+      "sniff": { "type": "xml", "root": "xmpmeta" },
+      "traits": ["text", "structured", "markup"],
+      "popularity": 5
+    }
+  ]
+}

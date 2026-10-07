@@ -1,0 +1,18 @@
+{
+  "$schema": "../schema/engine.schema.json",
+  "engine": {
+    "id": "rsvg",
+    "name": "librsvg (rsvg-convert)",
+    "mode": "server",
+    "status": "available",
+    "description": "Standards-compliant SVG renderer. External resources are not loaded.",
+    "homepage": "https://gitlab.gnome.org/GNOME/librsvg",
+    "license": "LGPL-2.1-or-later",
+    "binaries": ["rsvg-convert"],
+    "pool": "image",
+    "capabilities": {
+      "read": ["svg"],
+      "write": ["png", "pdf", "eps", "ps"]
+    }
+  }
+}

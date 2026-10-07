@@ -1,0 +1,229 @@
+{
+  "$schema": "../schema/rules.schema.json",
+  "rules": [
+    {
+      "id": "data.browser.structured",
+      "description": "Structured data conversions in the browser through a neutral value model.",
+      "mode": "browser",
+      "steps": ["browser-data"],
+      "from": {
+        "formats": ["json", "yaml", "toml", "xml", "ndjson", "jsonl", "ini"]
+      },
+      "to": {
+        "formats": ["json", "yaml", "toml", "xml", "ndjson", "jsonl", "ini"]
+      },
+      "status": "stable",
+      "priority": 10,
+      "metadata": "unsupported",
+      "exclude": [
+        {
+          "from": ["ndjson", "jsonl"],
+          "to": ["ndjson", "jsonl"]
+        }
+      ],
+      "overrides": [
+        {
+          "to": "json",
+          "addOptions": ["jsonIndent"]
+        },
+        {
+          "to": "xml",
+          "addOptions": ["xmlRootName"],
+          "limitations": ["xml-mapping"]
+        },
+        {
+          "from": "xml",
+          "limitations": ["xml-mapping"]
+        },
+        {
+          "to": "toml",
+          "limitations": ["toml-root-table"]
+        },
+        {
+          "from": ["ndjson", "jsonl"],
+          "limitations": ["single-record-wrapped"]
+        },
+        {
+          "to": "ini",
+          "status": "limited",
+          "limitations": ["structure-flattened", "types-as-text"]
+        },
+        {
+          "from": "ini",
+          "limitations": ["types-as-text"]
+        },
+        {
+          "from": "ini",
+          "status": "supported"
+        },
+        {
+          "from": ["yaml", "toml", "ini", "xml"],
+          "limitations": ["comments-removed"]
+        }
+      ]
+    },
+    {
+      "id": "data.browser.tabular-in",
+      "description": "CSV and TSV to structured data, tables and SQL in the browser.",
+      "mode": "browser",
+      "steps": ["browser-data"],
+      "from": {
+        "formats": ["csv", "tsv"]
+      },
+      "to": {
+        "formats": [
+          "json",
+          "yaml",
+          "xml",
+          "ndjson",
+          "jsonl",
+          "toml",
+          "csv",
+          "tsv",
+          "sql",
+          "html",
+          "md",
+          "xlsx"
+        ]
+      },
+      "status": "stable",
+      "priority": 10,
+      "metadata": "unsupported",
+      "options": ["csvHeader"],
+      "overrides": [
+        {
+          "from": "csv",
+          "options": ["csvInputDelimiter", "csvHeader"]
+        },
+        {
+          "to": "json",
+          "addOptions": ["jsonIndent"]
+        },
+        {
+          "to": "xml",
+          "addOptions": ["xmlRootName"]
+        },
+        {
+          "to": "csv",
+          "addOptions": ["csvDelimiter"]
+        },
+        {
+          "to": "sql",
+          "addOptions": ["sqlTable", "sqlDialect"]
+        },
+        {
+          "to": "toml",
+          "limitations": ["toml-root-table"]
+        },
+        {
+          "to": ["xlsx", "toml"],
+          "status": "supported"
+        }
+      ]
+    },
+    {
+      "id": "data.browser.tabular-out",
+      "description": "Structured data to CSV, TSV, SQL, HTML and Markdown tables in the browser.",
+      "mode": "browser",
+      "steps": ["browser-data"],
+      "from": {
+        "formats": ["json", "yaml", "xml", "ndjson", "jsonl", "toml"]
+      },
+      "to": {
+        "formats": ["csv", "tsv", "sql", "html", "md", "xlsx"]
+      },
+      "status": "stable",
+      "priority": 10,
+      "metadata": "unsupported",
+      "overrides": [
+        {
+          "to": "csv",
+          "addOptions": ["csvDelimiter"]
+        },
+        {
+          "to": "sql",
+          "addOptions": ["sqlTable", "sqlDialect"]
+        },
+        {
+          "to": ["csv", "tsv"],
+          "limitations": ["types-as-text"]
+        },
+        {
+          "to": ["html", "md"],
+          "limitations": ["structure-flattened"]
+        },
+        {
+          "from": "xml",
+          "limitations": ["xml-mapping"]
+        },
+        {
+          "from": ["xml", "toml", "yaml"],
+          "status": "supported"
+        },
+        {
+          "to": "xlsx",
+          "status": "supported"
+        },
+        {
+          "from": ["yaml", "toml", "xml"],
+          "limitations": ["comments-removed"]
+        }
+      ]
+    },
+    {
+      "id": "subtitle.browser.convert",
+      "description": "Subtitle conversions in the browser through a neutral cue list.",
+      "mode": "browser",
+      "steps": ["browser-subtitle"],
+      "from": {
+        "formats": ["srt", "vtt", "sbv", "ass", "ssa", "sub", "ttml", "dfxp"]
+      },
+      "to": {
+        "formats": ["srt", "vtt", "sbv", "ass", "sub", "ttml", "dfxp", "txt"]
+      },
+      "status": "stable",
+      "priority": 10,
+      "metadata": "unsupported",
+      "exclude": [
+        {
+          "from": ["ttml", "dfxp"],
+          "to": ["ttml", "dfxp"]
+        }
+      ],
+      "overrides": [
+        {
+          "from": "sub",
+          "addOptions": ["subtitleFps"],
+          "limitations": ["timing-frame-based"]
+        },
+        {
+          "to": "sub",
+          "addOptions": ["subtitleFps"],
+          "limitations": ["timing-frame-based"]
+        },
+        {
+          "to": "txt",
+          "limitations": ["timing-removed"]
+        },
+        {
+          "from": ["ttml", "dfxp"],
+          "to": "ass",
+          "limitations": ["styling-lost"]
+        },
+        {
+          "from": ["ass", "ssa"],
+          "to": ["ttml", "dfxp"],
+          "limitations": ["styling-lost"]
+        },
+        {
+          "from": ["ttml", "dfxp"],
+          "status": "supported"
+        },
+        {
+          "to": ["ttml", "dfxp", "sub"],
+          "status": "supported"
+        }
+      ]
+    }
+  ]
+}

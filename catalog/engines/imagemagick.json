@@ -1,0 +1,49 @@
+{
+  "$schema": "../schema/engine.schema.json",
+  "engine": {
+    "id": "imagemagick",
+    "name": "ImageMagick",
+    "mode": "server",
+    "status": "available",
+    "description": "General raster image conversion. Inputs are read with an explicit coder prefix and a restrictive security policy (no URL, MVG, MSL, PS/PDF read coders).",
+    "homepage": "https://imagemagick.org",
+    "license": "ImageMagick License (Apache-2.0 style)",
+    "licenseNotes": "Permissive; redistribution in container images is allowed with the license notice.",
+    "binaries": ["magick", "convert"],
+    "pool": "image",
+    "capabilities": {
+      "read": [
+        "jpg",
+        "png",
+        "webp",
+        "avif",
+        "heic",
+        "heif",
+        "gif",
+        "bmp",
+        "tiff",
+        "ico",
+        "jp2",
+        "tga",
+        "dds",
+        "hdr",
+        "psd",
+        "psb",
+        "xcf",
+        "dng",
+        "cr2",
+        "cr3",
+        "nef",
+        "arw",
+        "orf",
+        "rw2",
+        "raf",
+        "pef",
+        "srw",
+        "dicom",
+        "fits"
+      ],
+      "write": ["jpg", "png", "webp", "gif", "bmp", "tiff", "ico", "jp2", "tga", "dds", "pdf"]
+    }
+  }
+}

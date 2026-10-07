@@ -1,0 +1,18 @@
+{
+  "$schema": "../schema/engine.schema.json",
+  "engine": {
+    "id": "exiftool",
+    "name": "ExifTool",
+    "mode": "server",
+    "status": "available",
+    "description": "Reads and removes metadata (EXIF, GPS, XMP, IPTC, ID3, QuickTime) without re-encoding.",
+    "homepage": "https://exiftool.org",
+    "license": "Artistic-1.0 or GPL-1.0-or-later (Perl terms)",
+    "binaries": ["exiftool"],
+    "pool": "image",
+    "capabilities": {
+      "read": ["jpg", "png", "webp", "tiff", "heic", "gif", "mp4", "mov", "m4a", "mp3"],
+      "write": ["jpg", "png", "webp", "tiff", "mp4", "mov", "m4a", "mp3", "json"]
+    }
+  }
+}

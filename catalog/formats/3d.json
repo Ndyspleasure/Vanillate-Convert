@@ -1,0 +1,143 @@
+{
+  "$schema": "../schema/formats.schema.json",
+  "formats": [
+    {
+      "id": "obj",
+      "label": "OBJ",
+      "name": { "en": "Wavefront OBJ model", "id": "Model Wavefront OBJ" },
+      "description": {
+        "en": "Simple text-based 3D mesh format supported by nearly every 3D application.",
+        "id": "Format mesh 3D berbasis teks yang didukung hampir semua aplikasi 3D."
+      },
+      "category": "3d",
+      "extensions": ["obj"],
+      "mimeTypes": ["model/obj"],
+      "sniff": {
+        "type": "text",
+        "pattern": "^(?:\\s*(?:#[^\\n]*)?\\r?\\n)*\\s*(?:v|vn|vt|f|o|g|mtllib|usemtl|s)\\s"
+      },
+      "traits": ["model3d", "text"],
+      "popularity": 40
+    },
+    {
+      "id": "stl",
+      "label": "STL",
+      "name": { "en": "STL model", "id": "Model STL" },
+      "description": {
+        "en": "Triangle mesh format used for 3D printing.",
+        "id": "Format mesh segitiga untuk pencetakan 3D."
+      },
+      "category": "3d",
+      "extensions": ["stl"],
+      "mimeTypes": ["model/stl", "application/sla"],
+      "traits": ["model3d", "binary"],
+      "popularity": 45
+    },
+    {
+      "id": "fbx",
+      "label": "FBX",
+      "name": { "en": "Autodesk FBX model", "id": "Model Autodesk FBX" },
+      "description": {
+        "en": "Autodesk interchange format for models and animation.",
+        "id": "Format pertukaran Autodesk untuk model dan animasi."
+      },
+      "category": "3d",
+      "extensions": ["fbx"],
+      "mimeTypes": ["application/vnd.autodesk.fbx"],
+      "signatures": [[{ "ascii": "Kaydara FBX Binary  " }]],
+      "traits": ["model3d", "binary", "proprietary"],
+      "popularity": 25
+    },
+    {
+      "id": "gltf",
+      "label": "glTF",
+      "name": { "en": "glTF model", "id": "Model glTF" },
+      "description": {
+        "en": "Khronos GL Transmission Format, the 'JPEG of 3D' for the web.",
+        "id": "Khronos GL Transmission Format, 'JPEG-nya 3D' untuk web."
+      },
+      "category": "3d",
+      "extensions": ["gltf"],
+      "mimeTypes": ["model/gltf+json"],
+      "sniff": { "type": "json", "requireKeys": ["asset"] },
+      "traits": ["model3d", "text", "structured"],
+      "popularity": 25
+    },
+    {
+      "id": "glb",
+      "label": "GLB",
+      "name": { "en": "Binary glTF model", "id": "Model glTF biner" },
+      "description": {
+        "en": "Single-file binary glTF with embedded textures.",
+        "id": "glTF biner dalam satu file dengan tekstur tersemat."
+      },
+      "category": "3d",
+      "extensions": ["glb"],
+      "mimeTypes": ["model/gltf-binary"],
+      "signatures": [[{ "ascii": "glTF" }]],
+      "traits": ["model3d", "binary"],
+      "popularity": 30
+    },
+    {
+      "id": "3ds",
+      "label": "3DS",
+      "name": { "en": "3D Studio model", "id": "Model 3D Studio" },
+      "description": {
+        "en": "Legacy Autodesk 3D Studio mesh format.",
+        "id": "Format mesh Autodesk 3D Studio lama."
+      },
+      "category": "3d",
+      "extensions": ["3ds"],
+      "mimeTypes": ["application/x-3ds", "image/x-3ds"],
+      "signatures": [[{ "hex": "4D4D" }]],
+      "traits": ["model3d", "binary", "legacy", "proprietary"],
+      "popularity": 10
+    },
+    {
+      "id": "dae",
+      "label": "DAE",
+      "name": { "en": "COLLADA model", "id": "Model COLLADA" },
+      "description": {
+        "en": "XML-based 3D interchange format.",
+        "id": "Format pertukaran 3D berbasis XML."
+      },
+      "category": "3d",
+      "extensions": ["dae"],
+      "mimeTypes": ["model/vnd.collada+xml"],
+      "aliases": ["collada"],
+      "sniff": { "type": "xml", "root": "COLLADA" },
+      "traits": ["model3d", "text", "markup"],
+      "popularity": 10
+    },
+    {
+      "id": "ply",
+      "label": "PLY",
+      "name": { "en": "Polygon file", "id": "File poligon (PLY)" },
+      "description": {
+        "en": "Stanford polygon format, common for 3D scans and point clouds.",
+        "id": "Format poligon Stanford, umum untuk hasil pindai 3D dan point cloud."
+      },
+      "category": "3d",
+      "extensions": ["ply"],
+      "mimeTypes": ["model/x-ply"],
+      "signatures": [[{ "ascii": "ply\n" }], [{ "ascii": "ply\r\n" }]],
+      "traits": ["model3d", "binary"],
+      "popularity": 10
+    },
+    {
+      "id": "off",
+      "label": "OFF",
+      "name": { "en": "Object File Format", "id": "Object File Format" },
+      "description": {
+        "en": "Simple text format for polygon meshes used in geometry research.",
+        "id": "Format teks sederhana untuk mesh poligon yang dipakai riset geometri."
+      },
+      "category": "3d",
+      "extensions": ["off"],
+      "mimeTypes": ["model/x-off"],
+      "signatures": [[{ "ascii": "OFF" }]],
+      "traits": ["model3d", "text"],
+      "popularity": 3
+    }
+  ]
+}

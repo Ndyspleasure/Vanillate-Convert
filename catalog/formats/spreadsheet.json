@@ -1,0 +1,147 @@
+{
+  "$schema": "../schema/formats.schema.json",
+  "formats": [
+    {
+      "id": "xlsx",
+      "label": "XLSX",
+      "name": { "en": "Excel workbook", "id": "Workbook Excel" },
+      "description": {
+        "en": "Microsoft Excel's standard spreadsheet format (Office Open XML).",
+        "id": "Format spreadsheet standar Microsoft Excel (Office Open XML)."
+      },
+      "category": "spreadsheet",
+      "extensions": ["xlsx"],
+      "mimeTypes": ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"],
+      "aliases": ["excel"],
+      "sniff": { "type": "zip", "entries": ["[Content_Types].xml"], "entryPrefixes": ["xl/"] },
+      "traits": ["tabular", "multipage", "binary"],
+      "popularity": 92
+    },
+    {
+      "id": "xlsm",
+      "label": "XLSM",
+      "name": { "en": "Excel macro-enabled workbook", "id": "Workbook Excel dengan makro" },
+      "description": {
+        "en": "Excel workbook that can contain VBA macros.",
+        "id": "Workbook Excel yang dapat berisi makro VBA."
+      },
+      "category": "spreadsheet",
+      "extensions": ["xlsm"],
+      "mimeTypes": ["application/vnd.ms-excel.sheet.macroenabled.12"],
+      "sniff": {
+        "type": "zip",
+        "entries": ["[Content_Types].xml", "xl/vbaProject.bin"],
+        "entryPrefixes": ["xl/"]
+      },
+      "traits": ["tabular", "multipage", "binary", "macro"],
+      "popularity": 20
+    },
+    {
+      "id": "xlsb",
+      "label": "XLSB",
+      "name": { "en": "Excel binary workbook", "id": "Workbook biner Excel" },
+      "description": {
+        "en": "Binary Excel workbook optimized for very large spreadsheets.",
+        "id": "Workbook Excel biner yang dioptimalkan untuk spreadsheet sangat besar."
+      },
+      "category": "spreadsheet",
+      "extensions": ["xlsb"],
+      "mimeTypes": ["application/vnd.ms-excel.sheet.binary.macroenabled.12"],
+      "sniff": { "type": "zip", "entries": ["[Content_Types].xml", "xl/workbook.bin"] },
+      "traits": ["tabular", "multipage", "binary", "proprietary"],
+      "popularity": 8
+    },
+    {
+      "id": "xls",
+      "label": "XLS",
+      "name": { "en": "Excel 97–2003 workbook", "id": "Workbook Excel 97–2003" },
+      "description": {
+        "en": "Legacy binary Microsoft Excel format.",
+        "id": "Format biner lama Microsoft Excel."
+      },
+      "category": "spreadsheet",
+      "extensions": ["xls"],
+      "mimeTypes": ["application/vnd.ms-excel"],
+      "signatures": [[{ "hex": "D0CF11E0A1B11AE1" }]],
+      "sniff": { "type": "ole", "streams": ["Workbook", "Book"] },
+      "traits": ["tabular", "multipage", "binary", "legacy", "proprietary"],
+      "popularity": 60
+    },
+    {
+      "id": "ods",
+      "label": "ODS",
+      "name": { "en": "OpenDocument spreadsheet", "id": "Spreadsheet OpenDocument" },
+      "description": {
+        "en": "Open standard spreadsheet format used by LibreOffice Calc.",
+        "id": "Format spreadsheet standar terbuka yang dipakai LibreOffice Calc."
+      },
+      "category": "spreadsheet",
+      "extensions": ["ods"],
+      "mimeTypes": ["application/vnd.oasis.opendocument.spreadsheet"],
+      "sniff": { "type": "zip", "mimetype": "application/vnd.oasis.opendocument.spreadsheet" },
+      "traits": ["tabular", "multipage", "binary"],
+      "popularity": 30
+    },
+    {
+      "id": "csv",
+      "label": "CSV",
+      "name": { "en": "Comma-separated values", "id": "Comma-separated values" },
+      "description": {
+        "en": "Plain-text table where each line is a row and values are separated by commas.",
+        "id": "Tabel teks biasa: setiap baris adalah satu baris data dan nilainya dipisahkan koma."
+      },
+      "category": "spreadsheet",
+      "alsoIn": ["data"],
+      "extensions": ["csv"],
+      "mimeTypes": ["text/csv", "application/csv"],
+      "traits": ["text", "tabular"],
+      "popularity": 88
+    },
+    {
+      "id": "tsv",
+      "label": "TSV",
+      "name": { "en": "Tab-separated values", "id": "Tab-separated values" },
+      "description": {
+        "en": "Plain-text table with values separated by tab characters.",
+        "id": "Tabel teks biasa dengan nilai yang dipisahkan karakter tab."
+      },
+      "category": "spreadsheet",
+      "alsoIn": ["data"],
+      "extensions": ["tsv", "tab"],
+      "mimeTypes": ["text/tab-separated-values"],
+      "traits": ["text", "tabular"],
+      "popularity": 30
+    },
+    {
+      "id": "dbf",
+      "label": "DBF",
+      "name": { "en": "dBASE table", "id": "Tabel dBASE" },
+      "description": {
+        "en": "Legacy dBASE database table, still used by GIS shapefiles.",
+        "id": "Tabel database dBASE lama, masih dipakai shapefile GIS."
+      },
+      "category": "spreadsheet",
+      "extensions": ["dbf"],
+      "mimeTypes": ["application/vnd.dbf", "application/x-dbf"],
+      "aliases": ["dbase"],
+      "traits": ["tabular", "binary", "legacy"],
+      "popularity": 8
+    },
+    {
+      "id": "numbers",
+      "label": "NUMBERS",
+      "name": { "en": "Apple Numbers spreadsheet", "id": "Spreadsheet Apple Numbers" },
+      "description": {
+        "en": "Spreadsheet format of Apple Numbers.",
+        "id": "Format spreadsheet Apple Numbers."
+      },
+      "category": "spreadsheet",
+      "extensions": ["numbers"],
+      "mimeTypes": ["application/vnd.apple.numbers", "application/x-iwork-numbers-sffnumbers"],
+      "sniff": { "type": "zip", "entries": ["Index/Document.iwa"] },
+      "traits": ["tabular", "multipage", "binary", "proprietary"],
+      "status": "experimental",
+      "popularity": 10
+    }
+  ]
+}

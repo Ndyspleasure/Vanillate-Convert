@@ -1,0 +1,18 @@
+{
+  "$schema": "../schema/engine.schema.json",
+  "engine": {
+    "id": "qpdf",
+    "name": "qpdf",
+    "mode": "server",
+    "status": "available",
+    "description": "Structural PDF transformations without re-rendering: merge, split, rotate and page selection.",
+    "homepage": "https://qpdf.sourceforge.io",
+    "license": "Apache-2.0",
+    "binaries": ["qpdf"],
+    "pool": "document",
+    "capabilities": {
+      "read": ["pdf"],
+      "write": ["pdf"]
+    }
+  }
+}

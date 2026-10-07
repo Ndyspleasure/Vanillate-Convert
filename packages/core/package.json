@@ -1,0 +1,19 @@
+{
+  "name": "@vanillate/core",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Isomorphic domain core: catalog schema, registry, conversion matrix, detection, routing, options, limits, errors and job model.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/catalog/schema.ts",
+    "./validate": "./src/catalog/validate.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@vanillate/catalog": "workspace:*",
+    "zod": "^4.6.5"
+  }
+}

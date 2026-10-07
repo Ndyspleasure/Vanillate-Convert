@@ -1,0 +1,13 @@
+{
+  "name": "@vanillate/catalog",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Structured source-of-truth data: formats, engines, conversion rules, options, limitations, limits and tools.",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json"
+  }
+}

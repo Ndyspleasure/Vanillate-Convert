@@ -1,0 +1,18 @@
+{
+  "$schema": "../schema/engine.schema.json",
+  "engine": {
+    "id": "assimp",
+    "name": "Open Asset Import Library",
+    "mode": "server",
+    "status": "experimental",
+    "description": "3D model import/export (meshes, materials). Animation and advanced materials may not survive conversion.",
+    "homepage": "https://www.assimp.org",
+    "license": "BSD-3-Clause",
+    "binaries": ["assimp"],
+    "pool": "specialized",
+    "capabilities": {
+      "read": ["obj", "stl", "fbx", "gltf", "glb", "3ds", "dae", "ply", "off"],
+      "write": ["obj", "stl", "glb", "dae", "ply", "3ds", "fbx"]
+    }
+  }
+}

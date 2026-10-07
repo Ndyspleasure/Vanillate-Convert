@@ -1,0 +1,48 @@
+{
+  "name": "vanillate-convert",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Vanillate Convert — registry-driven file conversion and processing platform.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @vanillate/web dev",
+    "build": "pnpm --filter @vanillate/web build",
+    "start": "pnpm --filter @vanillate/web start",
+    "worker": "pnpm --filter @vanillate/worker start",
+    "typecheck": "pnpm -r --workspace-concurrency=4 typecheck && tsc -p tsconfig.json",
+    "lint": "pnpm --filter @vanillate/web exec next typegen && eslint . --max-warnings=0",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "pnpm --filter @vanillate/web test:e2e",
+    "catalog:check": "node scripts/catalog-check.ts && node scripts/catalog-schema.ts --check && node scripts/docs-matrix.ts --check",
+    "catalog:schema": "node scripts/catalog-schema.ts",
+    "db:migrate": "node packages/jobs/src/cli/migrate.ts",
+    "docs:matrix": "node scripts/docs-matrix.ts",
+    "validate": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm catalog:check && pnpm test && pnpm build"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@next/eslint-plugin-next": "16.3.8",
+    "@types/node": "^22.20.5",
+    "eslint": "10.12.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "globals": "^17.13.0",
+    "prettier": "3.9.9",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.0",
+    "vitest": "5.0.3",
+    "@vanillate/core": "workspace:*",
+    "@vanillate/catalog": "workspace:*",
+    "zod": "^4.6.5",
+    "@vanillate/jobs": "workspace:*"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "../schema/engine.schema.json",
+  "engine": {
+    "id": "browser-archive",
+    "name": "Browser archive engine",
+    "mode": "browser",
+    "status": "available",
+    "description": "Reads and writes ZIP (fflate), TAR and gzip (native CompressionStream) archives with entry-count, size, ratio and path limits.",
+    "homepage": "https://github.com/101arrowz/fflate",
+    "license": "Project code; fflate (MIT)",
+    "capabilities": {
+      "read": ["zip", "tar", "tgz", "gz", "cbz"],
+      "write": ["zip", "tar", "tgz"]
+    }
+  }
+}

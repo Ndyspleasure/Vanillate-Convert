@@ -1,0 +1,83 @@
+{
+  "$schema": "./schema/limits.schema.json",
+  "defaults": {
+    "browser": {
+      "maxInputBytes": 209715200,
+      "maxTotalInputBytes": 1073741824,
+      "maxOutputBytes": 1073741824,
+      "maxFilesPerJob": 100,
+      "maxJobSeconds": 300
+    },
+    "server": {
+      "maxInputBytes": 104857600,
+      "maxTotalInputBytes": 524288000,
+      "maxOutputBytes": 1073741824,
+      "maxFilesPerJob": 50,
+      "maxJobSeconds": 300
+    }
+  },
+  "categories": {
+    "image": {
+      "browser": { "maxInputBytes": 104857600 }
+    },
+    "pdf": {
+      "server": { "maxInputBytes": 209715200 }
+    },
+    "audio": {
+      "server": { "maxInputBytes": 524288000, "maxJobSeconds": 900 }
+    },
+    "video": {
+      "server": {
+        "maxInputBytes": 2147483648,
+        "maxTotalInputBytes": 4294967296,
+        "maxOutputBytes": 4294967296,
+        "maxJobSeconds": 1800
+      }
+    },
+    "archive": {
+      "browser": { "maxInputBytes": 524288000 },
+      "server": { "maxInputBytes": 1073741824, "maxJobSeconds": 600 }
+    },
+    "data": {
+      "browser": { "maxInputBytes": 52428800 },
+      "server": { "maxInputBytes": 52428800 }
+    },
+    "developer": {
+      "browser": { "maxInputBytes": 52428800 }
+    },
+    "subtitle": {
+      "browser": { "maxInputBytes": 10485760 },
+      "server": { "maxInputBytes": 10485760 }
+    },
+    "font": {
+      "browser": { "maxInputBytes": 20971520 },
+      "server": { "maxInputBytes": 20971520 }
+    },
+    "ebook": {
+      "server": { "maxInputBytes": 209715200 }
+    }
+  },
+  "archive": {
+    "maxEntries": 10000,
+    "maxExtractedBytes": 2147483648,
+    "maxCompressionRatio": 200,
+    "maxPathLength": 1024,
+    "maxDepth": 0
+  },
+  "media": {
+    "maxDurationSeconds": 3600,
+    "maxPixels": 100000000,
+    "maxPages": 500
+  },
+  "retention": {
+    "abandonedUploadSeconds": 3600,
+    "outputSeconds": 3600,
+    "failedSeconds": 600,
+    "signedUrlSeconds": 900,
+    "jobRecordSeconds": 86400
+  },
+  "rateLimits": {
+    "jobsPerHour": 100,
+    "jobsPerMinute": 10
+  }
+}

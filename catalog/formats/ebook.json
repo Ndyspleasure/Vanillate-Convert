@@ -1,0 +1,131 @@
+{
+  "$schema": "../schema/formats.schema.json",
+  "formats": [
+    {
+      "id": "epub",
+      "label": "EPUB",
+      "name": { "en": "EPUB ebook", "id": "Ebook EPUB" },
+      "description": {
+        "en": "Open ebook standard supported by Apple Books, Google Play Books, Kobo and most readers.",
+        "id": "Standar ebook terbuka yang didukung Apple Books, Google Play Books, Kobo, dan sebagian besar pembaca."
+      },
+      "category": "ebook",
+      "extensions": ["epub"],
+      "mimeTypes": ["application/epub+zip"],
+      "sniff": { "type": "zip", "mimetype": "application/epub+zip" },
+      "traits": ["richtext", "multipage", "binary"],
+      "popularity": 60
+    },
+    {
+      "id": "mobi",
+      "label": "MOBI",
+      "name": { "en": "Mobipocket ebook", "id": "Ebook Mobipocket" },
+      "description": {
+        "en": "Legacy Kindle ebook format.",
+        "id": "Format ebook Kindle lama."
+      },
+      "category": "ebook",
+      "extensions": ["mobi", "prc"],
+      "mimeTypes": ["application/x-mobipocket-ebook"],
+      "aliases": ["mobipocket"],
+      "signatures": [[{ "offset": 60, "ascii": "BOOKMOBI" }]],
+      "traits": ["richtext", "multipage", "binary", "legacy", "proprietary"],
+      "popularity": 35
+    },
+    {
+      "id": "azw",
+      "label": "AZW",
+      "name": { "en": "Kindle ebook (AZW)", "id": "Ebook Kindle (AZW)" },
+      "description": {
+        "en": "Amazon Kindle ebook based on Mobipocket.",
+        "id": "Ebook Amazon Kindle berbasis Mobipocket."
+      },
+      "category": "ebook",
+      "extensions": ["azw"],
+      "mimeTypes": ["application/vnd.amazon.ebook"],
+      "signatures": [[{ "offset": 60, "ascii": "BOOKMOBI" }]],
+      "traits": ["richtext", "multipage", "binary", "proprietary"],
+      "popularity": 12
+    },
+    {
+      "id": "azw3",
+      "label": "AZW3",
+      "name": { "en": "Kindle ebook (KF8)", "id": "Ebook Kindle (KF8)" },
+      "description": {
+        "en": "Amazon Kindle Format 8 ebook.",
+        "id": "Ebook Amazon Kindle Format 8."
+      },
+      "category": "ebook",
+      "extensions": ["azw3", "kf8"],
+      "mimeTypes": ["application/vnd.amazon.mobi8-ebook"],
+      "aliases": ["kf8"],
+      "signatures": [[{ "offset": 60, "ascii": "BOOKMOBI" }]],
+      "traits": ["richtext", "multipage", "binary", "proprietary"],
+      "popularity": 25
+    },
+    {
+      "id": "cbz",
+      "label": "CBZ",
+      "name": { "en": "Comic book archive (ZIP)", "id": "Arsip komik (ZIP)" },
+      "description": {
+        "en": "Comic book pages stored as images in a ZIP archive.",
+        "id": "Halaman komik yang disimpan sebagai gambar dalam arsip ZIP."
+      },
+      "category": "ebook",
+      "extensions": ["cbz"],
+      "mimeTypes": ["application/vnd.comicbook+zip"],
+      "signatures": [[{ "hex": "504B0304" }]],
+      "traits": ["archive", "multipage", "binary"],
+      "popularity": 20
+    },
+    {
+      "id": "cbr",
+      "label": "CBR",
+      "name": { "en": "Comic book archive (RAR)", "id": "Arsip komik (RAR)" },
+      "description": {
+        "en": "Comic book pages stored as images in a RAR archive.",
+        "id": "Halaman komik yang disimpan sebagai gambar dalam arsip RAR."
+      },
+      "category": "ebook",
+      "extensions": ["cbr"],
+      "mimeTypes": ["application/vnd.comicbook-rar"],
+      "signatures": [[{ "hex": "526172211A0700" }], [{ "hex": "526172211A070100" }]],
+      "traits": ["archive", "multipage", "binary", "proprietary"],
+      "popularity": 15
+    },
+    {
+      "id": "djvu",
+      "label": "DJVU",
+      "name": { "en": "DjVu document", "id": "Dokumen DjVu" },
+      "description": {
+        "en": "Compressed format for scanned books and documents.",
+        "id": "Format terkompresi untuk buku dan dokumen hasil pindaian."
+      },
+      "category": "ebook",
+      "extensions": ["djvu", "djv"],
+      "mimeTypes": ["image/vnd.djvu"],
+      "signatures": [
+        [{ "ascii": "AT&TFORM" }, { "offset": 12, "ascii": "DJVU" }],
+        [{ "ascii": "AT&TFORM" }, { "offset": 12, "ascii": "DJVM" }]
+      ],
+      "traits": ["layout", "multipage", "binary"],
+      "popularity": 15
+    },
+    {
+      "id": "fb2",
+      "label": "FB2",
+      "name": { "en": "FictionBook ebook", "id": "Ebook FictionBook" },
+      "description": {
+        "en": "XML-based ebook format popular in Eastern Europe.",
+        "id": "Format ebook berbasis XML yang populer di Eropa Timur."
+      },
+      "category": "ebook",
+      "extensions": ["fb2"],
+      "mimeTypes": ["application/x-fictionbook+xml"],
+      "aliases": ["fictionbook"],
+      "sniff": { "type": "xml", "root": "FictionBook" },
+      "traits": ["text", "richtext", "markup"],
+      "popularity": 8
+    }
+  ]
+}
