@@ -200,7 +200,7 @@
     "browserTitle": "Konversi di browser Anda",
     "browserText": "Konversi bertanda “Di browser Anda” berjalan di perangkat Anda. File dibaca oleh halaman, dikonversi di memori, lalu diberikan kembali kepada Anda. File tidak diunggah.",
     "serverTitle": "Konversi di server kami",
-    "serverText": "Beberapa konversi memerlukan perangkat lunak yang tidak bisa berjalan di browser. Untuk itu, file diunggah dengan tautan sekali pakai, diperiksa, dikonversi di lingkungan terisolasi tanpa akses jaringan, dan disimpan hanya sampai Anda mengunduhnya.",
+    "serverText": "Beberapa konversi memerlukan perangkat lunak yang tidak bisa berjalan di browser. Untuk itu, file diunggah dengan tautan sekali pakai, diperiksa, dikonversi oleh perangkat lunak konversi yang diisolasi dari bagian sistem lainnya, dan disimpan hanya sampai dihapus otomatis (lihat di bawah).",
     "retentionTitle": "Penghapusan otomatis",
     "retentionInput": "File asli Anda dihapus segera setelah konversi selesai.",
     "retentionOutput": "Hasil konversi dihapus {outputMinutes} menit setelah konversi.",

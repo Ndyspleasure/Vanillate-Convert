@@ -7,7 +7,7 @@
   "type": "module",
   "packageManager": "pnpm@10.28.0",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.18.0"
   },
   "scripts": {
     "dev": "pnpm --filter @vanillate/web dev",
@@ -24,7 +24,7 @@
     "test:e2e": "pnpm --filter @vanillate/web test:e2e",
     "catalog:check": "node scripts/catalog-check.ts && node scripts/catalog-schema.ts --check && node scripts/docs-matrix.ts --check",
     "catalog:schema": "node scripts/catalog-schema.ts",
-    "db:migrate": "node scripts/db-migrate.ts",
+    "db:migrate": "node packages/jobs/src/cli/migrate.ts",
     "docs:matrix": "node scripts/docs-matrix.ts",
     "validate": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm catalog:check && pnpm test && pnpm build"
   },

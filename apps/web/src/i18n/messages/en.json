@@ -200,7 +200,7 @@
     "browserTitle": "Conversions in your browser",
     "browserText": "Conversions marked “In your browser” run on your device. The file is read by the page, converted in memory and handed back to you. It is not uploaded.",
     "serverTitle": "Conversions on our servers",
-    "serverText": "Some conversions need software that cannot run in a browser. For those, the file is uploaded with a one-time link, checked, converted in an isolated environment without network access, and stored only until you download it.",
+    "serverText": "Some conversions need software that cannot run in a browser. For those, the file is uploaded with a one-time link, checked, converted by conversion software isolated from the rest of the system, and stored only until it is deleted automatically (see below).",
     "retentionTitle": "Automatic deletion",
     "retentionInput": "Your original file is deleted as soon as the conversion finishes.",
     "retentionOutput": "Results are deleted {outputMinutes} minutes after the conversion.",

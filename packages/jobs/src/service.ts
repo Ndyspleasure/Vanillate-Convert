@@ -9,9 +9,11 @@
  * Access to a job requires its capability token (returned once at creation, stored hashed).
  */
 import {
+  canTransition,
   checkFileLimits,
   detectFormat,
   errorMessage,
+  InvalidTransitionError,
   newId,
   newToken,
   sameFamily,
@@ -37,7 +39,7 @@ import {
 } from '@vanillate/core';
 import { inputKey, outputKey, type SignedRequest, type Storage } from '@vanillate/storage';
 
-import type { JobStore, WorkerInfo } from './store.ts';
+import type { JobChanges, JobStore, WorkerInfo } from './store.ts';
 
 /** How long a worker heartbeat counts as "alive" for availability checks. */
 export const WORKER_ALIVE_SECONDS = 120;
@@ -205,6 +207,25 @@ export class JobService {
       throw new VanillateError('server-unavailable', {
         detail: `no live worker for ${pool}: ${engines.join(',')}`,
       });
+  }
+
+  /**
+   * The only way the service changes a job: checks the state machine, then applies the patch
+   * if nobody changed the job since it was read (null otherwise; callers re-read and retry).
+   */
+  private update(
+    job: JobRecord,
+    patch: JobChanges,
+    now: Date = this.now(),
+  ): Promise<JobRecord | null> {
+    if (
+      patch.status !== undefined &&
+      patch.status !== job.status &&
+      !canTransition(job.status, patch.status)
+    ) {
+      throw new InvalidTransitionError(job.status, patch.status);
+    }
+    return this.store.update(job.id, job.version, patch, now);
   }
 
   private async rateLimit(clientKey: string): Promise<void> {
@@ -426,9 +447,8 @@ export class JobService {
       }
       const inputs = job.inputs.map((i) => (i.id === inputId ? { ...i, uploaded: true } : i));
       const all = inputs.every((i) => i.uploaded);
-      const next = await this.store.update(
-        job.id,
-        job.version,
+      const next = await this.update(
+        job,
         all
           ? {
               inputs,
@@ -460,9 +480,8 @@ export class JobService {
     ) {
       return this.toPublic(job, locale);
     }
-    const next = await this.store.update(
-      job.id,
-      job.version,
+    const next = await this.update(
+      job,
       {
         status: 'cancelled',
         error: { code: 'job-cancelled', retryable: false },
@@ -516,9 +535,8 @@ export class JobService {
       await this.storage.deleteMany(outputs.map((o) => o.storageKey));
       return null;
     }
-    const next = await this.store.update(
-      current.id,
-      current.version,
+    const next = await this.update(
+      current,
       {
         status: 'completed',
         progress: 100,
@@ -560,9 +578,8 @@ export class JobService {
       return current;
     if (workerId !== null && current.workerId !== workerId) return current;
     const retry = error.retryable && current.attempts < current.maxAttempts && workerId !== null;
-    const next = await this.store.update(
-      current.id,
-      current.version,
+    const next = await this.update(
+      current,
       retry
         ? {
             status: 'queued',
@@ -628,9 +645,8 @@ export class JobService {
       }
       if (job.status === 'processing' || job.status === 'finalizing') continue; // lease recovery handles these
       await this.deleteFiles(job);
-      const next = await this.store.update(
-        job.id,
-        job.version,
+      const next = await this.update(
+        job,
         {
           status: 'expired',
           outputs: job.outputs,

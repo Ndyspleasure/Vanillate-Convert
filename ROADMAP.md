@@ -23,6 +23,32 @@ Phases may overlap when infrastructure is ready, but no phase should compromise 
 
 ---
 
+## Current Status (October 2026)
+
+Phases 0–1 are complete and the foundations of Phases 2–13 exist; what follows is the summary,
+the detailed checklists below remain the long-term plan.
+
+| Area | State |
+| --- | --- |
+| Foundation | pnpm monorepo, strict TypeScript, ESLint, Prettier, Vitest, Playwright, CI (`.github/workflows/ci.yml`), documentation in `docs/` with decision records |
+| Registry | 182 formats, 17 engines, 1554 offered conversions (1294 indexable), 24 tools — generated matrix in `docs/CONVERSION-MATRIX.md` |
+| Application shell | Bilingual (id/en) Next.js site: home, conversion landing pages, formats, categories, tools, search, privacy, about; SEO (canonical, hreflang, JSON-LD, sitemap) |
+| Browser processing | Images, data formats, subtitles, archives, text tools; 205 conversions and 16 tools run without a server |
+| Server processing | Job API, PostgreSQL queue, S3/local storage, sandboxed worker with ImageMagick, FFmpeg, LibreOffice, Poppler, Ghostscript, qpdf, Pandoc, 7-Zip, librsvg, assimp, ExifTool, fontTools |
+| Security | bubblewrap + unprivileged engine user, CPU/memory/file limits, content detection at every boundary, engine hardening, signed transfers, rate limits |
+| Deployment | Vercel-ready web app; worker image (`workers/Dockerfile`); `docker compose` for the full stack |
+
+Next priorities:
+
+1. Production deployment: managed PostgreSQL and S3-compatible storage, worker hosting with
+   bubblewrap enabled, monitoring and alerting on queue depth and failures.
+2. Promote experimental conversions (RAW images, 3D models, PDF → Office) after broader
+   real-world test files.
+3. Batch UX (multiple targets, ZIP of server results), per-format advanced options.
+4. Observability: metrics per engine (duration, failure rate), error dashboards.
+
+---
+
 # 2. Phase 0 — Project Foundation
 
 ## Objective
@@ -33,34 +59,34 @@ Establish the repository, development conventions, documentation, and core archi
 
 ### Repository
 
-- [ ] Initialize repository structure
-- [ ] Configure package manager
-- [ ] Configure TypeScript
-- [ ] Configure linting
-- [ ] Configure formatting
+- [x] Initialize repository structure
+- [x] Configure package manager
+- [x] Configure TypeScript
+- [x] Configure linting
+- [x] Configure formatting
 - [ ] Configure Git hooks where necessary
-- [ ] Configure environment variables
-- [ ] Create development scripts
-- [ ] Create production build scripts
+- [x] Configure environment variables
+- [x] Create development scripts
+- [x] Create production build scripts
 
 ### Documentation
 
 - [x] `README.md`
 - [x] `PROJECT.md`
 - [x] `ROADMAP.md`
-- [ ] `ARCHITECTURE.md`
-- [ ] `FORMAT-REGISTRY.md`
-- [ ] `CONVERSION-MATRIX.md`
-- [ ] `ENGINE-MAPPING.md`
-- [ ] `API.md`
-- [ ] `STORAGE.md`
-- [ ] `WORKER.md`
-- [ ] `QUEUE.md`
-- [ ] `SECURITY.md`
-- [ ] `PRIVACY.md`
-- [ ] `SEO.md`
-- [ ] `LIMITS.md`
-- [ ] `TESTING.md`
+- [x] `ARCHITECTURE.md`
+- [x] `FORMAT-REGISTRY.md`
+- [x] `CONVERSION-MATRIX.md`
+- [x] `ENGINE-MAPPING.md`
+- [x] `API.md`
+- [x] `STORAGE.md`
+- [x] `WORKER.md`
+- [x] `QUEUE.md`
+- [x] `SECURITY.md`
+- [x] `PRIVACY.md`
+- [x] `SEO.md`
+- [x] `LIMITS.md`
+- [x] `TESTING.md`
 
 ### Initial Architecture
 

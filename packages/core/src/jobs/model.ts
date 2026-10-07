@@ -52,7 +52,7 @@ const TRANSITIONS: Record<JobStatus, readonly JobStatus[]> = {
   uploading: ['queued', 'failed', 'cancelled', 'expired'],
   queued: ['processing', 'failed', 'cancelled', 'expired'],
   processing: ['queued', 'finalizing', 'completed', 'failed', 'cancelled'],
-  finalizing: ['completed', 'failed', 'cancelled'],
+  finalizing: ['queued', 'completed', 'failed', 'cancelled'],
   completed: ['expired'],
   failed: ['expired'],
   cancelled: ['expired'],

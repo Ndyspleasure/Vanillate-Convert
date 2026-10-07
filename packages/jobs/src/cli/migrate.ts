@@ -1,8 +1,9 @@
 /**
- * Applies pending PostgreSQL migrations: `pnpm db:migrate` (needs DATABASE_URL).
+ * Applies pending PostgreSQL migrations: `pnpm db:migrate`, or
+ * `node packages/jobs/src/cli/migrate.ts` in the worker image (needs DATABASE_URL).
  * Safe to run on every deploy: applied migrations are recorded and skipped.
  */
-import { migrate } from '@vanillate/jobs';
+import { migrate } from '../postgres.ts';
 
 const url = process.env.DATABASE_URL;
 if (!url) {

@@ -1,0 +1,75 @@
+# Full stack for local development and self-hosting trials:
+#   docker compose up --build        → http://localhost:3000
+#
+# PostgreSQL, the web app (server processing enabled) and one worker with every engine, sharing
+# local storage on a volume. Not a production configuration: set real secrets, use S3-compatible
+# storage and give workers resource limits (docs/WORKER.md, docs/SECURITY.md).
+
+x-common: &common
+  DATABASE_URL: postgres://vanillate:vanillate@postgres:5432/vanillate
+  STORAGE_DRIVER: local
+  STORAGE_LOCAL_DIR: /data/storage
+  # Development value only. Generate your own: openssl rand -base64 48
+  STORAGE_SIGNING_SECRET: compose-development-signing-secret-change-me
+  LOG_LEVEL: info
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: vanillate
+      POSTGRES_PASSWORD: vanillate
+      POSTGRES_DB: vanillate
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U vanillate']
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  migrate:
+    build: { context: ., dockerfile: workers/Dockerfile }
+    command: ['node', 'packages/jobs/src/cli/migrate.ts']
+    environment: *common
+    depends_on:
+      postgres: { condition: service_healthy }
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        VANILLATE_SERVER_PROCESSING: enabled
+        NEXT_PUBLIC_SITE_URL: http://localhost:3000
+    environment:
+      <<: *common
+      VANILLATE_SERVER_PROCESSING: enabled
+      NEXT_PUBLIC_SITE_URL: http://localhost:3000
+      RATE_LIMIT_SALT: compose-development-salt
+    ports:
+      - '3000:3000'
+    volumes:
+      - storage:/data/storage
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+
+  worker:
+    build: { context: ., dockerfile: workers/Dockerfile }
+    environment:
+      <<: *common
+      WORKER_CONCURRENCY: 2
+    volumes:
+      - storage:/data/storage
+    # bubblewrap needs to create namespaces; without these options the worker falls back to the
+    # unprivileged engine user only.
+    security_opt:
+      - seccomp=unconfined
+      - apparmor=unconfined
+    mem_limit: 6g
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+
+volumes:
+  postgres:
+  storage:
